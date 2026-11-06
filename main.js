@@ -61,12 +61,13 @@ function expandedHotspot(left, top, width, height) {
 }
 function renderTextbookReader(unit) {
   const allItems = [...unit.words, ...unit.sentences]; const tabs = $("#page-tabs"), stage = $("#reader-stage");
+  const tabLabel = (label) => label.match(/第\s*\d+\s*页/)?.[0] || label;
   function showPage(index) {
     const page = unit.pages[index]; tabs.querySelectorAll("button").forEach((button, buttonIndex)=>button.classList.toggle("active",buttonIndex===index));
     stage.innerHTML = `<div class="book-page"><div class="book-page-canvas"><img src="${page.image}" alt="${page.label}" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); const [expandedLeft, expandedTop, expandedWidth, expandedHeight] = expandedHotspot(left, top, width, height); return item ? `<button class="hotspot" data-id="${id}" style="left:${expandedLeft}%;top:${expandedTop}%;width:${expandedWidth}%;height:${expandedHeight}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
     stage.querySelectorAll(".hotspot").forEach((node)=>node.addEventListener("click",()=>{ const item=allItems.find((entry)=>entry.id===node.dataset.id); if(item) play(item,node); }));
   }
-  tabs.innerHTML=unit.pages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${page.label}</button>`).join("");
+  tabs.innerHTML=unit.pages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${tabLabel(page.label)}</button>`).join("");
   tabs.querySelectorAll("button").forEach((button,index)=>button.addEventListener("click",()=>{
     showPage(index);
     button.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"nearest" });

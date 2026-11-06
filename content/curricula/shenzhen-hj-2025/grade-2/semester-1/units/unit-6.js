@@ -3,6 +3,26 @@
   const box = (id, x, y, width, height) => [id, x * 100, y * 100, width * 100, height * 100];
   const sentences = [
   {
+    "id": "u06-p41-01",
+    "text": "#fm@#EE",
+    "meaning": ""
+  },
+  {
+    "id": "u06-p41-02",
+    "text": "How do people celebrate the",
+    "meaning": ""
+  },
+  {
+    "id": "u06-p41-03",
+    "text": "Mid-Autumn Festival?",
+    "meaning": ""
+  },
+  {
+    "id": "u06-p41-04",
+    "text": "Unit",
+    "meaning": ""
+  },
+  {
     "id": "u06-p42-01",
     "text": "But sometimes you can't.",
     "meaning": ""
@@ -585,7 +605,41 @@
 ];
   const pages = [
   {
-    "label": "第 43 页 · PDF 第 42 页",
+    "label": "第 42 页",
+    "image": "./resources/pages/book-page-42.png",
+    "hotspots": [
+      [
+        "u06-p41-01",
+        0.886740007588158,
+        0.9589945304821387,
+        0.08660228790775415,
+        0.01369698570664446
+      ],
+      [
+        "u06-p41-02",
+        0.3251028794418193,
+        0.12037037040568932,
+        0.5679012421638734,
+        0.03369939700830349
+      ],
+      [
+        "u06-p41-03",
+        0.32510288085559935,
+        0.15954415950994172,
+        0.4320987578361265,
+        0.030862816378601665
+      ],
+      [
+        "u06-p41-04",
+        0.14197530920283424,
+        0.053779070121276584,
+        0.055555555128282114,
+        0.0174418596120981
+      ]
+    ]
+  },
+  {
+    "label": "第 43 页",
     "image": "./resources/pages/book-page-43.png",
     "hotspots": [
       [
@@ -696,7 +750,7 @@
     ]
   },
   {
-    "label": "第 44 页 · PDF 第 43 页",
+    "label": "第 44 页",
     "image": "./resources/pages/book-page-44.png",
     "hotspots": [
       [
@@ -779,7 +833,7 @@
     ]
   },
   {
-    "label": "第 45 页 · PDF 第 44 页",
+    "label": "第 45 页",
     "image": "./resources/pages/book-page-45.png",
     "hotspots": [
       [
@@ -855,7 +909,7 @@
     ]
   },
   {
-    "label": "第 46 页 · PDF 第 45 页",
+    "label": "第 46 页",
     "image": "./resources/pages/book-page-46.png",
     "hotspots": [
       [
@@ -910,7 +964,7 @@
     ]
   },
   {
-    "label": "第 47 页 · PDF 第 46 页",
+    "label": "第 47 页",
     "image": "./resources/pages/book-page-47.png",
     "hotspots": [
       [
@@ -972,7 +1026,7 @@
     ]
   },
   {
-    "label": "第 48 页 · PDF 第 47 页",
+    "label": "第 48 页",
     "image": "./resources/pages/book-page-48.png",
     "hotspots": [
       [
@@ -1139,7 +1193,7 @@
     ]
   },
   {
-    "label": "第 49 页 · PDF 第 48 页",
+    "label": "第 49 页",
     "image": "./resources/pages/book-page-49.png",
     "hotspots": [
       [
@@ -1439,5 +1493,5 @@
     ]
   }
 ].map((page) => ({ ...page, hotspots: page.hotspots.map(([itemId, x, y, width, height]) => box(itemId, x, y, width, height)) }));
-  window.ENGLISH_UNIT_6 = { id: "unit-6", title: "中秋佳节", englishTitle: "How do people celebrate the Mid-Autumn Festival?", sourcePages: Array.from({ length: 7 }, (_, index) => 42 + index), words: [], sentences, pages };
+  window.ENGLISH_UNIT_6 = { id: "unit-6", title: "中秋佳节", englishTitle: "How do people celebrate the Mid-Autumn Festival?", sourcePages: Array.from({ length: 8 }, (_, index) => 41 + index), words: [], sentences, pages };
 })();

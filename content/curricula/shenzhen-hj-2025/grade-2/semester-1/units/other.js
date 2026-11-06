@@ -229,157 +229,197 @@
   },
   {
     "id": "other-p53-01",
-    "text": "#. $E, t*)",
-    "meaning": ""
-  },
-  {
-    "id": "other-p53-02",
-    "text": "CS faImEREE",
-    "meaning": ""
-  },
-  {
-    "id": "other-p53-03",
     "text": "Unit 1",
     "meaning": ""
   },
   {
-    "id": "other-p53-04",
+    "id": "other-p53-02",
     "text": "Unit 2",
     "meaning": ""
   },
   {
-    "id": "other-p53-05",
+    "id": "other-p53-03",
     "text": "Unit 3",
     "meaning": ""
   },
   {
-    "id": "other-p53-06",
+    "id": "other-p53-04",
     "text": "Unit 4",
     "meaning": ""
   },
   {
-    "id": "other-p53-07",
+    "id": "other-p53-05",
     "text": "Unit 5",
     "meaning": ""
   },
   {
-    "id": "other-p53-08",
+    "id": "other-p53-06",
     "text": "Unit 6",
     "meaning": ""
   },
   {
-    "id": "other-p53-09",
+    "id": "other-p53-07",
     "text": "Word list",
     "meaning": ""
   },
   {
-    "id": "other-p53-10",
+    "id": "other-p53-08",
     "text": "Word list 1 (by unit)",
     "meaning": ""
   },
   {
+    "id": "other-p53-09",
+    "text": "aunt",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-10",
+    "text": "ball",
+    "meaning": ""
+  },
+  {
     "id": "other-p53-11",
-    "text": "ball F$",
+    "text": "chick",
     "meaning": ""
   },
   {
     "id": "other-p53-12",
-    "text": "chick 1xg",
+    "text": "chicken",
     "meaning": ""
   },
   {
     "id": "other-p53-13",
-    "text": "chicken X4",
+    "text": "cinema",
     "meaning": ""
   },
   {
     "id": "other-p53-14",
-    "text": "cow $1#",
+    "text": "cow",
     "meaning": ""
   },
   {
     "id": "other-p53-15",
-    "text": "duck Hg",
+    "text": "cute",
     "meaning": ""
   },
   {
     "id": "other-p53-16",
-    "text": "eat mooncakes l'Z Jt)f",
+    "text": "doll",
     "meaning": ""
   },
   {
     "id": "other-p53-17",
-    "text": "feel rLal",
+    "text": "duck",
     "meaning": ""
   },
   {
     "id": "other-p53-18",
-    "text": "jigsaw puzzle #fK101xk",
+    "text": "eat mooncakes",
     "meaning": ""
   },
   {
     "id": "other-p53-19",
-    "text": "look at the moon AJ",
+    "text": "feel",
     "meaning": ""
   },
   {
     "id": "other-p53-20",
-    "text": "old F42tiJ",
+    "text": "fruit shop",
     "meaning": ""
   },
   {
     "id": "other-p53-21",
-    "text": "park 4/z",
+    "text": "hear",
     "meaning": ""
   },
   {
     "id": "other-p53-22",
-    "text": "pig 3",
+    "text": "jigsaw puzzle",
     "meaning": ""
   },
   {
     "id": "other-p53-23",
-    "text": "play with lanterns FtXTf",
+    "text": "look at the moon",
     "meaning": ""
   },
   {
     "id": "other-p53-24",
-    "text": "robot #LI1",
+    "text": "old",
     "meaning": ""
   },
   {
     "id": "other-p53-25",
-    "text": "sheep ; 4##",
+    "text": "park",
     "meaning": ""
   },
   {
     "id": "other-p53-26",
-    "text": "solve riddles Jni1#",
+    "text": "pet shop",
     "meaning": ""
   },
   {
     "id": "other-p53-27",
-    "text": "taste nnZ (ki)",
+    "text": "pig",
     "meaning": ""
   },
   {
     "id": "other-p53-28",
-    "text": "toy bear FtAflt",
+    "text": "play with lanterns",
     "meaning": ""
   },
   {
     "id": "other-p53-29",
-    "text": "toy plane FiA X#",
+    "text": "robot",
     "meaning": ""
   },
   {
     "id": "other-p53-30",
-    "text": "uncle HX; HX: 11X; tix; tx",
+    "text": "see",
     "meaning": ""
   },
   {
     "id": "other-p53-31",
-    "text": "young F42it",
+    "text": "sheep",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-32",
+    "text": "smell",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-33",
+    "text": "solve riddles",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-34",
+    "text": "taste",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-35",
+    "text": "toy bear",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-36",
+    "text": "toy plane",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-37",
+    "text": "toy shop",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-38",
+    "text": "uncle",
+    "meaning": ""
+  },
+  {
+    "id": "other-p53-39",
+    "text": "young",
     "meaning": ""
   },
   {
@@ -389,768 +429,353 @@
   },
   {
     "id": "other-p54-02",
-    "text": "ball Fk",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-03",
-    "text": "chick 11x4",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-04",
-    "text": "chicken X4,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-05",
-    "text": "cinema",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-06",
-    "text": "cousin tk) ;",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-07",
-    "text": "cow ty#",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-08",
-    "text": "cute FjTHy",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-09",
-    "text": "duck ng",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-10",
-    "text": "eat mooncakes IZA tf",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-11",
-    "text": "feel KAZl",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-12",
-    "text": "jigsaw puzzle bfllwtxk",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-13",
-    "text": "look at the moon Af",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-14",
-    "text": "od F4ti)",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-15",
-    "text": "park 4k",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-16",
-    "text": "pet shop 9Ew",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-17",
-    "text": "pig 3*",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-18",
-    "text": "play with lanterns Ft/Tf",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-19",
-    "text": "robot I1",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-20",
-    "text": "see Tid",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-21",
-    "text": "sheep #; 1##",
-    "meaning": ""
-  },
-  {
-    "id": "other-p54-22",
-    "text": "smell PF3U",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-01",
-    "text": "2oo EJWb",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-02",
-    "text": "CS #aw##EE",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-03",
-    "text": "Daily expressions",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-04",
-    "text": "Don't touch it. JuiEo",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-05",
-    "text": "Don't worry. We can help.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-06",
-    "text": "Look here! Wix H1!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-07",
-    "text": "toy bear FiAft",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-08",
-    "text": "toy plane FiAXt",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-09",
-    "text": "uncle HX; tX; 1X; Hix; tX",
-    "meaning": ""
-  },
-  {
-    "id": "other-p55-10",
-    "text": "young FfiJ",
-    "meaning": ""
-  },
-  {
-    "id": "other-p56-01",
-    "text": "#fmZREE",
-    "meaning": ""
-  },
-  {
-    "id": "other-p56-02",
-    "text": "Family",
-    "meaning": ""
-  },
-  {
-    "id": "other-p56-03",
-    "text": "Five senses",
-    "meaning": ""
-  },
-  {
-    "id": "other-p56-04",
-    "text": "Picture dictionary",
-    "meaning": ""
-  },
-  {
-    "id": "other-p56-05",
     "text": "aunt",
     "meaning": ""
   },
   {
-    "id": "other-p56-06",
+    "id": "other-p54-03",
+    "text": "ball",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-04",
+    "text": "chick",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-05",
+    "text": "chicken",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-06",
+    "text": "cinema",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-07",
     "text": "cousin",
     "meaning": ""
   },
   {
-    "id": "other-p56-07",
+    "id": "other-p54-08",
+    "text": "cow",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-09",
     "text": "cute",
     "meaning": ""
   },
   {
-    "id": "other-p56-08",
+    "id": "other-p54-10",
+    "text": "doll",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-11",
+    "text": "duck ng",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-12",
+    "text": "eat mooncakes",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-13",
     "text": "feel",
     "meaning": ""
   },
   {
-    "id": "other-p56-09",
+    "id": "other-p54-14",
+    "text": "fruit shop",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-15",
     "text": "hear",
     "meaning": ""
   },
   {
-    "id": "other-p56-10",
-    "text": "old",
+    "id": "other-p54-16",
+    "text": "jigsaw puzzle bfllwtxk",
     "meaning": ""
   },
   {
-    "id": "other-p56-11",
+    "id": "other-p54-17",
+    "text": "look at the moon",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-18",
+    "text": "od",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-19",
+    "text": "park",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-20",
+    "text": "pet shop",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-21",
+    "text": "pig",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-22",
+    "text": "play with lanterns",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-23",
+    "text": "robot",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-24",
     "text": "see",
     "meaning": ""
   },
   {
-    "id": "other-p56-12",
+    "id": "other-p54-25",
+    "text": "sheep",
+    "meaning": ""
+  },
+  {
+    "id": "other-p54-26",
     "text": "smell",
     "meaning": ""
   },
   {
-    "id": "other-p56-13",
+    "id": "other-p54-27",
+    "text": "solve riddles",
+    "meaning": ""
+  },
+  {
+    "id": "other-p55-01",
     "text": "taste",
     "meaning": ""
   },
   {
-    "id": "other-p56-14",
+    "id": "other-p55-02",
+    "text": "toy bear",
+    "meaning": ""
+  },
+  {
+    "id": "other-p55-03",
+    "text": "toy plane",
+    "meaning": ""
+  },
+  {
+    "id": "other-p55-04",
+    "text": "toy shop",
+    "meaning": ""
+  },
+  {
+    "id": "other-p55-05",
     "text": "uncle",
     "meaning": ""
   },
   {
-    "id": "other-p56-15",
+    "id": "other-p55-06",
+    "text": "young",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-01",
+    "text": "aunt",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-02",
+    "text": "cousin",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-03",
+    "text": "cute",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-04",
+    "text": "feel",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-05",
+    "text": "hear",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-06",
+    "text": "old",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-07",
+    "text": "see",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-08",
+    "text": "smell",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-09",
+    "text": "taste",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-10",
+    "text": "uncle",
+    "meaning": ""
+  },
+  {
+    "id": "other-p56-11",
     "text": "young",
     "meaning": ""
   },
   {
     "id": "other-p57-01",
-    "text": "F3JmHE#",
-    "meaning": ""
-  },
-  {
-    "id": "other-p57-02",
-    "text": "Places",
-    "meaning": ""
-  },
-  {
-    "id": "other-p57-03",
-    "text": "Toys",
-    "meaning": ""
-  },
-  {
-    "id": "other-p57-04",
     "text": "ball",
     "meaning": ""
   },
   {
-    "id": "other-p57-05",
+    "id": "other-p57-02",
     "text": "cinema",
     "meaning": ""
   },
   {
-    "id": "other-p57-06",
+    "id": "other-p57-03",
     "text": "doll",
     "meaning": ""
   },
   {
-    "id": "other-p57-07",
+    "id": "other-p57-04",
     "text": "fruit shop",
     "meaning": ""
   },
   {
-    "id": "other-p57-08",
+    "id": "other-p57-05",
     "text": "jigsaw puzzle",
     "meaning": ""
   },
   {
-    "id": "other-p57-09",
+    "id": "other-p57-06",
     "text": "park",
     "meaning": ""
   },
   {
-    "id": "other-p57-10",
+    "id": "other-p57-07",
     "text": "pet shop",
     "meaning": ""
   },
   {
-    "id": "other-p57-11",
+    "id": "other-p57-08",
     "text": "robot",
     "meaning": ""
   },
   {
-    "id": "other-p57-12",
+    "id": "other-p57-09",
     "text": "toy bear",
     "meaning": ""
   },
   {
-    "id": "other-p57-13",
+    "id": "other-p57-10",
     "text": "toy plane",
     "meaning": ""
   },
   {
-    "id": "other-p57-14",
+    "id": "other-p57-11",
     "text": "toy shop",
     "meaning": ""
   },
   {
     "id": "other-p58-01",
-    "text": "Farm animals",
-    "meaning": ""
-  },
-  {
-    "id": "other-p58-02",
-    "text": "The Mid-Autumn Festival activities",
-    "meaning": ""
-  },
-  {
-    "id": "other-p58-03",
     "text": "chick",
     "meaning": ""
   },
   {
-    "id": "other-p58-04",
+    "id": "other-p58-02",
     "text": "chicken",
     "meaning": ""
   },
   {
-    "id": "other-p58-05",
+    "id": "other-p58-03",
     "text": "duck",
     "meaning": ""
   },
   {
-    "id": "other-p58-06",
+    "id": "other-p58-04",
     "text": "eat mooncakes",
     "meaning": ""
   },
   {
-    "id": "other-p58-07",
+    "id": "other-p58-05",
     "text": "look at the moon",
     "meaning": ""
   },
   {
-    "id": "other-p58-08",
+    "id": "other-p58-06",
     "text": "pig",
     "meaning": ""
   },
   {
-    "id": "other-p58-09",
+    "id": "other-p58-07",
     "text": "play with lanterns",
     "meaning": ""
   },
   {
-    "id": "other-p58-10",
+    "id": "other-p58-08",
     "text": "sheep",
     "meaning": ""
   },
   {
-    "id": "other-p58-11",
+    "id": "other-p58-09",
     "text": "solve riddles",
     "meaning": ""
   },
   {
     "id": "other-p59-01",
-    "text": "A fruit shop and a park,",
+    "text": "about your",
     "meaning": ""
   },
   {
     "id": "other-p59-02",
-    "text": "A robot, a doll,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-03",
-    "text": "A teddy, a ball,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-04",
-    "text": "A toy car.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-05",
-    "text": "A toy shop and a cinema.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-06",
-    "text": "B Listen and chant.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-07",
-    "text": "B Listen and chant.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-08",
-    "text": "B Listen and chant.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-09",
-    "text": "B Listen and chant.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-10",
-    "text": "CS faImEREE",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-11",
-    "text": "Can you see a toy bear?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-12",
-    "text": "Can you see a toy plane?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-13",
-    "text": "Can you see the toys?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-14",
-    "text": "He's handsome. He's tall.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-15",
-    "text": "He's small. He's cute.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-16",
-    "text": "Here's my aunt, Kitty.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-17",
-    "text": "Here's my cousin, Robert.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-18",
-    "text": "Here's my grandma, Martina.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-19",
-    "text": "Here's my uncle, Paul.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-20",
-    "text": "Hi-ho the derry-o,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-21",
-    "text": "Hi-ho the-derry-o,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-22",
-    "text": "I can feel.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-23",
-    "text": "I can hear.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-24",
-    "text": "I can see and hear",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-25",
-    "text": "I can see.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-26",
-    "text": "I can smell and taste",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-27",
-    "text": "I can smell.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-28",
-    "text": "I can taste.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-29",
-    "text": "I can touch and feel",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-30",
-    "text": "I can touch.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-31",
-    "text": "Jigsaw puzzles.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-32",
-    "text": "Let's play a game!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-33",
-    "text": "Places around my home.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-34",
-    "text": "Ready? Go!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-35",
-    "text": "Ready? Go!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-36",
-    "text": "Ready? Go!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-37",
-    "text": "Ready? Go!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-38",
-    "text": "She's old. She's short.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-39",
-    "text": "She's young. She's pretty.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-40",
-    "text": "Tapescripts",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-41",
-    "text": "Unit 1 What can you",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-42",
-    "text": "Unit 2 What do you like",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-43",
-    "text": "Unit 3 What is your",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-44",
-    "text": "Unit 4 What is around",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-45",
-    "text": "What's around your home?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-46",
-    "text": "What's around your home?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-47",
-    "text": "What's around your home?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-48",
-    "text": "With my eyes and ears.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-49",
-    "text": "With my hands and fingers.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-50",
-    "text": "With my nose and tongue.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-51",
-    "text": "about your family?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-52",
     "text": "do with your five",
     "meaning": ""
   },
   {
-    "id": "other-p59-53",
-    "text": "favourite toy?",
+    "id": "other-p59-03",
+    "text": "favourite",
     "meaning": ""
   },
   {
-    "id": "other-p59-54",
-    "text": "senses?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p59-55",
-    "text": "your home?",
+    "id": "other-p59-04",
+    "text": "your",
     "meaning": ""
   },
   {
     "id": "other-p60-01",
-    "text": "Autumn Festival?",
+    "text": "about",
     "meaning": ""
   },
   {
     "id": "other-p60-02",
-    "text": "B Listen and chant.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-03",
-    "text": "B Listen and chant.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-04",
-    "text": "I can count the lanterns.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-05",
-    "text": "I can eat the mooncakes.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-06",
-    "text": "I love the animals.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-07",
-    "text": "It's so bright.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-08",
-    "text": "Look at all the lanterns.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-09",
-    "text": "Look at the full moon.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-10",
-    "text": "Look at the mooncakes.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-11",
-    "text": "On Mid-Autumn night.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-12",
-    "text": "One, two, three.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-13",
-    "text": "One, two, three.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-14",
-    "text": "Ready? Go!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-15",
-    "text": "Ready? Go!",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-16",
-    "text": "So many lanterns to see.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-17",
-    "text": "Such sweet mooncakes to eat.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-18",
-    "text": "The chickens and the chicks,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-19",
-    "text": "The cows and the ducks,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-20",
-    "text": "The sheep and the pigs,",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-21",
-    "text": "They all live on the farm.",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-22",
-    "text": "Unit 5 What do you like",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-23",
-    "text": "Unit 6 How do people",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-24",
-    "text": "We enjoy the time together",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-25",
-    "text": "about farms?",
-    "meaning": ""
-  },
-  {
-    "id": "other-p60-26",
-    "text": "celebrate the Mid-",
+    "text": "celebrate the",
     "meaning": ""
   }
 ];
   const pages = [
   {
-    "label": "其他 · PDF 第 49 页",
+    "label": "第 50 页",
     "image": "./resources/pages/other-page-50.png",
     "hotspots": [
       [
@@ -1226,7 +851,7 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 50 页",
+    "label": "第 51 页",
     "image": "./resources/pages/other-page-51.png",
     "hotspots": [
       [
@@ -1372,7 +997,7 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 51 页",
+    "label": "第 52 页",
     "image": "./resources/pages/other-page-52.png",
     "hotspots": [
       [
@@ -1420,7 +1045,7 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 52 页",
+    "label": "第 53 页",
     "image": "./resources/pages/other-page-53.png",
     "hotspots": [
       [
@@ -1489,99 +1114,99 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 53 页",
+    "label": "第 54 页",
     "image": "./resources/pages/other-page-54.png",
     "hotspots": [
       [
         "other-p53-01",
-        0.17455389341270727,
-        0.4538078046915952,
-        0.12825846672058105,
-        0.022616948836889028
-      ],
-      [
-        "other-p53-02",
-        0.8600823031912647,
-        0.9593023261255967,
-        0.11316872412158596,
-        0.013081394369445998
-      ],
-      [
-        "other-p53-03",
         0.11096071481262142,
         0.1391873854117529,
         0.06614441256369315,
         0.01522987928145969
       ],
       [
-        "other-p53-04",
+        "other-p53-02",
         0.10896502921825,
         0.3370253094210367,
         0.07219339955237604,
         0.017809846122719963
       ],
       [
-        "other-p53-05",
+        "other-p53-03",
         0.11111111148437469,
         0.5901162793509278,
         0.06790123447295157,
         0.0174418596120981
       ],
       [
-        "other-p53-06",
+        "other-p53-04",
         0.5223961572178094,
         0.13759385507927702,
         0.0704340242570447,
         0.018416941335737902
       ],
       [
-        "other-p53-07",
+        "other-p53-05",
         0.5226337441180503,
         0.36467236499541333,
         0.06995884833797339,
         0.017806267806267817
       ],
       [
-        "other-p53-08",
+        "other-p53-06",
         0.5224318766466631,
         0.5897036489965755,
         0.07036258328345513,
         0.018267120730843023
       ],
       [
-        "other-p53-09",
+        "other-p53-07",
         0.08436214126806584,
         0.037749288322205365,
         0.1275720134858162,
         0.023504273504273532
       ],
       [
-        "other-p53-10",
+        "other-p53-08",
         0.3477366345928552,
         0.0915697677425511,
         0.31687241215859685,
         0.02470930213602185
       ],
       [
-        "other-p53-11",
+        "other-p53-09",
+        0.10493827980161248,
+        0.39957264983711904,
+        0.37654319886238347,
+        0.02065527065527062
+      ],
+      [
+        "other-p53-10",
         0.10493827135477816,
         0.707848837744823,
         0.07201646220299505,
         0.0174418596120981
       ],
       [
-        "other-p53-12",
+        "other-p53-11",
         0.5183369647191824,
         0.480627048841087,
         0.1053013801574707,
         0.021304041571766574
       ],
       [
-        "other-p53-13",
+        "other-p53-12",
         0.518518520112401,
         0.5085470087911609,
         0.1069958825265207,
         0.019230769230769273
+      ],
+      [
+        "other-p53-13",
+        0.5184474690219475,
+        0.22934478575570638,
+        0.14829024960917814,
+        0.01805461370027983
       ],
       [
         "other-p53-14",
@@ -1592,118 +1217,174 @@
       ],
       [
         "other-p53-15",
+        0.10493827446271776,
+        0.5348837207253814,
+        0.12139917189075101,
+        0.01924733354834751
+      ],
+      [
+        "other-p53-16",
+        0.10493827058584985,
+        0.6264534888632016,
+        0.13786008281092488,
+        0.0174418596120981
+      ],
+      [
+        "other-p53-17",
         0.5185185208369653,
         0.45494186055269314,
         0.08024690997216,
         0.018895348931989076
       ],
       [
-        "other-p53-16",
+        "other-p53-18",
         0.5185185201961107,
         0.6524216525485307,
         0.22222222051312845,
         0.019230769230769162
       ],
       [
-        "other-p53-17",
+        "other-p53-19",
         0.10288065899023523,
         0.17587209317173425,
         0.11522633798660771,
         0.015988371650717537
       ],
       [
-        "other-p53-18",
+        "other-p53-20",
+        0.5164609051405936,
+        0.20058139556494314,
+        0.17283950313445062,
+        0.020348836893369637
+      ],
+      [
+        "other-p53-21",
+        0.10480827901778482,
+        0.25685672015084404,
+        0.09902541868148311,
+        0.016809815355175894
+      ],
+      [
+        "other-p53-22",
         0.10082304295989439,
         0.7613960116468896,
         0.23045267597321542,
         0.02065527065527062
       ],
       [
-        "other-p53-19",
+        "other-p53-23",
         0.5164609090491988,
         0.7093023257419862,
         0.2160493789180633,
         0.015988371650717537
       ],
       [
-        "other-p53-20",
+        "other-p53-24",
         0.10493827321923065,
         0.4807692307530306,
         0.13168724121585967,
         0.019230769230769273
       ],
       [
-        "other-p53-21",
+        "other-p53-25",
         0.5183120071399682,
         0.281453770345486,
         0.10123606651060046,
         0.021394785313185172
       ],
       [
-        "other-p53-22",
+        "other-p53-26",
+        0.5178260594618036,
+        0.17385287392266047,
+        0.16189012219828947,
+        0.021632873774254047
+      ],
+      [
+        "other-p53-27",
         0.5183366710631175,
         0.5360164335789147,
         0.0662073166139664,
         0.019536899365590887
       ],
       [
-        "other-p53-23",
+        "other-p53-28",
         0.5185185213769722,
         0.6264534886754083,
         0.24897118537656726,
         0.020348836893369637
       ],
       [
-        "other-p53-24",
+        "other-p53-29",
         0.10277816286106188,
         0.7336426973142341,
         0.13394984891337736,
         0.019633209603464596
       ],
       [
-        "other-p53-25",
+        "other-p53-30",
+        0.10268920400177294,
+        0.20288285629256264,
+        0.08886027336120604,
+        0.015745915578641134
+      ],
+      [
+        "other-p53-31",
         0.5143631398807197,
         0.42716634856391367,
         0.16057412855086795,
         0.020667302982080304
       ],
       [
-        "other-p53-26",
+        "other-p53-32",
+        0.10281386988373396,
+        0.22942065653039223,
+        0.10918707232321463,
+        0.01644938487952252
+      ],
+      [
+        "other-p53-33",
         0.5164609120282164,
         0.6830484333111722,
         0.19753085413286764,
         0.01638176638176636
       ],
       [
-        "other-p53-27",
+        "other-p53-34",
         0.1028806565437648,
         0.2848837212240598,
         0.185185186324581,
         0.015988371650717648
       ],
       [
-        "other-p53-28",
+        "other-p53-35",
         0.10288066338174937,
         0.6801994300514568,
         0.1604938199443202,
         0.019230769230769273
       ],
       [
-        "other-p53-29",
+        "other-p53-36",
         0.10288065801805754,
         0.6524216521594184,
         0.1913580279196462,
         0.02065527065527062
       ],
       [
-        "other-p53-30",
+        "other-p53-37",
+        0.5163900064186095,
+        0.309310176958415,
+        0.16063562516243224,
+        0.02091453014275957
+      ],
+      [
+        "other-p53-38",
         0.1049382731437305,
         0.3717948717980014,
         0.37448560037920553,
         0.022100476457862173
       ],
       [
-        "other-p53-31",
+        "other-p53-39",
         0.10268883202465412,
         0.508040930607458,
         0.14030135062433058,
@@ -1712,7 +1393,7 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 54 页",
+    "label": "第 55 页",
     "image": "./resources/pages/other-page-55.png",
     "hotspots": [
       [
@@ -1724,222 +1405,229 @@
       ],
       [
         "other-p54-02",
+        0.09259259355854416,
+        0.13953488405705095,
+        0.378600828109249,
+        0.02357052941607607
+      ],
+      [
+        "other-p54-03",
         0.0905349776029252,
         0.2628205129405772,
         0.07613168993303851,
         0.017806267806267817
       ],
       [
-        "other-p54-03",
+        "other-p54-04",
         0.09050991434319268,
         0.35603083516682754,
         0.11116123968555082,
         0.019042980976593737
       ],
       [
-        "other-p54-04",
+        "other-p54-05",
         0.09043990144794925,
         0.38343794076256876,
         0.1113012683007025,
         0.01946132746856777
       ],
       [
-        "other-p54-05",
+        "other-p54-06",
         0.0924661673729208,
         0.410814840182941,
         0.1525162266146752,
         0.019940086919018385
       ],
       [
-        "other-p54-06",
+        "other-p54-07",
         0.09053498535588679,
         0.4401709400607674,
         0.3168724121585969,
         0.022079772079772075
       ],
       [
-        "other-p54-07",
+        "other-p54-08",
         0.09046674478357827,
         0.4954599709295817,
         0.09890190247566469,
         0.01925447659614765
       ],
       [
-        "other-p54-08",
+        "other-p54-09",
         0.09034139612675006,
         0.5226424249999975,
         0.1259015683204897,
         0.021575615276977933
       ],
       [
-        "other-p54-09",
+        "other-p54-10",
+        0.08843685530599121,
+        0.6175750021868409,
+        0.14617155444237495,
+        0.019210460858467338
+      ],
+      [
+        "other-p54-11",
         0.0905349800629357,
         0.6452991449611074,
         0.08436213770220358,
         0.019230769230769162
       ],
       [
-        "other-p54-10",
+        "other-p54-12",
         0.09053497723972978,
         0.7383720930693045,
         0.23045267597321542,
         0.018895348931989076
       ],
       [
-        "other-p54-11",
+        "other-p54-13",
         0.08827941056719067,
         0.8307273713390217,
         0.12385269903367567,
         0.020231304005679962
       ],
       [
-        "other-p54-12",
+        "other-p54-14",
+        0.09040740373882301,
+        0.8584887792241066,
+        0.17515227102464248,
+        0.02284802330864799
+      ],
+      [
+        "other-p54-15",
+        0.5164288498190226,
+        0.140897381793618,
+        0.10705999405153344,
+        0.019077329554109457
+      ],
+      [
+        "other-p54-16",
         0.5144032961306494,
         0.23401162848832247,
         0.23868311605145853,
         0.02180232485475031
       ],
       [
-        "other-p54-13",
+        "other-p54-17",
         0.5164609036218982,
         0.328347578123801,
         0.22633744824317192,
         0.019230769230769162
       ],
       [
-        "other-p54-14",
+        "other-p54-18",
         0.518334106716832,
         0.4208154876358243,
         0.1382289086618731,
         0.02028762920629612
       ],
       [
-        "other-p54-15",
+        "other-p54-19",
         0.5143430104205845,
         0.5143724713313566,
         0.10917405928334878,
         0.020673661490111628
       ],
       [
-        "other-p54-16",
+        "other-p54-20",
         0.5163007808854819,
         0.5414662435292583,
         0.16904452539259385,
         0.021718675934011777
       ],
       [
-        "other-p54-17",
+        "other-p54-21",
         0.5164609052548816,
         0.569767442263031,
         0.06995884833797328,
         0.023537400780919593
       ],
       [
-        "other-p54-18",
+        "other-p54-22",
         0.5164609050359934,
         0.5988372095475012,
         0.2592592547016759,
         0.020348836893369637
       ],
       [
-        "other-p54-19",
+        "other-p54-23",
         0.516426194218979,
         0.6917313679364869,
         0.13998711493707472,
         0.01915354334730701
       ],
       [
-        "other-p54-20",
+        "other-p54-24",
         0.5183950948967477,
         0.7845773583753165,
         0.09283944099180164,
         0.01950807381219677
       ],
       [
-        "other-p54-21",
+        "other-p54-25",
         0.5164609079186482,
         0.8125000005450086,
         0.16460904767436368,
         0.0218023248547502
       ],
       [
-        "other-p54-22",
+        "other-p54-26",
         0.5185185194378353,
         0.8415697675519317,
         0.11316872412158596,
         0.018895348931989076
+      ],
+      [
+        "other-p54-27",
+        0.5164609072748534,
+        0.8689458686989264,
+        0.20576130959295458,
+        0.019230769230769162
       ]
     ]
   },
   {
-    "label": "其他 · PDF 第 55 页",
+    "label": "第 56 页",
     "image": "./resources/pages/other-page-56.png",
     "hotspots": [
       [
         "other-p55-01",
-        0.5143607165557307,
-        0.16410674217885246,
-        0.12148432577809976,
-        0.019170236723375478
+        0.09053497625272776,
+        0.071220930266927,
+        0.19341564178466797,
+        0.019234909970536118
       ],
       [
         "other-p55-02",
-        0.8579903118113199,
-        0.9562813055630022,
-        0.1152950948284518,
-        0.017669946719438556
-      ],
-      [
-        "other-p55-03",
-        0.36625515299192934,
-        0.3575498580774552,
-        0.2818929918350712,
-        0.024928774928774877
-      ],
-      [
-        "other-p55-04",
-        0.5201122721857793,
-        0.3988382359430871,
-        0.23369599926856255,
-        0.024372345361954206
-      ],
-      [
-        "other-p55-05",
-        0.09259259714854527,
-        0.4316239317352657,
-        0.25720164083665414,
-        0.019230769230769162
-      ],
-      [
-        "other-p55-06",
-        0.09259259314127705,
-        0.4038461535148281,
-        0.2160493789180632,
-        0.01638176638176647
-      ],
-      [
-        "other-p55-07",
         0.09043290204677315,
         0.09841133061155194,
         0.16687082475231538,
         0.021200594399389705
       ],
       [
-        "other-p55-08",
+        "other-p55-03",
         0.09053498322163206,
         0.12645348860273375,
         0.19753085413286764,
         0.02034883689336975
       ],
       [
-        "other-p55-09",
+        "other-p55-04",
+        0.09039037835152743,
+        0.1534610691670485,
+        0.1669558709667575,
+        0.02156623340400199
+      ],
+      [
+        "other-p55-05",
         0.09259259883817689,
         0.24709302346340567,
         0.3847736543224704,
         0.022137745832785605
       ],
       [
-        "other-p55-10",
+        "other-p55-06",
         0.5182649932332081,
         0.0702979714226667,
         0.14248235764042017,
@@ -1948,109 +1636,81 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 56 页",
+    "label": "第 57 页",
     "image": "./resources/pages/other-page-57.png",
     "hotspots": [
       [
         "other-p56-01",
-        0.8867503441873325,
-        0.9590301078329264,
-        0.08658161470966952,
-        0.013625831006259359
-      ],
-      [
-        "other-p56-02",
-        0.09259259252543851,
-        0.4869186051507499,
-        0.09465020702731224,
-        0.0218023248547502
-      ],
-      [
-        "other-p56-03",
-        0.09259259497989814,
-        0.07264957233676961,
-        0.15843620607929848,
-        0.017806267806267817
-      ],
-      [
-        "other-p56-04",
-        0.360082311346542,
-        0.026162790761308008,
-        0.29012344729515815,
-        0.02470930213602185
-      ],
-      [
-        "other-p56-05",
         0.5740740743291634,
         0.7470930236768215,
         0.06378600674290802,
         0.015988371650717537
       ],
       [
-        "other-p56-06",
+        "other-p56-02",
         0.6789808339109784,
         0.745558207717913,
         0.08236755094220571,
         0.01615102610357122
       ],
       [
-        "other-p56-07",
+        "other-p56-03",
         0.1130311720453695,
         0.7468163407422248,
         0.057888273269899426,
         0.015088248456645137
       ],
       [
-        "other-p56-08",
+        "other-p56-04",
         0.1893004120834927,
         0.2499999998708513,
         0.055555555128282114,
         0.018895348931989187
       ],
       [
-        "other-p56-09",
+        "other-p56-05",
         0.18518518579699644,
         0.43168604659954424,
         0.06172839287788637,
         0.015988371650717648
       ],
       [
-        "other-p56-10",
+        "other-p56-06",
         0.41563786049118356,
         0.7441860468654626,
         0.04526748964863436,
         0.0174418596120981
       ],
       [
-        "other-p56-11",
+        "other-p56-07",
         0.4814814818903605,
         0.2543604648661575,
         0.04526748964863442,
         0.013081395727956413
       ],
       [
-        "other-p56-12",
+        "other-p56-08",
         0.7551440357307936,
         0.25000000014156365,
         0.07613168224211664,
         0.018895348931988964
       ],
       [
-        "other-p56-13",
+        "other-p56-09",
         0.46890808096070946,
         0.43121926280582057,
         0.07041428935143257,
         0.018375427974255287
       ],
       [
-        "other-p56-14",
+        "other-p56-10",
         0.796214429416884,
         0.7440109857428576,
         0.07423780810448433,
         0.017791981710667648
       ],
       [
-        "other-p56-15",
+        "other-p56-11",
         0.23045267700459152,
         0.7470930233658852,
         0.08230452383718181,
@@ -2059,102 +1719,81 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 57 页",
+    "label": "第 58 页",
     "image": "./resources/pages/other-page-58.png",
     "hotspots": [
       [
         "other-p57-01",
-        0.8867636148732522,
-        0.9590755255541218,
-        0.08655507333817014,
-        0.013534995565387287
-      ],
-      [
-        "other-p57-02",
-        0.09245622105308285,
-        0.4604090717245912,
-        0.09492295019088254,
-        0.01958883318126725
-      ],
-      [
-        "other-p57-03",
-        0.09053497897408663,
-        0.04360465153767101,
-        0.06790123447295157,
-        0.023255812816130872
-      ],
-      [
-        "other-p57-04",
         0.18920364847439514,
         0.3981130169354281,
         0.05574908179621543,
         0.019180943144013085
       ],
       [
-        "other-p57-05",
+        "other-p57-02",
         0.7467967074143814,
         0.6362987259223358,
         0.09694156339091631,
         0.018100222291430157
       ],
       [
-        "other-p57-06",
+        "other-p57-03",
         0.18930041142762846,
         0.2223837214213411,
         0.055555555128282114,
         0.01744185961209821
       ],
       [
-        "other-p57-07",
+        "other-p57-04",
         0.4402683313917161,
         0.6350038692873711,
         0.1297514054083055,
         0.0235969130469863
       ],
       [
-        "other-p57-08",
+        "other-p57-05",
         0.7015533165530108,
         0.3978855524119711,
         0.18331312364147556,
         0.023996335488778664
       ],
       [
-        "other-p57-09",
+        "other-p57-06",
         0.475308643250631,
         0.8139534886264038,
         0.06378600674290807,
         0.02180232485475031
       ],
       [
-        "other-p57-10",
+        "other-p57-07",
         0.1584362138873546,
         0.6351744189407719,
         0.11522633798660767,
         0.023255812816130872
       ],
       [
-        "other-p57-11",
+        "other-p57-08",
         0.4670781916721516,
         0.3997093025340672,
         0.07613168224211664,
         0.01744185961209821
       ],
       [
-        "other-p57-12",
+        "other-p57-09",
         0.7385625258767182,
         0.22062845203013015,
         0.11546754067943932,
         0.02385937454354059
       ],
       [
-        "other-p57-13",
+        "other-p57-10",
         0.44238683316285377,
         0.2222222220721295,
         0.12551439962079447,
         0.022079772079772075
       ],
       [
-        "other-p57-14",
+        "other-p57-11",
         0.7386831277711685,
         0.8125000003748802,
         0.11316872412158596,
@@ -2163,81 +1802,67 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 58 页",
+    "label": "第 59 页",
     "image": "./resources/pages/other-page-59.png",
     "hotspots": [
       [
         "other-p58-01",
-        0.11111111132680473,
-        0.055232558348020766,
-        0.1831275724595593,
-        0.0174418596120981
-      ],
-      [
-        "other-p58-02",
-        0.11111111065958414,
-        0.45058139573381806,
-        0.47736626286660466,
-        0.0174418596120981
-      ],
-      [
-        "other-p58-03",
         0.1974202803057025,
         0.3907778727665212,
         0.06606478844919514,
         0.017862859274926812
       ],
       [
-        "other-p58-04",
+        "other-p58-02",
         0.4567362104710982,
         0.3922846083004474,
         0.09270041988741967,
         0.016302876323037063
       ],
       [
-        "other-p58-05",
+        "other-p58-03",
         0.7469135805350715,
         0.22383720979112698,
         0.06378600674290813,
         0.01744185961209821
       ],
       [
-        "other-p58-06",
+        "other-p58-04",
         0.5761316874154866,
         0.6424418607172068,
         0.1872428001896027,
         0.0174418596120981
       ],
       [
-        "other-p58-07",
+        "other-p58-05",
         0.5617283973603105,
         0.8340455838093922,
         0.21399176505304152,
         0.019230769230769273
       ],
       [
-        "other-p58-08",
+        "other-p58-06",
         0.7592592602324747,
         0.3924418604195943,
         0.0390946480535691,
         0.020348836893369637
       ],
       [
-        "other-p58-09",
+        "other-p58-07",
         0.22173166084446566,
         0.6388306003173561,
         0.22933580029395317,
         0.02494868254050231
       ],
       [
-        "other-p58-10",
+        "other-p58-08",
         0.4557851809466143,
         0.22350205284784808,
         0.08487022307611275,
         0.0215327298199689
       ],
       [
-        "other-p58-11",
+        "other-p58-09",
         0.25925925636116215,
         0.8340455837609465,
         0.1543209937310988,
@@ -2246,389 +1871,32 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 59 页",
+    "label": "第 60 页",
     "image": "./resources/pages/other-page-60.png",
     "hotspots": [
       [
         "other-p59-01",
-        0.5082304498708309,
-        0.678774928796529,
-        0.27572016562184987,
-        0.022079772079772075
-      ],
-      [
-        "other-p59-02",
-        0.5101751732209903,
-        0.1942714865152031,
-        0.1751229070848035,
-        0.02134074784411999
-      ],
-      [
-        "other-p59-03",
-        0.5081873821971421,
-        0.3152291257540486,
-        0.17909848305486864,
-        0.022158027714134332
-      ],
-      [
-        "other-p59-04",
-        0.5079161285765426,
-        0.22062914890256635,
-        0.11378889699136052,
-        0.01672240607758868
-      ],
-      [
-        "other-p59-05",
-        0.5102880730087994,
-        0.7063953487534821,
-        0.29012344729515815,
-        0.018895348931989187
-      ],
-      [
-        "other-p59-06",
-        0.08436214471524198,
-        0.20203488391093694,
-        0.2551440269716324,
-        0.015988371650717537
-      ],
-      [
-        "other-p59-07",
-        0.08436214511665233,
-        0.6901709398695424,
-        0.2572016408366542,
-        0.01638176638176636
-      ],
-      [
-        "other-p59-08",
-        0.5102880703396988,
-        0.534883721182323,
-        0.25308641310661073,
-        0.0174418596120981
-      ],
-      [
-        "other-p59-09",
-        0.5102880722275589,
-        0.17005813972368566,
-        0.2530864131066106,
-        0.018895348931989076
-      ],
-      [
-        "other-p59-10",
-        0.8600823037975256,
-        0.9593023254645102,
-        0.11316872412158596,
-        0.013081395727956413
-      ],
-      [
-        "other-p59-11",
-        0.5102880645246045,
-        0.24273255814866956,
-        0.2716049378918063,
-        0.018895348931989076
-      ],
-      [
-        "other-p59-12",
-        0.5102880659728471,
-        0.2670940171061875,
-        0.2839506210819367,
-        0.019243192129325237
-      ],
-      [
-        "other-p59-13",
-        0.5102880720648028,
-        0.3632478633129177,
-        0.24897118537656726,
-        0.020655270655270508
-      ],
-      [
-        "other-p59-14",
-        0.08436213889277296,
-        0.7891737889223048,
-        0.29629630427206716,
-        0.01638176638176636
-      ],
-      [
-        "other-p59-15",
-        0.08436214437097508,
-        0.8368945866569819,
-        0.25102879924158894,
-        0.017806267806267817
-      ],
-      [
-        "other-p59-16",
-        0.08436214478249765,
-        0.7150997151136439,
-        0.25102879924158894,
-        0.02065527065527062
-      ],
-      [
-        "other-p59-17",
-        0.08436214436311813,
-        0.8125000003614549,
-        0.2983539027552451,
-        0.020348836893369637
-      ],
-      [
-        "other-p59-18",
-        0.08436214485937654,
-        0.8603988604580605,
-        0.3456790062689012,
-        0.022079772079772075
-      ],
-      [
-        "other-p59-19",
-        0.08436215079440439,
-        0.7642450144181709,
-        0.2613168531848538,
-        0.019230769230769273
-      ],
-      [
-        "other-p59-20",
-        0.509717844024924,
-        0.7268694934424265,
-        0.21524232433688262,
-        0.023397198429814026
-      ],
-      [
-        "other-p59-21",
-        0.5102880690506368,
-        0.60897435894438,
-        0.22427983437815013,
-        0.02065527065527073
-      ],
-      [
-        "other-p59-22",
-        0.0822530541193809,
-        0.2498194236063529,
-        0.12150212257139144,
-        0.01780301281529617
-      ],
-      [
-        "other-p59-23",
-        0.08220832649170884,
-        0.3717348189071128,
-        0.12776441727915117,
-        0.018158268724751236
-      ],
-      [
-        "other-p59-24",
-        0.08230452985772263,
-        0.3967236469402792,
-        0.21810699278308499,
-        0.01638176638176636
-      ],
-      [
-        "other-p59-25",
-        0.0822009962527801,
-        0.34844914219950773,
-        0.11749101454211819,
-        0.01676450631557369
-      ],
-      [
-        "other-p59-26",
-        0.08230453288032363,
-        0.5188953490064518,
-        0.24691357151154547,
-        0.016004935968295775
-      ],
-      [
-        "other-p59-27",
-        0.08230452721922772,
-        0.4707977209702219,
-        0.1419753105409684,
-        0.01638176638176647
-      ],
-      [
-        "other-p59-28",
-        0.08227521787226333,
-        0.49551435786901243,
-        0.13586108915267453,
-        0.01623872542313365
-      ],
-      [
-        "other-p59-29",
-        0.08436214014939933,
-        0.2747093024831442,
-        0.2345679037032589,
-        0.015988371650717537
-      ],
-      [
-        "other-p59-30",
-        0.08230452665160023,
-        0.22649572624666459,
-        0.1440329244059901,
-        0.01638176638176636
-      ],
-      [
-        "other-p59-31",
-        0.5082304510319493,
-        0.340116278833424,
-        0.18106995859453756,
-        0.018895348931989187
-      ],
-      [
-        "other-p59-32",
-        0.5082304537563722,
-        0.3895348837046865,
-        0.21193415118801984,
-        0.018895348931989076
-      ],
-      [
-        "other-p59-33",
-        0.5102880653849575,
-        0.7542735043359332,
-        0.2839506210819367,
-        0.019230769230769273
-      ],
-      [
-        "other-p59-34",
-        0.08213930640637522,
-        0.6636080603620524,
-        0.152593812634868,
-        0.021621088696341162
-      ],
-      [
-        "other-p59-35",
-        0.08420881214114212,
-        0.1767149514475551,
-        0.1463971907092679,
-        0.020116609046262224
-      ],
-      [
-        "other-p59-36",
-        0.5102436112219952,
-        0.5100038356009053,
-        0.14412183146322932,
-        0.019236513692089674
-      ],
-      [
-        "other-p59-37",
-        0.5102538324574689,
-        0.1452177196126898,
-        0.14410138899280178,
-        0.019157583557302793
-      ],
-      [
-        "other-p59-38",
-        0.08230453185026054,
-        0.8866279073790284,
-        0.25514402697163246,
-        0.0174418596120981
-      ],
-      [
-        "other-p59-39",
-        0.08408804547719834,
-        0.7373783746161731,
-        0.29470809813468685,
-        0.022635697639226127
-      ],
-      [
-        "other-p59-40",
-        0.4010597127402461,
-        0.02547587925799899,
-        0.1896501202737132,
-        0.02608312568773241
-      ],
-      [
-        "other-p59-41",
-        0.08397071118012671,
-        0.06955066239117447,
-        0.3155500042823053,
-        0.0255924616104517
-      ],
-      [
-        "other-p59-42",
-        0.08436213758418087,
-        0.5915697678570933,
-        0.3621399171890751,
-        0.0218023248547502
-      ],
-      [
-        "other-p59-43",
-        0.5102880637075877,
-        0.07122093103379501,
-        0.2962963042720672,
-        0.023508414244040488
-      ],
-      [
-        "other-p59-44",
-        0.510288072438805,
-        0.43732193703835553,
-        0.32921809534872737,
-        0.019230769230769273
-      ],
-      [
-        "other-p59-45",
-        0.5101318771083057,
-        0.6307382343375199,
-        0.31313662375173257,
-        0.0215868202709405
-      ],
-      [
-        "other-p59-46",
-        0.5102880632651712,
-        0.5826210822830447,
-        0.31481481367541897,
-        0.019230769230769162
-      ],
-      [
-        "other-p59-47",
-        0.5102880671592042,
-        0.5581395352960478,
-        0.31481481367541897,
-        0.020348836893369637
-      ],
-      [
-        "other-p59-48",
-        0.08230452821200276,
-        0.42151162782844065,
-        0.27572016562184976,
-        0.018895348931989076
-      ],
-      [
-        "other-p59-49",
-        0.08230453651987613,
-        0.2991452994624936,
-        0.32510286761868384,
-        0.019230769230769273
-      ],
-      [
-        "other-p59-50",
-        0.08230453848531168,
-        0.5434472934801484,
-        0.31275718442855344,
-        0.019230769230769273
-      ],
-      [
-        "other-p59-51",
         0.1893004170660035,
         0.6203703708386163,
         0.2818929918350712,
         0.024978466522999287
       ],
       [
-        "other-p59-52",
+        "other-p59-02",
         0.1893004163067769,
         0.10174418638263227,
         0.2530864131066107,
         0.023255812816130872
       ],
       [
-        "other-p59-53",
+        "other-p59-03",
         0.61316872915414,
         0.10174418644907746,
         0.20576130959295458,
         0.023255812816130872
       ],
       [
-        "other-p59-54",
-        0.18925214843270205,
-        0.13503177884728623,
-        0.11120763901741271,
-        0.019180627969595077
-      ],
-      [
-        "other-p59-55",
+        "other-p59-04",
         0.6128165394697388,
         0.4690385779085693,
         0.1714322336258426,
@@ -2637,186 +1905,18 @@
     ]
   },
   {
-    "label": "其他 · PDF 第 60 页",
+    "label": "第 61 页",
     "image": "./resources/pages/other-page-61.png",
     "hotspots": [
       [
         "other-p60-01",
-        0.6337448591525612,
-        0.0973837212331441,
-        0.2448559576465238,
-        0.015988371650717537
-      ],
-      [
-        "other-p60-02",
-        0.12757202354820643,
-        0.13226744206950558,
-        0.24279834378150203,
-        0.015988371650717537
-      ],
-      [
-        "other-p60-03",
-        0.5329218177868894,
-        0.1613372095113661,
-        0.242798343781502,
-        0.016013218127084894
-      ],
-      [
-        "other-p60-04",
-        0.530864207788021,
-        0.23401162832798428,
-        0.27777776410502775,
-        0.015988371650717537
-      ],
-      [
-        "other-p60-05",
-        0.5308641984713773,
-        0.3531976746542924,
-        0.2839506210819367,
-        0.015988371650717537
-      ],
-      [
-        "other-p60-06",
-        0.1255144052959078,
-        0.15527065527378492,
-        0.21193415118801978,
-        0.017806267806267706
-      ],
-      [
-        "other-p60-07",
-        0.5308157973917652,
-        0.44747779997474013,
-        0.1523601778091923,
-        0.01928858607582895
-      ],
-      [
-        "other-p60-08",
-        0.5329218138148661,
-        0.1858974356957639,
-        0.2674897101617628,
-        0.01638176638176636
-      ],
-      [
-        "other-p60-09",
-        0.5308641990606877,
-        0.4244186049159204,
-        0.24897118537656726,
-        0.015988371650717426
-      ],
-      [
-        "other-p60-10",
-        0.5329218222791768,
-        0.3052325583752227,
-        0.26543208091489723,
-        0.0159925130697397
-      ],
-      [
-        "other-p60-11",
-        0.5329218165536905,
-        0.4956395353102301,
-        0.2530864131066106,
-        0.0174418596120981
-      ],
-      [
-        "other-p60-12",
-        0.5328843578473045,
-        0.37628581775175585,
-        0.18114486817390685,
-        0.020684178398545416
-      ],
-      [
-        "other-p60-13",
-        0.5329218126368876,
-        0.25712250707637896,
-        0.18106995859453745,
-        0.019230769230769273
-      ],
-      [
-        "other-p60-14",
-        0.12740544762007483,
-        0.1069219720446809,
-        0.14025083664924864,
-        0.020167683604096376
-      ],
-      [
-        "other-p60-15",
-        0.5329218112642214,
-        0.13808139567844702,
-        0.13991769667594667,
-        0.01744185961209821
-      ],
-      [
-        "other-p60-16",
-        0.5325392566454482,
-        0.20915978587985373,
-        0.27434582864084545,
-        0.021252488139008596
-      ],
-      [
-        "other-p60-17",
-        0.5308641985873626,
-        0.3283475785952774,
-        0.3374485508088143,
-        0.017806267806267817
-      ],
-      [
-        "other-p60-18",
-        0.12551441516555736,
-        0.22792022784361676,
-        0.31687241215859696,
-        0.019230769230769162
-      ],
-      [
-        "other-p60-19",
-        0.12551441424563534,
-        0.20494186043589502,
-        0.2736625363749843,
-        0.018895348931989076
-      ],
-      [
-        "other-p60-20",
-        0.12551441553534962,
-        0.1801994301544123,
-        0.26543208091489734,
-        0.019230769230769162
-      ],
-      [
-        "other-p60-21",
-        0.12536411337005657,
-        0.2510446236266817,
-        0.28215534456314584,
-        0.019647257280485553
-      ],
-      [
-        "other-p60-22",
-        0.12757203183363228,
-        0.036324786489061345,
-        0.34362137702203566,
-        0.02065527065527073
-      ],
-      [
-        "other-p60-23",
-        0.534979435102391,
-        0.036324786489061345,
-        0.30864195669851,
-        0.02065527065527073
-      ],
-      [
-        "other-p60-24",
-        0.5329218101070117,
-        0.47222222236545175,
-        0.30658435821533203,
-        0.017806267806267817
-      ],
-      [
-        "other-p60-25",
         0.22839505983594585,
         0.06686046564660875,
         0.185185186324581,
         0.0174418596120981
       ],
       [
-        "other-p60-26",
+        "other-p60-02",
         0.6337448597443598,
         0.06686046549433855,
         0.26337448243171935,

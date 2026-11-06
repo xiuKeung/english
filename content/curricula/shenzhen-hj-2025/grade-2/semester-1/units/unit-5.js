@@ -506,31 +506,11 @@
     "id": "u05-p40-10",
     "text": "We have a good trip",
     "meaning": ""
-  },
-  {
-    "id": "u05-p41-01",
-    "text": "#fm@#EE",
-    "meaning": ""
-  },
-  {
-    "id": "u05-p41-02",
-    "text": "How do people celebrate the",
-    "meaning": ""
-  },
-  {
-    "id": "u05-p41-03",
-    "text": "Mid-Autumn Festival?",
-    "meaning": ""
-  },
-  {
-    "id": "u05-p41-04",
-    "text": "Unit",
-    "meaning": ""
   }
 ];
   const pages = [
   {
-    "label": "第 34 页 · PDF 第 33 页",
+    "label": "第 34 页",
     "image": "./resources/pages/book-page-34.png",
     "hotspots": [
       [
@@ -564,7 +544,7 @@
     ]
   },
   {
-    "label": "第 35 页 · PDF 第 34 页",
+    "label": "第 35 页",
     "image": "./resources/pages/book-page-35.png",
     "hotspots": [
       [
@@ -654,7 +634,7 @@
     ]
   },
   {
-    "label": "第 36 页 · PDF 第 35 页",
+    "label": "第 36 页",
     "image": "./resources/pages/book-page-36.png",
     "hotspots": [
       [
@@ -800,7 +780,7 @@
     ]
   },
   {
-    "label": "第 37 页 · PDF 第 36 页",
+    "label": "第 37 页",
     "image": "./resources/pages/book-page-37.png",
     "hotspots": [
       [
@@ -897,7 +877,7 @@
     ]
   },
   {
-    "label": "第 38 页 · PDF 第 37 页",
+    "label": "第 38 页",
     "image": "./resources/pages/book-page-38.png",
     "hotspots": [
       [
@@ -945,7 +925,7 @@
     ]
   },
   {
-    "label": "第 39 页 · PDF 第 38 页",
+    "label": "第 39 页",
     "image": "./resources/pages/book-page-39.png",
     "hotspots": [
       [
@@ -1021,7 +1001,7 @@
     ]
   },
   {
-    "label": "第 40 页 · PDF 第 39 页",
+    "label": "第 40 页",
     "image": "./resources/pages/book-page-40.png",
     "hotspots": [
       [
@@ -1209,7 +1189,7 @@
     ]
   },
   {
-    "label": "第 41 页 · PDF 第 40 页",
+    "label": "第 41 页",
     "image": "./resources/pages/book-page-41.png",
     "hotspots": [
       [
@@ -1283,41 +1263,7 @@
         0.019230769230769273
       ]
     ]
-  },
-  {
-    "label": "第 42 页 · PDF 第 41 页",
-    "image": "./resources/pages/book-page-42.png",
-    "hotspots": [
-      [
-        "u05-p41-01",
-        0.886740007588158,
-        0.9589945304821387,
-        0.08660228790775415,
-        0.01369698570664446
-      ],
-      [
-        "u05-p41-02",
-        0.3251028794418193,
-        0.12037037040568932,
-        0.5679012421638734,
-        0.03369939700830349
-      ],
-      [
-        "u05-p41-03",
-        0.32510288085559935,
-        0.15954415950994172,
-        0.4320987578361265,
-        0.030862816378601665
-      ],
-      [
-        "u05-p41-04",
-        0.14197530920283424,
-        0.053779070121276584,
-        0.055555555128282114,
-        0.0174418596120981
-      ]
-    ]
   }
 ].map((page) => ({ ...page, hotspots: page.hotspots.map(([itemId, x, y, width, height]) => box(itemId, x, y, width, height)) }));
-  window.ENGLISH_UNIT_5 = { id: "unit-5", title: "农场乐趣", englishTitle: "What do you like about farms?", sourcePages: Array.from({ length: 9 }, (_, index) => 33 + index), words: [], sentences, pages };
+  window.ENGLISH_UNIT_5 = { id: "unit-5", title: "农场乐趣", englishTitle: "What do you like about farms?", sourcePages: Array.from({ length: 8 }, (_, index) => 33 + index), words: [], sentences, pages };
 })();

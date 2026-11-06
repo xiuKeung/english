@@ -14,6 +14,22 @@ const allowedText = (text) => {
   if (/^[A-Z0-9#@€$£¡|\\/_+=.\- ]+$/.test(text)) return false;
   return text.length > 1;
 };
+const cleanWordListText = (text) => {
+  const header = text.match(/^Word list(?:\s+\d+)?(?:\s*\([^)]*\))?$/i);
+  if (header) return header[0];
+  const unit = text.match(/^Unit\s+([1-6])$/i);
+  if (unit) return `Unit ${unit[1]}`;
+  // Word-list rows often contain a Chinese translation or OCR debris after the
+  // English word. Keep only consecutive lower-case English tokens from the
+  // beginning; this prevents the speech engine from trying to read garbage.
+  const words = text.trim().split(/\s+/);
+  const english = [];
+  for (const word of words) {
+    if (!/^[a-z]+(?:-[a-z]+)?$/i.test(word) || word !== word.toLowerCase()) break;
+    english.push(word);
+  }
+  return english.join(" ");
+};
 const source = fs.readFileSync(inputPath, "utf8").trim().split(/\r?\n/);
 const pages = new Map();
 let currentPdfPage = null;
@@ -22,10 +38,12 @@ for (const line of source) {
   if (heading) { currentPdfPage = Number(heading[1]); pages.set(currentPdfPage, []); continue; }
   if (!currentPdfPage) continue;
   const [text, coords] = line.split("\t");
-  if (!coords || !allowedText(text)) continue;
+  if (!coords) continue;
+  const cleanedText = currentPdfPage >= 53 ? cleanWordListText(text.trim()) : text.trim();
+  if (!cleanedText || !allowedText(cleanedText)) continue;
   const numbers = coords.split(",").map(Number);
   if (numbers.length !== 4 || numbers.some((number) => !Number.isFinite(number))) continue;
-  pages.get(currentPdfPage).push({ text: text.trim(), box: numbers });
+  pages.get(currentPdfPage).push({ text: cleanedText, box: numbers });
 }
 
 const idPrefix = id === "other" ? "other" : `u${id.split("-")[1].padStart(2, "0")}`;
@@ -44,7 +62,7 @@ for (let pdfPage = Number(firstPdfPage); pdfPage <= Number(lastPdfPage); pdfPage
     return [itemId, x, 1 - y - height, width, height];
   });
   const bookPage = pdfPage + 1;
-  pageData.push({ label: `${id === "other" ? "其他" : `第 ${bookPage} 页`} · PDF 第 ${pdfPage} 页`, image: `./resources/pages/${imagePrefix}-${bookPage}.png`, hotspots });
+  pageData.push({ label: `第 ${bookPage} 页`, image: `./resources/pages/${imagePrefix}-${bookPage}.png`, hotspots });
 }
 
 const js = `// Generated from local Apple Vision OCR. Keep original text-tight boxes; main.js applies the shared touch-target padding.\n(function () {\n  const box = (id, x, y, width, height) => [id, x * 100, y * 100, width * 100, height * 100];\n  const sentences = ${JSON.stringify(sentences, null, 2)};\n  const pages = ${JSON.stringify(pageData, null, 2)}.map((page) => ({ ...page, hotspots: page.hotspots.map(([itemId, x, y, width, height]) => box(itemId, x, y, width, height)) }));\n  window.${id === "other" ? "ENGLISH_OTHER" : `ENGLISH_${id.replace("-", "_").toUpperCase()}`} = { id: ${JSON.stringify(id)}, title: ${JSON.stringify(title)}, englishTitle: ${JSON.stringify(englishTitle)}, sourcePages: Array.from({ length: ${Number(lastPdfPage) - Number(firstPdfPage) + 1} }, (_, index) => ${Number(firstPdfPage)} + index), words: [], sentences, pages };\n})();\n`;
