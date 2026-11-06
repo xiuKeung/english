@@ -1,0 +1,7 @@
+# Keep user recordings local. Lesson audio and the small reference images are
+# published with the static site so GitHub Pages can serve them directly.
+*.webm
+*.wav
+
+# Keep the original source PDF locally, but do not commit a copyrighted scan.
+resources/source/*.pdf

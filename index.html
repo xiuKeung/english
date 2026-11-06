@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fff7e8" />
+    <title>小耳朵英语 · 二年级上册</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="返回首页"><span>◎</span> 小耳朵英语</a>
+        <span class="term">二年级 · 上册</span>
+      </header>
+
+      <section class="hero" id="top" aria-labelledby="unit-title">
+        <div class="hero-copy">
+          <p class="eyebrow">UNIT 01 · 今天练耳朵</p>
+          <h1 id="unit-title">五感小侦探</h1>
+          <p class="subtitle">What can you do with your five senses?</p>
+          <div class="hero-actions">
+            <button class="primary" id="play-all"><span aria-hidden="true">▶</span> 从头听一遍</button>
+          </div>
+        </div>
+        <div class="sense-orbit" aria-hidden="true">
+          <span>👀</span><span>👂</span><span>👃</span><span>✋</span><span>👅</span>
+          <i>听<br />说<br />玩</i>
+        </div>
+      </section>
+
+      <nav class="jump-nav" aria-label="课程导航" hidden>
+        <a href="#reader">课本点读</a><a href="#words">单词</a><a href="#sentences">句子</a><a href="#practice">跟读</a>
+      </nav>
+
+      <section class="section reader-section" id="reader" aria-labelledby="reader-title">
+        <div class="section-heading"><div><p class="eyebrow">像点读笔一样</p><h2 id="reader-title">直接点课本上的英语</h2></div><div class="reader-controls"><button class="slow-button" id="toggle-slow" type="button">🐢 慢速：关</button><span class="count">紫色圈可点击</span></div></div>
+        <p class="reader-tip">点单词、对话框或句子，马上播放对应朗读。每一页的热区都和课程数据绑定。</p>
+        <div class="page-tabs" id="page-tabs" aria-label="课本页选择"></div>
+        <div class="reader-stage" id="reader-stage"></div>
+      </section>
+
+      <section class="section" id="words" aria-labelledby="words-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">先听单词</p><h2 id="words-title">点一下，听一听</h2></div><span class="count" id="word-count"></span></div>
+        <div class="word-grid" id="word-grid"></div>
+      </section>
+
+      <section class="section sentences" id="sentences" aria-labelledby="sentences-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">再读句子</p><h2 id="sentences-title">故事里的英语</h2></div><button class="icon-button" id="stop-audio" aria-label="停止播放">■</button></div>
+        <div class="playlist" id="sentence-list"></div>
+      </section>
+
+      <section class="section practice-section" id="practice" aria-labelledby="practice-title" hidden>
+        <div class="practice-card">
+          <div class="practice-copy"><p class="eyebrow">跟读小站</p><h2 id="practice-title">读给自己听</h2><p>先点句子听原声，再按住录音。录音只保留在这台设备里。</p></div>
+          <div class="record-panel">
+            <p class="chosen-line" id="chosen-line">先从上面选择一句英语</p>
+            <button class="record-button" id="record-button" disabled><span class="record-dot"></span><span id="record-label">开始录音</span></button>
+            <div class="recording-tools" id="recording-tools" hidden>
+              <audio controls id="recording-playback"></audio>
+              <button class="text-button" id="delete-recording">删除这次录音</button>
+            </div>
+            <p class="record-status" id="record-status" role="status">浏览器会在首次录音时请求麦克风权限。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section book-section" id="book" aria-labelledby="book-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">需要时再看</p><h2 id="book-title">课本对照</h2></div></div>
+        <button class="book-card" id="book-preview" type="button" aria-haspopup="dialog"><img src="./resources/pages/unit-1-page-3.png" alt="Unit 1 五感单词课本页" /><span><h3>把课本装进口袋 <b>↗</b></h3><p>点开查看大图，和实体课本核对。</p><p class="small">当前已录入 Unit 1 的单词和故事句。</p></span></button>
+      </section>
+    </main>
+    <footer class="unit-dock" aria-label="单元选择"><p>选择单元</p><div class="unit-tabs" id="unit-tabs"></div></footer>
+    <div class="book-modal" id="book-modal" hidden role="dialog" aria-modal="true" aria-labelledby="book-modal-title">
+      <button class="modal-backdrop" id="close-book-backdrop" type="button" aria-label="关闭课本大图"></button>
+      <div class="modal-sheet">
+        <div class="modal-header"><div><p class="eyebrow">UNIT 01 · 课本第 3 页</p><h2 id="book-modal-title">五感单词对照</h2></div><button class="close-button" id="close-book" type="button" aria-label="关闭">×</button></div>
+        <img src="./resources/pages/unit-1-page-3.png" alt="Unit 1 五感单词课本页大图" />
+      </div>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script defer src="./content/curricula/shenzhen-hj-2025/grade-2/semester-1/units/unit-1.js"></script>
+    <script defer src="./main.js"></script>
+  </body>
+</html>

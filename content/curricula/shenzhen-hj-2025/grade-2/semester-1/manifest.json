@@ -1,0 +1,24 @@
+{
+  "id": "shenzhen-hj-2025-grade-2-semester-1",
+  "title": "英语二年级上册",
+  "locale": "zh-CN",
+  "region": "深圳",
+  "publisher": "上海教育出版社",
+  "edition": "沪教版（深圳用）",
+  "grade": 2,
+  "semester": 1,
+  "source": {
+    "type": "scanned-pdf",
+    "path": "resources/source/shenzhen-hj-2025-grade-2-semester-1.pdf",
+    "pages": 60,
+    "use": "家庭学习内容校对来源，不在网页中公开分发"
+  },
+  "units": [
+    {
+      "id": "unit-1",
+      "title": "What can you do with your five senses?",
+      "status": "discovered",
+      "sourcePages": [1, 2, 3, 4, 5, 6]
+    }
+  ]
+}
