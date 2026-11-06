@@ -1,4 +1,5 @@
-const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2].filter(Boolean);
+const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2, window.ENGLISH_OTHER].filter(Boolean);
+if (window.ENGLISH_UNIT_1) window.ENGLISH_UNIT_1.preferSpeech = true;
 let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
@@ -13,6 +14,7 @@ function stopAudio() { if (state.audio) { state.audio.pause(); state.audio.curre
 function speakFallback(text, done) { if (!("speechSynthesis" in window)) { showToast("这个设备暂时不能播放语音。"); done?.(); return; } const utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate=state.slow ? .68 : .9; utterance.onend=() => done?.(); speechSynthesis.cancel(); speechSynthesis.speak(utterance); }
 function play(item, node, done) {
   stopAudio(); resetPlaying(); node?.classList.add("playing");
+  if (unit.preferSpeech) { speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
   const player = new Audio(audioPath(item.id)); state.audio = player;
   const finish = () => { node?.classList.remove("playing"); if (state.audio === player) state.audio=null; done?.(); };
   player.addEventListener("ended", finish, { once:true });
@@ -37,6 +39,18 @@ const unit1Pages = [
   { label:"第 8 页 · 延伸故事", image:"./resources/pages/unit-1-page-8.png", hotspots:[["u01-line-20", 25, 12, 51, 4], ["u01-line-21", 51, 16, 35, 4], ["u01-line-22", 9, 44, 38, 4], ["u01-line-23", 12, 58, 16, 4], ["u01-line-24", 11, 70, 12, 4], ["u01-line-25", 51, 56, 27, 4], ["u01-line-26", 28, 78, 17, 4], ["u01-line-27", 50, 78, 8, 4], ["u01-inst-11", 10, 85, 57, 4], ["u01-inst-12", 76, 86, 15, 4]]},
   { label:"第 9 页 · 自然拼读", image:"./resources/pages/unit-1-page-9.png", hotspots:[["u01-inst-13", 29, 5, 21, 4], ["u01-sound-at", 11, 16, 11, 4], ["u01-line-28", 53, 12, 23, 4], ["u01-line-29", 53, 15, 22, 4], ["u01-line-30", 54, 18, 21, 4], ["u01-line-31", 54, 21, 27, 4], ["u01-sound-ap", 79, 51, 11, 4], ["u01-line-32", 20, 50, 23, 4], ["u01-line-33", 20, 53, 18, 4], ["u01-line-34", 20, 55, 19, 4], ["u01-line-35", 20, 58, 22, 4]]}
 ];
+const ocrBox = (id, x, y, width, height) => [id, x * 100, (1 - y - height) * 100, width * 100, height * 100];
+// Recalibrated from the published Unit 1 page PNGs with local Apple Vision OCR.
+const unit1OcrHotspots = [
+  [ocrBox("u01-inst-01",.156379,.873219,.526749,.038462),ocrBox("u01-word-feel",.333333,.707849,.049383,.017442),ocrBox("u01-word-see",.62963,.709302,.041152,.011628),ocrBox("u01-word-smell",.201646,.543605,.067901,.014535),ocrBox("u01-word-hear",.475309,.542151,.057613,.015988),ocrBox("u01-word-taste",.742568,.541664,.060132,.015509),ocrBox("u01-inst-02",.157853,.48576,.30569,.031274),ocrBox("u01-inst-03",.141176,.433048,.394118,.037785),ocrBox("u01-line-01",.765286,.322178,.125806,.019888)],
+  [ocrBox("u01-inst-04",.174897,.864672,.240741,.02208),ocrBox("u01-inst-05",.174897,.800681,.263374,.048322),ocrBox("u01-inst-06",.174897,.27907,.236626,.021802),ocrBox("u01-word-kitten",.216049,.652616,.069959,.017442),ocrBox("u01-word-puppy",.386737,.648065,.07632,.019277),ocrBox("u01-word-rabbit",.213925,.482423,.076265,.019165),ocrBox("u01-word-flowers",.380637,.482503,.088521,.017552),ocrBox("u01-word-egg",.296296,.328488,.047325,.018895),ocrBox("u01-line-03",.654321,.710756,.22428,.020349),ocrBox("u01-line-04",.796296,.465116,.080247,.015988),ocrBox("u01-line-16",.522634,.412791,.222222,.017442),ocrBox("u01-line-05",.610986,.146388,.142226,.022631)],
+  [ocrBox("u01-line-06",.306017,.919785,.102058,.050),ocrBox("u01-line-07",.162551,.761628,.074074,.018895),ocrBox("u01-line-08",.726254,.945866,.170948,.021058),ocrBox("u01-line-09",.584296,.738184,.107128,.019272),ocrBox("u01-line-10",.135802,.476744,.306584,.030523),ocrBox("u01-line-11",.779713,.647843,.154566,.024082),ocrBox("u01-line-12",.569959,.521802,.082305,.021802),ocrBox("u01-line-13",.157968,.407042,.114105,.023125),ocrBox("u01-line-14",.302177,.20697,.144617,.026468),ocrBox("u01-line-15",.547325,.427326,.251029,.023529),ocrBox("u01-inst-14",.176804,.116266,.691697,.024815)],
+  [ocrBox("u01-inst-07",.083645,.937121,.416897,.043622),ocrBox("u01-inst-08",.137799,.4431,.162673,.023684),ocrBox("u01-line-17",.216049,.178775,.216049,.023504),ocrBox("u01-line-18",.695473,.164244,.090535,.017442)],
+  [ocrBox("u01-inst-09",.098765,.867521,.532922,.023504),ocrBox("u01-inst-10",.394721,.105215,.492412,.028777),ocrBox("u01-line-17",.316872,.315407,.209877,.023256),ocrBox("u01-line-19",.407407,.235465,.273663,.021802)],
+  [ocrBox("u01-line-20",.257202,.850291,.497942,.024709),ocrBox("u01-line-21",.522634,.797721,.337449,.020655),ocrBox("u01-line-22",.094383,.520245,.372974,.021196),ocrBox("u01-line-23",.125469,.399544,.146182,.020679),ocrBox("u01-line-24",.127572,.27907,.100823,.018895),ocrBox("u01-line-25",.516461,.420058,.255144,.020349),ocrBox("u01-line-26",.283867,.197369,.158603,.022414),ocrBox("u01-line-27",.510288,.199128,.065844,.018895),ocrBox("u01-inst-11",.104938,.121795,.557613,.025007),ocrBox("u01-inst-12",.761197,.11872,.144272,.019828)],
+  [ocrBox("u01-inst-13",.294207,.924287,.203768,.024973),ocrBox("u01-sound-at",.119342,.800872,.096708,.030523),ocrBox("u01-line-28",.537037,.856105,.213992,.017442),ocrBox("u01-line-29",.54321,.826923,.193416,.019231),ocrBox("u01-line-30",.55144,.797721,.191358,.019231),ocrBox("u01-line-31",.549383,.770349,.248971,.018895),ocrBox("u01-sound-ap",.796296,.460756,.09465,.02907),ocrBox("u01-line-32",.205385,.483836,.218819,.019307),ocrBox("u01-line-33",.207498,.45705,.167378,.017416),ocrBox("u01-line-34",.207315,.42689,.178,.020721),ocrBox("u01-line-35",.207819,.398148,.205761,.020655)]
+];
+unit1Pages.forEach((page, index) => { page.hotspots = unit1OcrHotspots[index]; });
 function renderTextbookReader(unit) {
   const allItems = [...unit.words, ...unit.sentences]; const tabs = $("#page-tabs"), stage = $("#reader-stage");
   function showPage(index) {
@@ -48,19 +62,18 @@ function renderTextbookReader(unit) {
   tabs.querySelectorAll("button").forEach((button,index)=>button.addEventListener("click",()=>showPage(index))); showPage(0);
 }
 function renderUnitDock() {
-  const allUnits = Array.from({length:6}, (_, index) => ({ id:`unit-${index + 1}`, label:`Unit ${index + 1}`, available:units.some((entry) => entry.id === `unit-${index + 1}`) }));
+  const allUnits = [...Array.from({length:6}, (_, index) => ({ id:`unit-${index + 1}`, label:`Unit ${index + 1}`, available:units.some((entry) => entry.id === `unit-${index + 1}`) })), { id:"other", label:"其他", available:units.some((entry) => entry.id === "other") }];
   let lastUnit = "unit-1";
   try { lastUnit = localStorage.getItem("little-ear:last-unit") || "unit-1"; } catch (_) {}
   if (!allUnits.some((entry) => entry.id === lastUnit && entry.available)) lastUnit = units[0]?.id || "unit-1";
   try { localStorage.setItem("little-ear:last-unit", lastUnit); } catch (_) {}
   const tabs = $("#unit-tabs");
-  tabs.innerHTML = allUnits.map((entry) => `<button type="button" class="${entry.id === lastUnit ? "active" : ""}" ${entry.available ? "" : "disabled"} aria-label="${entry.label}${entry.available ? "" : "，正在整理"}">${entry.label}</button>`).join("");
+  tabs.innerHTML = allUnits.map((entry) => `<button type="button" data-unit="${entry.id}" class="${entry.id === lastUnit ? "active" : ""}" ${entry.available ? "" : "disabled"} aria-label="${entry.label}${entry.available ? "" : "，正在整理"}">${entry.label}</button>`).join("");
   tabs.querySelectorAll("button:not([disabled])").forEach((button) => button.addEventListener("click", () => {
     const nextUnit = units.find((entry) => entry.id === button.dataset.unit);
     if (!nextUnit || nextUnit.id === unit.id) return;
     unit = nextUnit; try { localStorage.setItem("little-ear:last-unit", unit.id); } catch (_) {} render(unit);
   }));
-  tabs.querySelectorAll("button:not([disabled])").forEach((button) => { button.dataset.unit = button.textContent.trim().toLowerCase().replace(" ", "-"); });
 }
 function render(unit) {
   unit.pages ||= unit1Pages;
