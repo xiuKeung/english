@@ -5,17 +5,27 @@ units.forEach((entry) => { entry.preferSpeech = true; });
 let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
-const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null };
+const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null, speechToken:0, speechWakeTimer:null };
 const $ = (s) => document.querySelector(s);
 const wordGrid = $("#word-grid"), sentenceList = $("#sentence-list"), chosenLine = $("#chosen-line"), toast = $("#toast");
 
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
 function audioPath(id) { return `${audioRoot}/${id}.${state.slow ? "slow" : "normal"}.m4a`; }
 function resetPlaying() { document.querySelectorAll(".playing").forEach((node) => node.classList.remove("playing")); }
-function stopAudio() { if (state.audio) { state.audio.pause(); state.audio.currentTime = 0; state.audio = null; } state.queue=[]; resetPlaying(); }
-function speakFallback(text, done) { if (!("speechSynthesis" in window)) { showToast("这个设备暂时不能播放语音。"); done?.(); return; } const utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate=state.slow ? .68 : .9; utterance.onend=() => done?.(); speechSynthesis.cancel(); speechSynthesis.speak(utterance); }
+function clearSpeech() { state.speechToken += 1; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; if ("speechSynthesis" in window) speechSynthesis.cancel(); }
+function stopAudio({ clearQueue=true }={}) { if (state.audio) { state.audio.pause(); state.audio.currentTime = 0; state.audio = null; } clearSpeech(); if (clearQueue) state.queue=[]; resetPlaying(); }
+function speakFallback(text, done) {
+  if (!("speechSynthesis" in window)) { showToast("这个设备暂时不能播放语音。"); done?.(); return; }
+  clearSpeech(); const token = state.speechToken; const utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate=state.slow ? .68 : .9;
+  const finish = () => { if (token !== state.speechToken) return; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; done?.(); };
+  utterance.onend=finish; utterance.onerror=finish;
+  // iOS Safari can leave speech synthesis paused after a very short utterance.
+  // Waking it briefly while this item owns the queue keeps the next tap usable.
+  state.speechWakeTimer=setInterval(() => { if (token === state.speechToken) speechSynthesis.resume(); }, 250);
+  speechSynthesis.speak(utterance); speechSynthesis.resume();
+}
 function play(item, node, done) {
-  stopAudio(); resetPlaying(); node?.classList.add("playing");
+  stopAudio({clearQueue:false}); resetPlaying(); node?.classList.add("playing");
   if (unit.preferSpeech) { speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
   const player = new Audio(audioPath(item.id)); state.audio = player;
   const finish = () => { node?.classList.remove("playing"); if (state.audio === player) state.audio=null; done?.(); };
