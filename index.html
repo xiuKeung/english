@@ -4,14 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#fff7e8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>小耳朵英语 · 二年级上册</title>
     <link rel="stylesheet" href="./style.css" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./resources/icons/apple-touch-icon.png" />
   </head>
   <body>
     <main class="shell">
       <header class="topbar">
         <a class="brand" href="#top" aria-label="返回首页"><span>◎</span> 小耳朵英语</a>
-        <span class="term">二年级 · 上册</span>
+        <div class="topbar-actions"><button class="install-button" id="install-app" type="button" hidden>⬇ 添加到主屏幕</button><span class="term">二年级 · 上册</span></div>
       </header>
 
       <section class="hero" id="top" aria-labelledby="unit-title">
@@ -34,8 +38,7 @@
       </nav>
 
       <section class="section reader-section" id="reader" aria-labelledby="reader-title">
-        <div class="section-heading"><div><p class="eyebrow">像点读笔一样</p><h2 id="reader-title">直接点课本上的英语</h2></div><div class="reader-controls"><button class="slow-button" id="toggle-slow" type="button">🐢 慢速：关</button><span class="count">紫色圈可点击</span></div></div>
-        <p class="reader-tip">点单词、对话框或句子，马上播放对应朗读。每一页的热区都和课程数据绑定。</p>
+        <div class="section-heading"><div><h2 id="reader-title">课本点读</h2></div><div class="reader-controls"><button class="slow-button" id="toggle-slow" type="button">🐢 慢速：关</button><span class="count">紫色圈可点击</span></div></div>
         <div class="page-tabs" id="page-tabs" aria-label="课本页选择"></div>
         <div class="reader-stage" id="reader-stage"></div>
       </section>

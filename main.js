@@ -114,6 +114,24 @@ $("#book-preview").addEventListener("click", () => { bookModal.hidden = false; $
 $("#close-book").addEventListener("click", closeBook);
 $("#close-book-backdrop").addEventListener("click", closeBook);
 document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !bookModal.hidden) closeBook(); });
+function setupAppInstall() {
+  const installButton = $("#install-app"); if (!installButton) return;
+  const isStandalone = window.matchMedia?.("(display-mode: standalone)").matches || window.navigator.standalone;
+  if (isStandalone) return;
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  let deferredPrompt;
+  window.addEventListener("beforeinstallprompt", (event) => { event.preventDefault(); deferredPrompt = event; installButton.hidden = false; });
+  if (isIos) installButton.hidden = false;
+  installButton.addEventListener("click", async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; installButton.hidden = true; return;
+    }
+    if (isIos) { showToast("Safari 中点“分享”，再选择“添加到主屏幕”。"); return; }
+    showToast("请使用浏览器菜单中的“安装应用”或“添加到主屏幕”。");
+  });
+}
+if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+setupAppInstall();
 setupRecording();
 try { const remembered = localStorage.getItem("little-ear:last-unit"); const rememberedUnit = units.find((entry) => entry.id === remembered); if (rememberedUnit) unit = rememberedUnit; } catch (_) {}
 if (unit) render(unit);
