@@ -52,10 +52,10 @@ const unit1OcrHotspots = [
 ];
 unit1Pages.forEach((page, index) => { page.hotspots = unit1OcrHotspots[index]; });
 function expandedHotspot(left, top, width, height) {
-  // OCR boxes are text-tight. Expand each side by 5% of the box itself so
-  // rounded borders cannot clip the first/last letters, while keeping nearby
-  // text targets distinct.
-  const horizontalPad = width * 0.05, verticalPad = height * 0.05;
+  // OCR boxes are text-tight. The horizontal padding is deliberately larger
+  // so the rounded outline clears the first/last letter; vertical padding
+  // stays restrained to avoid overlapping adjacent text lines.
+  const horizontalPad = width * 0.10, verticalPad = height * 0.05;
   const nextLeft = Math.max(0, left - horizontalPad), nextTop = Math.max(0, top - verticalPad);
   return [nextLeft, nextTop, Math.min(100 - nextLeft, width + horizontalPad * 2), Math.min(100 - nextTop, height + verticalPad * 2)];
 }
