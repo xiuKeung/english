@@ -51,15 +51,26 @@ const unit1OcrHotspots = [
   [ocrBox("u01-inst-13",.294207,.924287,.203768,.024973),ocrBox("u01-sound-at",.119342,.800872,.096708,.030523),ocrBox("u01-line-28",.537037,.856105,.213992,.017442),ocrBox("u01-line-29",.54321,.826923,.193416,.019231),ocrBox("u01-line-30",.55144,.797721,.191358,.019231),ocrBox("u01-line-31",.549383,.770349,.248971,.018895),ocrBox("u01-sound-ap",.796296,.460756,.09465,.02907),ocrBox("u01-line-32",.205385,.483836,.218819,.019307),ocrBox("u01-line-33",.207498,.45705,.167378,.017416),ocrBox("u01-line-34",.207315,.42689,.178,.020721),ocrBox("u01-line-35",.207819,.398148,.205761,.020655)]
 ];
 unit1Pages.forEach((page, index) => { page.hotspots = unit1OcrHotspots[index]; });
+function expandedHotspot(left, top, width, height) {
+  // OCR boxes are text-tight. Expand each side by 5% of the box itself so
+  // rounded borders cannot clip the first/last letters, while keeping nearby
+  // text targets distinct.
+  const horizontalPad = width * 0.05, verticalPad = height * 0.05;
+  const nextLeft = Math.max(0, left - horizontalPad), nextTop = Math.max(0, top - verticalPad);
+  return [nextLeft, nextTop, Math.min(100 - nextLeft, width + horizontalPad * 2), Math.min(100 - nextTop, height + verticalPad * 2)];
+}
 function renderTextbookReader(unit) {
   const allItems = [...unit.words, ...unit.sentences]; const tabs = $("#page-tabs"), stage = $("#reader-stage");
   function showPage(index) {
     const page = unit.pages[index]; tabs.querySelectorAll("button").forEach((button, buttonIndex)=>button.classList.toggle("active",buttonIndex===index));
-    stage.innerHTML = `<div class="book-page"><div class="book-page-canvas"><img src="${page.image}" alt="${page.label}" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); return item ? `<button class="hotspot" data-id="${id}" style="left:${left}%;top:${top}%;width:${width}%;height:${height}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
+    stage.innerHTML = `<div class="book-page"><div class="book-page-canvas"><img src="${page.image}" alt="${page.label}" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); const [expandedLeft, expandedTop, expandedWidth, expandedHeight] = expandedHotspot(left, top, width, height); return item ? `<button class="hotspot" data-id="${id}" style="left:${expandedLeft}%;top:${expandedTop}%;width:${expandedWidth}%;height:${expandedHeight}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
     stage.querySelectorAll(".hotspot").forEach((node)=>node.addEventListener("click",()=>{ const item=allItems.find((entry)=>entry.id===node.dataset.id); if(item) play(item,node); }));
   }
   tabs.innerHTML=unit.pages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${page.label}</button>`).join("");
-  tabs.querySelectorAll("button").forEach((button,index)=>button.addEventListener("click",()=>showPage(index))); showPage(0);
+  tabs.querySelectorAll("button").forEach((button,index)=>button.addEventListener("click",()=>{
+    showPage(index);
+    button.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"nearest" });
+  })); showPage(0);
 }
 function renderUnitDock() {
   const allUnits = [...Array.from({length:6}, (_, index) => ({ id:`unit-${index + 1}`, label:`Unit ${index + 1}`, available:units.some((entry) => entry.id === `unit-${index + 1}`) })), { id:"other", label:"其他", available:units.some((entry) => entry.id === "other") }];
