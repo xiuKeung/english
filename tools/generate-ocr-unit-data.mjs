@@ -15,20 +15,38 @@ const allowedText = (text) => {
   return text.length > 1;
 };
 const cleanWordListText = (text) => {
+  const noise = new Set(["app", "cs", "us", "aj", "fimhee", "faimeee", "faimeae", "tamêfee"]);
+  const knownLabels = new Map([
+    ["daily expressions", "Daily expressions"], ["picture dictionary", "Picture dictionary"], ["family", "Family"], ["five senses", "Five senses"], ["places", "Places"], ["toys", "Toys"], ["farm animals", "Farm animals"], ["the mid-autumn festival activities", "The Mid-Autumn Festival activities"], ["tapescripts", "Tapescripts"]
+  ]);
+  const label = knownLabels.get(text.toLowerCase());
+  if (label) return label;
   const header = text.match(/^Word list(?:\s+\d+)?(?:\s*\([^)]*\))?$/i);
   if (header) return header[0];
   const unit = text.match(/^Unit\s+([1-6])$/i);
   if (unit) return `Unit ${unit[1]}`;
+  // Retain one or more complete English sentences, but discard trailing OCR
+  // fragments that often represent the adjacent Chinese translation.
+  const englishWord = "[A-Za-z]+(?:'[A-Za-z]+)?(?:,)?";
+  const sentences = text.match(new RegExp(`^((?:${englishWord}(?:\\s+${englishWord})*[.!?]\\s*)+)`));
+  if (sentences) return sentences[1].trim();
   // Word-list rows often contain a Chinese translation or OCR debris after the
   // English word. Keep only consecutive lower-case English tokens from the
   // beginning; this prevents the speech engine from trying to read garbage.
   const words = text.trim().split(/\s+/);
   const english = [];
-  for (const word of words) {
-    if (!/^[a-z]+(?:-[a-z]+)?$/i.test(word) || word !== word.toLowerCase()) break;
-    english.push(word);
+  for (const [index, originalWord] of words.entries()) {
+    const word = originalWord.replace(/[.,;:!?]+$/, "");
+    if (!/^[a-z]+(?:-[a-z]+)?$/i.test(word)) break;
+    const lower = word.toLowerCase();
+    const isInitialCapital = index === 0 && (/^[A-Z][a-z]+$/.test(word) || word === "A" || word === "I");
+    const isTitleCase = /^[A-Z][a-z]*(?:-[A-Z][a-z]*)?$/.test(word);
+    const isStandaloneCaps = words.length === 1 && word === word.toUpperCase() && word.length >= 3;
+    if (word !== lower && !isInitialCapital && !isTitleCase && !isStandaloneCaps && word !== "I") break;
+    english.push(isStandaloneCaps ? lower : word);
   }
-  return english.join(" ");
+  const cleaned = english.join(" ");
+  return noise.has(cleaned.toLowerCase()) ? "" : cleaned;
 };
 const source = fs.readFileSync(inputPath, "utf8").trim().split(/\r?\n/);
 const pages = new Map();
@@ -49,9 +67,19 @@ for (const line of source) {
 const idPrefix = id === "other" ? "other" : `u${id.split("-")[1].padStart(2, "0")}`;
 const pageData = [];
 const sentences = [];
+// OCR misses a few tightly packed Word List entries entirely. These are
+// calibrated source-PDF coordinates (Vision's bottom-left coordinate system).
+const manualEntries = {
+  53: [
+    { text: "cousin", box: [.105, .535, .105, .019] },
+    { text: "zoo", box: [.519, .716, .06, .019] }
+  ],
+  55: [{ text: "zoo", box: [.51436, .816723, .121484, .01917] }]
+};
 for (let pdfPage = Number(firstPdfPage); pdfPage <= Number(lastPdfPage); pdfPage += 1) {
   const unique = new Set();
-  const hotspots = (pages.get(pdfPage) || []).filter((entry) => {
+  const sourceEntries = [...(pages.get(pdfPage) || []), ...(manualEntries[pdfPage] || [])];
+  const hotspots = sourceEntries.filter((entry) => {
     const signature = `${entry.text}|${entry.box.map((number) => number.toFixed(4)).join(",")}`;
     if (unique.has(signature)) return false;
     unique.add(signature); return true;

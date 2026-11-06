@@ -12,21 +12,27 @@ const wordGrid = $("#word-grid"), sentenceList = $("#sentence-list"), chosenLine
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
 function audioPath(id) { return `${audioRoot}/${id}.${state.slow ? "slow" : "normal"}.m4a`; }
 function resetPlaying() { document.querySelectorAll(".playing").forEach((node) => node.classList.remove("playing")); }
-function clearSpeech() { state.speechToken += 1; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; if ("speechSynthesis" in window) speechSynthesis.cancel(); }
+function clearSpeech({ cancel=true }={}) { state.speechToken += 1; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; if (cancel && "speechSynthesis" in window) speechSynthesis.cancel(); }
 function stopAudio({ clearQueue=true }={}) { if (state.audio) { state.audio.pause(); state.audio.currentTime = 0; state.audio = null; } clearSpeech(); if (clearQueue) state.queue=[]; resetPlaying(); }
 function speakFallback(text, done) {
   if (!("speechSynthesis" in window)) { showToast("这个设备暂时不能播放语音。"); done?.(); return; }
+  const wasBusy = speechSynthesis.speaking || speechSynthesis.pending;
   clearSpeech(); const token = state.speechToken; const utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate=state.slow ? .68 : .9;
   const finish = () => { if (token !== state.speechToken) return; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; done?.(); };
   utterance.onend=finish; utterance.onerror=finish;
-  // iOS Safari can leave speech synthesis paused after a very short utterance.
-  // Waking it briefly while this item owns the queue keeps the next tap usable.
-  state.speechWakeTimer=setInterval(() => { if (token === state.speechToken) speechSynthesis.resume(); }, 250);
-  speechSynthesis.speak(utterance); speechSynthesis.resume();
+  const start = () => {
+    if (token !== state.speechToken) return;
+    // iOS Safari can leave speech synthesis paused after a very short utterance.
+    state.speechWakeTimer=setInterval(() => { if (token === state.speechToken) speechSynthesis.resume(); }, 250);
+    speechSynthesis.resume(); speechSynthesis.speak(utterance); speechSynthesis.resume();
+  };
+  // Safari may silently ignore speak() immediately after cancel(). Only delay
+  // when another utterance was actually active; fresh taps still speak now.
+  if (wasBusy) setTimeout(start, 80); else start();
 }
 function play(item, node, done) {
+  if (unit.preferSpeech) { if (state.audio) { state.audio.pause(); state.audio.currentTime=0; state.audio=null; } resetPlaying(); node?.classList.add("playing"); speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
   stopAudio({clearQueue:false}); resetPlaying(); node?.classList.add("playing");
-  if (unit.preferSpeech) { speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
   const player = new Audio(audioPath(item.id)); state.audio = player;
   const finish = () => { node?.classList.remove("playing"); if (state.audio === player) state.audio=null; done?.(); };
   player.addEventListener("ended", finish, { once:true });
