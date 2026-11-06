@@ -1,4 +1,4 @@
-const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2, window.ENGLISH_OTHER].filter(Boolean);
+const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2, window.ENGLISH_UNIT_3, window.ENGLISH_UNIT_4, window.ENGLISH_UNIT_5, window.ENGLISH_UNIT_6, window.ENGLISH_OTHER].filter(Boolean);
 if (window.ENGLISH_UNIT_1) window.ENGLISH_UNIT_1.preferSpeech = true;
 let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";

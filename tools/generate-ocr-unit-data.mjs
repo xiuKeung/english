@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+import fs from "node:fs";
+import path from "node:path";
+
+const [inputPath, outputPath, id, title, englishTitle, firstPdfPage, lastPdfPage, imagePrefix] = process.argv.slice(2);
+if (!imagePrefix) {
+  console.error("Usage: node tools/generate-ocr-unit-data.mjs <ocr.txt> <out.js> <id> <title> <english-title> <first-pdf> <last-pdf> <image-prefix>");
+  process.exit(1);
+}
+
+const allowedText = (text) => {
+  if (!/^[\x20-\x7e]+$/.test(text) || !/[A-Za-z]/.test(text)) return false;
+  if (/^(App|Unit|Ready\? Go!|Story|Communicate|Extend|Big Question|Sounds)$/i.test(text)) return true;
+  if (/^[A-Z0-9#@€$£¡|\\/_+=.\- ]+$/.test(text)) return false;
+  return text.length > 1;
+};
+const source = fs.readFileSync(inputPath, "utf8").trim().split(/\r?\n/);
+const pages = new Map();
+let currentPdfPage = null;
+for (const line of source) {
+  const heading = line.match(/^--- PDF (\d+) ---$/);
+  if (heading) { currentPdfPage = Number(heading[1]); pages.set(currentPdfPage, []); continue; }
+  if (!currentPdfPage) continue;
+  const [text, coords] = line.split("\t");
+  if (!coords || !allowedText(text)) continue;
+  const numbers = coords.split(",").map(Number);
+  if (numbers.length !== 4 || numbers.some((number) => !Number.isFinite(number))) continue;
+  pages.get(currentPdfPage).push({ text: text.trim(), box: numbers });
+}
+
+const idPrefix = id === "other" ? "other" : `u${id.split("-")[1].padStart(2, "0")}`;
+const pageData = [];
+const sentences = [];
+for (let pdfPage = Number(firstPdfPage); pdfPage <= Number(lastPdfPage); pdfPage += 1) {
+  const unique = new Set();
+  const hotspots = (pages.get(pdfPage) || []).filter((entry) => {
+    const signature = `${entry.text}|${entry.box.map((number) => number.toFixed(4)).join(",")}`;
+    if (unique.has(signature)) return false;
+    unique.add(signature); return true;
+  }).map((entry, index) => {
+    const itemId = `${idPrefix}-p${pdfPage}-${String(index + 1).padStart(2, "0")}`;
+    sentences.push({ id: itemId, text: entry.text, meaning: "" });
+    const [x, y, width, height] = entry.box;
+    return [itemId, x, 1 - y - height, width, height];
+  });
+  const bookPage = pdfPage + 1;
+  pageData.push({ label: `${id === "other" ? "其他" : `第 ${bookPage} 页`} · PDF 第 ${pdfPage} 页`, image: `./resources/pages/${imagePrefix}-${bookPage}.png`, hotspots });
+}
+
+const js = `// Generated from local Apple Vision OCR. Keep original text-tight boxes; main.js applies the shared touch-target padding.\n(function () {\n  const box = (id, x, y, width, height) => [id, x * 100, y * 100, width * 100, height * 100];\n  const sentences = ${JSON.stringify(sentences, null, 2)};\n  const pages = ${JSON.stringify(pageData, null, 2)}.map((page) => ({ ...page, hotspots: page.hotspots.map(([itemId, x, y, width, height]) => box(itemId, x, y, width, height)) }));\n  window.${id === "other" ? "ENGLISH_OTHER" : `ENGLISH_${id.replace("-", "_").toUpperCase()}`} = { id: ${JSON.stringify(id)}, title: ${JSON.stringify(title)}, englishTitle: ${JSON.stringify(englishTitle)}, sourcePages: Array.from({ length: ${Number(lastPdfPage) - Number(firstPdfPage) + 1} }, (_, index) => ${Number(firstPdfPage)} + index), words: [], sentences, pages };\n})();\n`;
+fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+fs.writeFileSync(outputPath, js);
+console.log(`Generated ${sentences.length} point-reading entries in ${outputPath}`);
