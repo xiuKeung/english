@@ -1,0 +1,39 @@
+// Browser-safe companion. Coordinates originate from local Apple Vision OCR.
+(function () {
+  const item = (id, text, meaning) => ({ id, text, meaning });
+  const box = (id, x, y, width, height) => [id, x * 100, (1 - y - height) * 100, width * 100, height * 100];
+  const words = [
+    item("u02-word-cute", "cute", "可爱的"), item("u02-word-young", "young", "年轻的"), item("u02-word-old", "old", "年老的"),
+    item("u02-word-aunt", "aunt", "阿姨；姑妈"), item("u02-word-uncle", "uncle", "叔叔；舅舅"), item("u02-word-cousin", "cousin", "堂（表）兄弟姐妹"),
+    item("u02-word-party", "party", "聚会"), item("u02-word-story", "story", "故事"), item("u02-sound-am", "-am", "am 发音"), item("u02-sound-an", "-an", "an 发音")
+  ];
+  const sentences = [
+    item("u02-inst-01", "Listen. Then point and say.", "听一听，然后指一指、说一说。"), item("u02-inst-02", "Listen and chant.", "听一听并唱一唱。"), item("u02-inst-03", "Look, point and say.", "看一看，指一指、说一说。"),
+    item("u02-line-01", "This is ...", "这是……"), item("u02-title-01", "Mary's family", "Mary 的家人"), item("u02-line-02", "I'm Mary. This is (my) ... He / She is ...", "我是 Mary。这是（我的）……他／她是……"),
+    item("u02-inst-04", "Guess and tick.", "猜一猜并打勾。"), item("u02-line-03", "Who is Uncle Bob?", "Bob 叔叔是谁？"), item("u02-line-04", "Is she your sister?", "她是你的妹妹吗？"), item("u02-line-05", "He's my cousin, Henry.", "他是我的表兄 Henry。"),
+    item("u02-line-06", "Who is he?", "他是谁？"), item("u02-line-07", "No. She's Henry's sister, Ann.", "不。她是 Henry 的妹妹 Ann。"), item("u02-inst-05", "Read and check.", "读一读并检查。"), item("u02-title-02", "At Uncle Bob's party", "在 Bob 叔叔的聚会上"),
+    item("u02-line-08", "Is that your uncle?", "那是你的叔叔吗？"), item("u02-line-09", "Look here! Say \"Cheese!\"", "看这里！说“茄子！”"), item("u02-line-10", "Hi, children!", "嗨，孩子们！"), item("u02-line-11", "Where's Uncle Bob, Henry?", "Henry，Bob 叔叔在哪里？"),
+    item("u02-line-12", "Hello, Uncle Bob.", "你好，Bob 叔叔。"), item("u02-line-13", "Mum! Aunt Susan! You look great.", "妈妈！Susan 阿姨！你们看起来真棒。"), item("u02-line-14", "Let's look for him!", "让我们找找他！"), item("u02-line-15", "No.", "不。"),
+    item("u02-line-16", "This party is great!", "这个聚会太棒了！"), item("u02-line-17", "Let's have fun.", "让我们玩得开心。"), item("u02-line-18", "Cheese!", "茄子！"), item("u02-inst-06", "Read and order.", "读一读并排序。"),
+    item("u02-line-19", "How does Dan find his uncle?", "Dan 怎样找到他的叔叔？"), item("u02-inst-07", "Role-play.", "角色扮演。"), item("u02-line-20", "Who is ...?", "……是谁？"), item("u02-line-21", "He's / She's ...", "他／她是……"),
+    item("u02-inst-08", "Draw and colour. Ask and answer.", "画一画、涂一涂，问一问、答一答。"), item("u02-line-22", "Who is he / she?", "他／她是谁？"), item("u02-line-23", "Is he / she your grandpa / ...?", "他／她是你的爷爷／……吗？"),
+    item("u02-line-24", "Yes / No. He's / She's my uncle / ...", "是／不是。他／她是我的叔叔／……"), item("u02-line-25", "Guess. He's / She's old / young / cute / ...", "猜一猜。他／她年老／年轻／可爱／……"), item("u02-title-03", "My family", "我的家庭"),
+    item("u02-title-04", "Grandma's bag", "奶奶的包"), item("u02-line-26", "Ken the dog is naughty.", "小狗 Ken 很淘气。"), item("u02-line-27", "Mum throws a ball to Ken.", "妈妈把一个球扔给 Ken。"),
+    item("u02-line-28", "Dad runs after Ken.", "爸爸追着 Ken 跑。"), item("u02-line-29", "Tom throws a bone to Ken.", "Tom 把一根骨头扔给 Ken。"), item("u02-line-30", "Grandma has her bag in Ken's mouth!", "奶奶的包在 Ken 的嘴里！"),
+    item("u02-line-31", "Grandma's bag is back now. Everyone is happy.", "奶奶的包回来了。大家都很开心。"), item("u02-title-05", "Sounds", "语音"), item("u02-line-32", "Sam likes jam.", "Sam 喜欢果酱。"),
+    item("u02-line-33", "Sam likes ham.", "Sam 喜欢火腿。"), item("u02-line-34", "Sam eats bread with jam and ham.", "Sam 吃涂着果酱和火腿的面包。"), item("u02-line-35", "Dan turns on the fan.", "Dan 打开风扇。"),
+    item("u02-line-36", "He opens a can of ham.", "他打开一罐火腿。"), item("u02-line-37", "He puts the ham in the pan.", "他把火腿放进平底锅。")
+  ];
+  window.ENGLISH_UNIT_2 = {
+    id: "unit-2", title: "快乐一家人", englishTitle: "Ready? Go!", sourcePages: [10, 11, 12, 13, 14, 15, 16], words, sentences,
+    pages: [
+      { label: "第 11 页 · 家庭单词", image: "./resources/pages/unit-2-page-11.png", hotspots: [box("u02-inst-01", .154321,.87936,.442387,.027706), box("u02-word-cute", .209877,.75436,.05144,.013081), box("u02-word-young", .45679,.81686,.084362,.017442), box("u02-word-old", .485597,.774709,.041152,.017442), box("u02-line-01", .8107,.816805,.100823,.016044), box("u02-word-aunt", .592593,.684593,.057613,.014535), box("u02-word-cousin", .719986,.657935,.078547,.015526), box("u02-word-uncle", .82716,.699128,.072016,.015988), box("u02-inst-02", .154321,.492733,.306584,.024785), box("u02-inst-03", .154321,.438836,.292181,.026425), box("u02-title-01", .404875,.387392,.192308,.027541), box("u02-line-02", .308642,.132126,.438272,.019037)] },
+      { label: "第 12 页 · 家庭故事", image: "./resources/pages/unit-2-page-12.png", hotspots: [box("u02-inst-04", .172543,.864404,.303292,.03818), box("u02-line-03", .174897,.831354,.228395,.019002), box("u02-word-party", .753086,.831395,.080247,.020349), box("u02-word-story", .541152,.81686,.123457,.039244), box("u02-line-04", .668724,.417151,.209877,.020349), box("u02-line-05", .606996,.478198,.259259,.021802), box("u02-line-06", .742709,.618877,.129807,.019514), box("u02-line-07", .637638,.185403,.205761,.056514), box("u02-inst-05", .174897,.38361,.234568,.021971), box("u02-title-02", .695473,.854513,.199588,.020487)] },
+      { label: "第 13 页 · 家庭故事", image: "./resources/pages/unit-2-page-13.png", hotspots: [box("u02-line-08", .615226,.928741,.218107,.020487), box("u02-line-09", .193416,.88658,.290123,.023304), box("u02-line-10", .240657,.614549,.142143,.022355), box("u02-line-11", .679012,.652613,.176955,.019002), box("u02-line-12", .261317,.40407,.205761,.021802), box("u02-line-13", .193416,.450161,.195473,.050), box("u02-line-14", .656379,.440321,.205761,.017528), box("u02-line-15", .81893,.758721,.047325,.020349), box("u02-line-16", .261317,.376453,.213992,.019033), box("u02-line-17", .279835,.186047,.162551,.017442), box("u02-line-18", .211934,.735465,.09465,.018895)] },
+      { label: "第 14 页 · 角色扮演", image: "./resources/pages/unit-2-page-14.png", hotspots: [box("u02-inst-06", .138471,.914337,.361317,.048431), box("u02-line-19", .141975,.892442,.368313,.017442), box("u02-inst-07", .139678,.369762,.165088,.02501), box("u02-line-20", .246914,.302257,.125514,.019002), box("u02-line-21", .119318,.190301,.168772,.019108)] },
+      { label: "第 15 页 · 问答", image: "./resources/pages/unit-2-page-15.png", hotspots: [box("u02-inst-08", .111111,.872031,.485597,.019002), box("u02-line-22", .345679,.828385,.193416,.020487), box("u02-line-23", .343621,.719418,.320988,.020487), box("u02-line-24", .41358,.652053,.240741,.051435), box("u02-line-25", .409465,.757126,.242798,.02049), box("u02-title-03", .187845,.1965,.287368,.1735)] },
+      { label: "第 16 页 · 延伸故事", image: "./resources/pages/unit-2-page-16.png", hotspots: [box("u02-title-04", .386831,.893895,.240741,.024751), box("u02-line-26", .170782,.670058,.273663,.021802), box("u02-line-27", .170782,.435907,.228395,.050), box("u02-line-28", .567901,.437352,.238683,.019044), box("u02-line-29", .168724,.18314,.164609,.048), box("u02-line-30", .580247,.664192,.193416,.019002), box("u02-line-31", .5,.180226,.281893,.020487)] },
+      { label: "第 17 页 · 自然拼读", image: "./resources/pages/unit-2-page-17.png", hotspots: [box("u02-title-05", .294239,.912708,.211934,.024792), box("u02-sound-am", .113169,.835756,.08642,.02907), box("u02-line-32", .250368,.808909,.167997,.020357), box("u02-line-33", .251029,.781977,.174897,.017442), box("u02-line-34", .251029,.752907,.390946,.01758), box("u02-sound-an", .798354,.43314,.09465,.02907), box("u02-line-35", .145798,.46208,.245578,.020217), box("u02-line-36", .139918,.43314,.277778,.018895), box("u02-line-37", .139918,.40407,.316872,.01903)] }
+    ]
+  };
+})();

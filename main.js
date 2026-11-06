@@ -1,4 +1,5 @@
-const unit = window.ENGLISH_UNIT_1;
+const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2].filter(Boolean);
+let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
 const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null };
@@ -21,7 +22,7 @@ function play(item, node, done) {
 function chooseSentence(item, node) { document.querySelectorAll(".line-card").forEach((el) => el.classList.remove("selected")); node.classList.add("selected"); state.selected=item; chosenLine.textContent=`跟读：${item.text}`; $("#record-button").disabled=false; }
 function playNext() { if (state.queueIndex >= state.queue.length) { showToast("这一段听完啦，试试跟读吧！"); return; } const item=state.queue[state.queueIndex++]; const node=document.querySelector(`[data-id="${item.id}"]`); play(item,node,playNext); }
 function beginQueue(items) { stopAudio(); state.queue=items; state.queueIndex=0; playNext(); }
-const textbookPages = [
+const unit1Pages = [
   { label:"第 3 页 · 五感单词", image:"./resources/pages/unit-1-page-3.png", hotspots:[
     ["u01-inst-01", 15, 9, 54, 6], ["u01-word-feel", 32, 27, 7, 4], ["u01-word-see", 62, 27, 7, 4], ["u01-word-smell", 19, 43, 9, 4], ["u01-word-hear", 46, 43, 8, 4], ["u01-word-taste", 73, 43, 9, 4], ["u01-inst-02", 15, 48, 32, 5], ["u01-inst-03", 14, 53, 41, 5], ["u01-line-01", 75, 65, 16, 7]
   ]},
@@ -39,24 +40,30 @@ const textbookPages = [
 function renderTextbookReader(unit) {
   const allItems = [...unit.words, ...unit.sentences]; const tabs = $("#page-tabs"), stage = $("#reader-stage");
   function showPage(index) {
-    const page = textbookPages[index]; tabs.querySelectorAll("button").forEach((button, buttonIndex)=>button.classList.toggle("active",buttonIndex===index));
+    const page = unit.pages[index]; tabs.querySelectorAll("button").forEach((button, buttonIndex)=>button.classList.toggle("active",buttonIndex===index));
     stage.innerHTML = `<div class="book-page"><div class="book-page-canvas"><img src="${page.image}" alt="${page.label}" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); return item ? `<button class="hotspot" data-id="${id}" style="left:${left}%;top:${top}%;width:${width}%;height:${height}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
     stage.querySelectorAll(".hotspot").forEach((node)=>node.addEventListener("click",()=>{ const item=allItems.find((entry)=>entry.id===node.dataset.id); if(item) play(item,node); }));
   }
-  tabs.innerHTML=textbookPages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${page.label}</button>`).join("");
+  tabs.innerHTML=unit.pages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${page.label}</button>`).join("");
   tabs.querySelectorAll("button").forEach((button,index)=>button.addEventListener("click",()=>showPage(index))); showPage(0);
 }
 function renderUnitDock() {
-  const allUnits = Array.from({length:12}, (_, index) => ({ id:`unit-${index + 1}`, label:`Unit ${index + 1}`, available:index === 0 }));
+  const allUnits = Array.from({length:6}, (_, index) => ({ id:`unit-${index + 1}`, label:`Unit ${index + 1}`, available:units.some((entry) => entry.id === `unit-${index + 1}`) }));
   let lastUnit = "unit-1";
   try { lastUnit = localStorage.getItem("little-ear:last-unit") || "unit-1"; } catch (_) {}
-  if (!allUnits.some((entry) => entry.id === lastUnit && entry.available)) lastUnit = "unit-1";
+  if (!allUnits.some((entry) => entry.id === lastUnit && entry.available)) lastUnit = units[0]?.id || "unit-1";
   try { localStorage.setItem("little-ear:last-unit", lastUnit); } catch (_) {}
   const tabs = $("#unit-tabs");
   tabs.innerHTML = allUnits.map((entry) => `<button type="button" class="${entry.id === lastUnit ? "active" : ""}" ${entry.available ? "" : "disabled"} aria-label="${entry.label}${entry.available ? "" : "，正在整理"}">${entry.label}</button>`).join("");
-  tabs.querySelectorAll("button:not([disabled])").forEach((button) => button.addEventListener("click", () => { try { localStorage.setItem("little-ear:last-unit", "unit-1"); } catch (_) {} }));
+  tabs.querySelectorAll("button:not([disabled])").forEach((button) => button.addEventListener("click", () => {
+    const nextUnit = units.find((entry) => entry.id === button.dataset.unit);
+    if (!nextUnit || nextUnit.id === unit.id) return;
+    unit = nextUnit; try { localStorage.setItem("little-ear:last-unit", unit.id); } catch (_) {} render(unit);
+  }));
+  tabs.querySelectorAll("button:not([disabled])").forEach((button) => { button.dataset.unit = button.textContent.trim().toLowerCase().replace(" ", "-"); });
 }
 function render(unit) {
+  unit.pages ||= unit1Pages;
   $("#unit-title").textContent=unit.title; $(".subtitle").textContent=unit.englishTitle; $("#word-count").textContent=`${unit.words.length} 个单词`;
   wordGrid.innerHTML=unit.words.map((item)=>`<button class="word-card" data-id="${item.id}" aria-label="播放 ${item.text}"><span class="word-icon">${icons[item.text]||"🔊"}</span><span class="word-text">${item.text}</span><span class="word-meaning">${item.meaning}</span></button>`).join("");
   sentenceList.innerHTML=unit.sentences.map((item,index)=>`<button class="line-card" data-id="${item.id}"><span class="line-number">${String(index+1).padStart(2,"0")}</span><span class="line-text">${item.text}<span class="line-meaning">${item.meaning}</span></span><span class="line-play" aria-hidden="true">▶</span></button>`).join("");
@@ -84,5 +91,6 @@ $("#close-book").addEventListener("click", closeBook);
 $("#close-book-backdrop").addEventListener("click", closeBook);
 document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !bookModal.hidden) closeBook(); });
 setupRecording();
+try { const remembered = localStorage.getItem("little-ear:last-unit"); const rememberedUnit = units.find((entry) => entry.id === remembered); if (rememberedUnit) unit = rememberedUnit; } catch (_) {}
 if (unit) render(unit);
 else showToast("课程内容加载失败，请刷新页面后重试。");
