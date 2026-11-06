@@ -8,6 +8,7 @@
     item("u02-word-party", "party", "聚会"), item("u02-word-story", "story", "故事"), item("u02-sound-am", "-am", "am 发音"), item("u02-sound-an", "-an", "an 发音")
   ];
   const sentences = [
+    item("u02-title-00", "What do you like about your family?", "你喜欢你的家人的什么？"),
     item("u02-inst-01", "Listen. Then point and say.", "听一听，然后指一指、说一说。"), item("u02-inst-02", "Listen and chant.", "听一听并唱一唱。"), item("u02-inst-03", "Look, point and say.", "看一看，指一指、说一说。"),
     item("u02-line-01", "This is ...", "这是……"), item("u02-title-01", "Mary's family", "Mary 的家人"), item("u02-line-02", "I'm Mary. This is (my) ... He / She is ...", "我是 Mary。这是（我的）……他／她是……"),
     item("u02-inst-04", "Guess and tick.", "猜一猜并打勾。"), item("u02-line-03", "Who is Uncle Bob?", "Bob 叔叔是谁？"), item("u02-line-04", "Is she your sister?", "她是你的妹妹吗？"), item("u02-line-05", "He's my cousin, Henry.", "他是我的表兄 Henry。"),
@@ -25,8 +26,9 @@
     item("u02-line-36", "He opens a can of ham.", "他打开一罐火腿。"), item("u02-line-37", "He puts the ham in the pan.", "他把火腿放进平底锅。")
   ];
   window.ENGLISH_UNIT_2 = {
-    id: "unit-2", title: "快乐一家人", englishTitle: "Ready? Go!", sourcePages: [10, 11, 12, 13, 14, 15, 16], words, sentences,
+    id: "unit-2", title: "快乐一家人", englishTitle: "What do you like about your family?", sourcePages: [9, 10, 11, 12, 13, 14, 15, 16], words, sentences,
     pages: [
+      { label: "第 10 页 · Unit 2", image: "./resources/pages/unit-2-page-10.png", hotspots: [box("u02-title-00", .322546,.808355,.564285,.07185)] },
       { label: "第 11 页 · 家庭单词", image: "./resources/pages/unit-2-page-11.png", hotspots: [box("u02-inst-01", .154321,.87936,.442387,.027706), box("u02-word-cute", .209877,.75436,.05144,.013081), box("u02-word-young", .45679,.81686,.084362,.017442), box("u02-word-old", .485597,.774709,.041152,.017442), box("u02-line-01", .8107,.816805,.100823,.016044), box("u02-word-aunt", .592593,.684593,.057613,.014535), box("u02-word-cousin", .719986,.657935,.078547,.015526), box("u02-word-uncle", .82716,.699128,.072016,.015988), box("u02-inst-02", .154321,.492733,.306584,.024785), box("u02-inst-03", .154321,.438836,.292181,.026425), box("u02-title-01", .404875,.387392,.192308,.027541), box("u02-line-02", .308642,.132126,.438272,.019037)] },
       { label: "第 12 页 · 家庭故事", image: "./resources/pages/unit-2-page-12.png", hotspots: [box("u02-inst-04", .172543,.864404,.303292,.03818), box("u02-line-03", .174897,.831354,.228395,.019002), box("u02-word-party", .753086,.831395,.080247,.020349), box("u02-word-story", .541152,.81686,.123457,.039244), box("u02-line-04", .668724,.417151,.209877,.020349), box("u02-line-05", .606996,.478198,.259259,.021802), box("u02-line-06", .742709,.618877,.129807,.019514), box("u02-line-07", .637638,.185403,.205761,.056514), box("u02-inst-05", .174897,.38361,.234568,.021971), box("u02-title-02", .695473,.854513,.199588,.020487)] },
       { label: "第 13 页 · 家庭故事", image: "./resources/pages/unit-2-page-13.png", hotspots: [box("u02-line-08", .615226,.928741,.218107,.020487), box("u02-line-09", .193416,.88658,.290123,.023304), box("u02-line-10", .240657,.614549,.142143,.022355), box("u02-line-11", .679012,.652613,.176955,.019002), box("u02-line-12", .261317,.40407,.205761,.021802), box("u02-line-13", .193416,.450161,.195473,.050), box("u02-line-14", .656379,.440321,.205761,.017528), box("u02-line-15", .81893,.758721,.047325,.020349), box("u02-line-16", .261317,.376453,.213992,.019033), box("u02-line-17", .279835,.186047,.162551,.017442), box("u02-line-18", .211934,.735465,.09465,.018895)] },
