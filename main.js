@@ -6,6 +6,7 @@ let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
 const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null, speechToken:0, speechWakeTimer:null };
+const preloadedPageImages = new Set();
 const $ = (s) => document.querySelector(s);
 const wordGrid = $("#word-grid"), sentenceList = $("#sentence-list"), chosenLine = $("#chosen-line"), toast = $("#toast");
 
@@ -80,16 +81,30 @@ function expandedHotspot(left, top, width, height) {
 function renderTextbookReader(unit) {
   const allItems = [...unit.words, ...unit.sentences]; const tabs = $("#page-tabs"), stage = $("#reader-stage");
   const tabLabel = (label) => label.match(/第\s*\d+\s*页/)?.[0] || label;
-  function showPage(index) {
+  const pageStorageKey = `little-ear:last-page:${unit.id}`;
+  const warmPage = (page) => {
+    if (!page || preloadedPageImages.has(page.image)) return;
+    preloadedPageImages.add(page.image); const image = new Image(); image.src = page.image;
+  };
+  function showPage(index, {remember=true, scrollTab=true}={}) {
     const page = unit.pages[index]; tabs.querySelectorAll("button").forEach((button, buttonIndex)=>button.classList.toggle("active",buttonIndex===index));
-    stage.innerHTML = `<div class="book-page"><div class="book-page-canvas"><img src="${page.image}" alt="${page.label}" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); const [expandedLeft, expandedTop, expandedWidth, expandedHeight] = expandedHotspot(left, top, width, height); return item ? `<button class="hotspot" data-id="${id}" style="left:${expandedLeft}%;top:${expandedTop}%;width:${expandedWidth}%;height:${expandedHeight}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
+    if (remember) try { localStorage.setItem(pageStorageKey, page.image); } catch (_) {}
+    stage.setAttribute("aria-busy", "true");
+    stage.innerHTML = `<div class="book-page is-loading"><div class="book-page-canvas"><div class="reader-loader" role="status"><span></span>正在打开${tabLabel(page.label)}</div><img src="${page.image}" alt="${page.label}" fetchpriority="high" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); const [expandedLeft, expandedTop, expandedWidth, expandedHeight] = expandedHotspot(left, top, width, height); return item ? `<button class="hotspot" data-id="${id}" style="left:${expandedLeft}%;top:${expandedTop}%;width:${expandedWidth}%;height:${expandedHeight}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
+    const bookPage = stage.querySelector(".book-page"), image = bookPage.querySelector("img"), loader = bookPage.querySelector(".reader-loader");
+    const loaded = () => { bookPage.classList.remove("is-loading"); loader.remove(); stage.removeAttribute("aria-busy"); warmPage(unit.pages[index - 1]); warmPage(unit.pages[index + 1]); };
+    image.addEventListener("load", loaded, {once:true}); image.addEventListener("error", () => { loader.textContent="这一页暂时打不开，请稍后重试。"; stage.removeAttribute("aria-busy"); }, {once:true});
+    if (image.complete && image.naturalWidth) loaded();
+    if (scrollTab) tabs.querySelectorAll("button")[index]?.scrollIntoView({ behavior:remember ? "smooth" : "auto", block:"nearest", inline:"nearest" });
     stage.querySelectorAll(".hotspot").forEach((node)=>node.addEventListener("click",()=>{ const item=allItems.find((entry)=>entry.id===node.dataset.id); if(item) play(item,node); }));
   }
   tabs.innerHTML=unit.pages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${tabLabel(page.label)}</button>`).join("");
   tabs.querySelectorAll("button").forEach((button,index)=>button.addEventListener("click",()=>{
     showPage(index);
-    button.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"nearest" });
-  })); showPage(0);
+  }));
+  let savedImage; try { savedImage = localStorage.getItem(pageStorageKey); } catch (_) {}
+  const restoredIndex = Math.max(0, unit.pages.findIndex((page) => page.image === savedImage));
+  showPage(restoredIndex, {remember:false, scrollTab:true});
 }
 function renderUnitDock() {
   const allUnits = [...Array.from({length:6}, (_, index) => ({ id:`unit-${index + 1}`, label:`Unit ${index + 1}`, available:units.some((entry) => entry.id === `unit-${index + 1}`) })), { id:"other", label:"其他", available:units.some((entry) => entry.id === "other") }];
