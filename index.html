@@ -37,14 +37,18 @@
       </nav>
 
       <section class="section reader-section" id="reader" aria-labelledby="reader-title">
-        <div class="section-heading"><div><h2 id="reader-title">课本点读</h2></div><div class="reader-controls"><button class="slow-button" id="toggle-slow" type="button">🐢 慢速：关</button><span class="count">紫色圈可点击</span></div></div>
-        <div class="page-tabs" id="page-tabs" aria-label="课本页选择"></div>
-        <div class="reader-stage" id="reader-stage"></div>
+        <div class="learning-switch" role="tablist" aria-label="学习模式"><button class="active" id="reader-mode" type="button" role="tab" aria-selected="true">📖 点读</button><button id="vocabulary-mode" type="button" role="tab" aria-selected="false">🔤 单词</button></div>
+        <div id="reader-content"><div class="section-heading"><div><h2 id="reader-title">点读</h2></div><div class="reader-controls"><button class="slow-button" id="toggle-slow" type="button">🐢 慢速：关</button><span class="count">紫色圈可点击</span></div></div>
+          <div class="page-tabs" id="page-tabs" aria-label="课本页选择"></div>
+          <div class="reader-stage" id="reader-stage"></div>
+        </div>
       </section>
 
-      <section class="section" id="words" aria-labelledby="words-title" hidden>
-        <div class="section-heading"><div><p class="eyebrow">先听单词</p><h2 id="words-title">点一下，听一听</h2></div><span class="count" id="word-count"></span></div>
-        <div class="word-grid" id="word-grid"></div>
+      <section class="section vocabulary-section" id="vocabulary" aria-labelledby="words-title" hidden>
+        <div class="section-heading"><div><p class="eyebrow">听、认、拼</p><h2 id="words-title">单词学习</h2></div><span class="count" id="word-count"></span></div>
+        <div class="vocabulary-tabs" role="tablist" aria-label="单词模式"><button class="active" data-vocab-view="study" type="button">学习</button><button data-vocab-view="choice" type="button">中英互认</button><button data-vocab-view="dictation" type="button">听写</button></div>
+        <div class="vocab-study" id="vocab-study"></div>
+        <div class="vocab-practice" id="vocab-practice" hidden></div>
       </section>
 
       <section class="section sentences" id="sentences" aria-labelledby="sentences-title" hidden>
@@ -88,6 +92,7 @@
     <script defer src="./content/curricula/shenzhen-hj-2025/grade-2/semester-1/units/unit-5.js"></script>
     <script defer src="./content/curricula/shenzhen-hj-2025/grade-2/semester-1/units/unit-6.js"></script>
     <script defer src="./content/curricula/shenzhen-hj-2025/grade-2/semester-1/units/other.js"></script>
+    <script defer src="./content/curricula/shenzhen-hj-2025/grade-2/semester-1/practice/vocabulary/word-list-1.js"></script>
     <script defer src="./main.js"></script>
   </body>
 </html>
