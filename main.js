@@ -91,6 +91,14 @@ function expandedHotspot(left, top, width, height) {
   const nextLeft = Math.max(0, left - horizontalPad), nextTop = Math.max(0, top - verticalPad);
   return [nextLeft, nextTop, Math.min(100 - nextLeft, width + horizontalPad * 2), Math.min(100 - nextTop, height + verticalPad * 2)];
 }
+function revealTabGroup(container, activeTab, behavior="smooth") {
+  const buttons=[...container.querySelectorAll("button")], index=buttons.indexOf(activeTab);
+  if (index<0) return;
+  const first=buttons[Math.max(0,index-1)], last=buttons[Math.min(buttons.length-1,index+1)];
+  const groupLeft=first.offsetLeft-8, groupRight=last.offsetLeft+last.offsetWidth+8;
+  const target=Math.max(0,Math.min(container.scrollWidth-container.clientWidth,(groupLeft+groupRight-container.clientWidth)/2));
+  container.scrollTo({left:target,behavior});
+}
 function escapeHtml(text) { return String(text).replace(/[&<>'"]/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[character]); }
 function shuffle(items) { return [...items].sort(() => Math.random() - .5); }
 function normalizedAudioText(text) { return String(text).trim().replace(/\s+/g," ").replace(/[’‘]/g,"'").toLowerCase(); }
@@ -175,7 +183,7 @@ function renderTextbookReader(unit) {
     const loaded = () => { bookPage.classList.remove("is-loading"); loader.remove(); stage.removeAttribute("aria-busy"); warmPage(unit.pages[index - 1]); warmPage(unit.pages[index + 1]); };
     image.addEventListener("load", loaded, {once:true}); image.addEventListener("error", () => { loader.textContent="这一页暂时打不开，请稍后重试。"; stage.removeAttribute("aria-busy"); }, {once:true});
     if (image.complete && image.naturalWidth) loaded();
-    if (scrollTab) tabs.querySelectorAll("button")[index]?.scrollIntoView({ behavior:remember ? "smooth" : "auto", block:"nearest", inline:"nearest" });
+    if (scrollTab) revealTabGroup(tabs,tabs.querySelectorAll("button")[index],remember ? "smooth" : "auto");
     stage.querySelectorAll(".hotspot").forEach((node)=>node.addEventListener("click",()=>{ const item=allItems.find((entry)=>entry.id===node.dataset.id); if(item) play(item,node); }));
   }
   tabs.innerHTML=unit.pages.map((page,index)=>`<button type="button" class="${index===0?"active":""}">${tabLabel(page.label)}</button>`).join("");
@@ -193,22 +201,12 @@ function renderUnitDock() {
   if (!allUnits.some((entry) => entry.id === lastUnit && entry.available)) lastUnit = units[0]?.id || "unit-1";
   try { localStorage.setItem("little-ear:last-unit", lastUnit); } catch (_) {}
   const tabs = $("#unit-tabs");
-  const revealUnitGroup = (activeTab) => {
-    const buttons=[...tabs.querySelectorAll("button")], index=buttons.indexOf(activeTab);
-    if (index<0) return;
-    // Keep the selected unit and its immediate neighbours in view, so a child
-    // can see where they are in the course and move one unit either way.
-    const first=buttons[Math.max(0,index-1)], last=buttons[Math.min(buttons.length-1,index+1)];
-    const groupLeft=first.offsetLeft-8, groupRight=last.offsetLeft+last.offsetWidth+8;
-    const target=Math.max(0,Math.min(tabs.scrollWidth-tabs.clientWidth,(groupLeft+groupRight-tabs.clientWidth)/2));
-    tabs.scrollTo({left:target,behavior:"smooth"});
-  };
   tabs.innerHTML = allUnits.map((entry) => `<button type="button" data-unit="${entry.id}" class="${entry.id === lastUnit ? "active" : ""}" ${entry.available ? "" : "disabled"} aria-label="${entry.label}${entry.available ? "" : "，正在整理"}">${entry.label}</button>`).join("");
   tabs.querySelectorAll("button:not([disabled])").forEach((button) => button.addEventListener("click", () => {
     const nextUnit = units.find((entry) => entry.id === button.dataset.unit);
     if (!nextUnit || nextUnit.id === unit.id) return;
     unit = nextUnit; try { localStorage.setItem("little-ear:last-unit", unit.id); } catch (_) {} render(unit);
-    requestAnimationFrame(()=>revealUnitGroup(tabs.querySelector(`[data-unit="${unit.id}"]`)));
+    requestAnimationFrame(()=>revealTabGroup(tabs,tabs.querySelector(`[data-unit="${unit.id}"]`)));
   }));
 }
 function render(unit) {
