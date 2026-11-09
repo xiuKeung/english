@@ -10,6 +10,11 @@ const preloadedPageImages = new Set();
 const $ = (s) => document.querySelector(s);
 const vocabStudy = $("#vocab-study"), vocabPractice = $("#vocab-practice"), vocabularySection = $("#vocabulary"), readerContent = $("#reader-content"), sentenceList = $("#sentence-list"), chosenLine = $("#chosen-line"), toast = $("#toast");
 const learningState = { view:"reader", vocabView:"study", items:[], studyIndex:0, question:null, answer:"", retryQueues:{choice:[],"listen-choice":[]}, mistakes:{choice:[],"listen-choice":[]} };
+try {
+  const savedView=localStorage.getItem("little-ear:learning-view"), savedVocabView=localStorage.getItem("little-ear:vocabulary-view");
+  if (["reader","vocabulary"].includes(savedView)) learningState.view=savedView;
+  if (["study","choice","listen-choice","dictation"].includes(savedVocabView)) learningState.vocabView=savedVocabView;
+} catch (_) {}
 
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
 function audioPath(id) { return `${audioRoot}/${id}.${state.slow ? "slow" : "normal"}.m4a`; }
@@ -140,10 +145,11 @@ function renderDictationPractice() {
 }
 function renderVocabulary(activeUnit) {
   learningState.items=vocabularyFor(activeUnit); learningState.studyIndex=0; learningState.question=null; learningState.answer=""; learningState.retryQueues={choice:[],"listen-choice":[]}; learningState.mistakes={choice:[],"listen-choice":[]}; $("#word-count").textContent=`${learningState.items.length} 个词汇`;
-  if(!learningState.items.length) { vocabStudy.innerHTML='<div class="vocab-empty">这个部分暂时没有可练习词汇。</div>'; vocabPractice.innerHTML=""; return; }
+  const isStudy=learningState.vocabView==="study"; vocabStudy.hidden=!isStudy; vocabPractice.hidden=isStudy; document.querySelectorAll("[data-vocab-view]").forEach((button)=>button.classList.toggle("active",button.dataset.vocabView===learningState.vocabView));
+  if(!learningState.items.length) { vocabStudy.hidden=false; vocabPractice.hidden=true; vocabStudy.innerHTML='<div class="vocab-empty">这个部分暂时没有可练习词汇。</div>'; vocabPractice.innerHTML=""; return; }
   renderStudyCard(); if(learningState.vocabView==="choice") renderChoicePractice(); if(learningState.vocabView==="listen-choice") renderListeningChoicePractice(); if(learningState.vocabView==="dictation") renderDictationPractice();
 }
-function showLearningView(view, {scroll=true}={}) { learningState.view=view; const vocabulary=view==="vocabulary"; readerContent.hidden=vocabulary; vocabularySection.hidden=!vocabulary; $("#reader-mode").classList.toggle("active",!vocabulary); $("#reader-mode").setAttribute("aria-selected",String(!vocabulary)); $("#vocabulary-mode").classList.toggle("active",vocabulary); $("#vocabulary-mode").setAttribute("aria-selected",String(vocabulary)); if(vocabulary&&scroll) vocabularySection.scrollIntoView({behavior:"smooth",block:"start"}); }
+function showLearningView(view, {scroll=true}={}) { learningState.view=view; try { localStorage.setItem("little-ear:learning-view",view); } catch (_) {} const vocabulary=view==="vocabulary"; readerContent.hidden=vocabulary; vocabularySection.hidden=!vocabulary; $("#reader-mode").classList.toggle("active",!vocabulary); $("#reader-mode").setAttribute("aria-selected",String(!vocabulary)); $("#vocabulary-mode").classList.toggle("active",vocabulary); $("#vocabulary-mode").setAttribute("aria-selected",String(vocabulary)); if(vocabulary&&scroll) vocabularySection.scrollIntoView({behavior:"smooth",block:"start"}); }
 function renderTextbookReader(unit) {
   const allItems = [...unit.words, ...unit.sentences]; const tabs = $("#page-tabs"), stage = $("#reader-stage");
   const tabLabel = (label) => label.match(/第\s*\d+\s*页/)?.[0] || label;
@@ -210,7 +216,7 @@ $("#toggle-slow").addEventListener("click",(event)=>{ state.slow=!state.slow; ev
 $("#stop-audio").addEventListener("click",stopAudio);
 $("#reader-mode").addEventListener("click",()=>showLearningView("reader"));
 $("#vocabulary-mode").addEventListener("click",()=>showLearningView("vocabulary"));
-document.querySelectorAll("[data-vocab-view]").forEach((button)=>button.addEventListener("click",()=>{ learningState.vocabView=button.dataset.vocabView; document.querySelectorAll("[data-vocab-view]").forEach((entry)=>entry.classList.toggle("active",entry===button)); if(learningState.vocabView==="study") { vocabPractice.hidden=true; vocabStudy.hidden=false; renderStudyCard(); } else { vocabStudy.hidden=true; vocabPractice.hidden=false; learningState.question=null; if(learningState.vocabView==="choice") renderChoicePractice(); else if(learningState.vocabView==="listen-choice") renderListeningChoicePractice(); else renderDictationPractice(); } }));
+document.querySelectorAll("[data-vocab-view]").forEach((button)=>button.addEventListener("click",()=>{ learningState.vocabView=button.dataset.vocabView; try { localStorage.setItem("little-ear:vocabulary-view",learningState.vocabView); } catch (_) {} document.querySelectorAll("[data-vocab-view]").forEach((entry)=>entry.classList.toggle("active",entry===button)); if(learningState.vocabView==="study") { vocabPractice.hidden=true; vocabStudy.hidden=false; renderStudyCard(); } else { vocabStudy.hidden=true; vocabPractice.hidden=false; learningState.question=null; if(learningState.vocabView==="choice") renderChoicePractice(); else if(learningState.vocabView==="listen-choice") renderListeningChoicePractice(); else renderDictationPractice(); } }));
 const bookModal = $("#book-modal");
 const closeBook = () => { bookModal.hidden = true; $("#book-preview").focus(); };
 $("#book-preview").addEventListener("click", () => { bookModal.hidden = false; $("#close-book").focus(); });
