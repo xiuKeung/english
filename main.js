@@ -193,12 +193,22 @@ function renderUnitDock() {
   if (!allUnits.some((entry) => entry.id === lastUnit && entry.available)) lastUnit = units[0]?.id || "unit-1";
   try { localStorage.setItem("little-ear:last-unit", lastUnit); } catch (_) {}
   const tabs = $("#unit-tabs");
+  const revealUnitGroup = (activeTab) => {
+    const buttons=[...tabs.querySelectorAll("button")], index=buttons.indexOf(activeTab);
+    if (index<0) return;
+    // Keep the selected unit and its immediate neighbours in view, so a child
+    // can see where they are in the course and move one unit either way.
+    const first=buttons[Math.max(0,index-1)], last=buttons[Math.min(buttons.length-1,index+1)];
+    const groupLeft=first.offsetLeft-8, groupRight=last.offsetLeft+last.offsetWidth+8;
+    const target=Math.max(0,Math.min(tabs.scrollWidth-tabs.clientWidth,(groupLeft+groupRight-tabs.clientWidth)/2));
+    tabs.scrollTo({left:target,behavior:"smooth"});
+  };
   tabs.innerHTML = allUnits.map((entry) => `<button type="button" data-unit="${entry.id}" class="${entry.id === lastUnit ? "active" : ""}" ${entry.available ? "" : "disabled"} aria-label="${entry.label}${entry.available ? "" : "，正在整理"}">${entry.label}</button>`).join("");
   tabs.querySelectorAll("button:not([disabled])").forEach((button) => button.addEventListener("click", () => {
     const nextUnit = units.find((entry) => entry.id === button.dataset.unit);
     if (!nextUnit || nextUnit.id === unit.id) return;
     unit = nextUnit; try { localStorage.setItem("little-ear:last-unit", unit.id); } catch (_) {} render(unit);
-    requestAnimationFrame(()=>tabs.querySelector(`[data-unit="${unit.id}"]`)?.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"}));
+    requestAnimationFrame(()=>revealUnitGroup(tabs.querySelector(`[data-unit="${unit.id}"]`)));
   }));
 }
 function render(unit) {
