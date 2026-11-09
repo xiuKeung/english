@@ -11,6 +11,9 @@
     <style>
       .listen-choice-actions, .dictation-listen-actions { margin-bottom: 28px; }
       .dictation-actions button:disabled { cursor: not-allowed; opacity: .55; color: #746d7c; border-color: #d8d3df; background: #ebe7ee; }
+      .study-actions { flex-wrap: nowrap; }
+      .study-actions button { white-space: nowrap; }
+      @media (max-width: 360px) { .study-actions { gap: 6px; } .study-actions button { padding: 10px 9px; font-size: .82rem; } }
     </style>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./resources/icons/apple-touch-icon.png" />

@@ -115,7 +115,7 @@ function vocabularyFor(activeUnit) {
 function renderStudyCard() {
   const items = learningState.items; if (!items.length) return;
   const index = Math.max(0, Math.min(learningState.studyIndex, items.length - 1)); learningState.studyIndex=index; const item=items[index];
-  vocabStudy.innerHTML=`<p class="study-progress">${index+1} / ${items.length}</p><div class="study-card"><p class="study-word">${escapeHtml(item.text)}</p><p class="study-meaning">${escapeHtml(item.meaning || "点击朗读，先听一听")}</p></div><div class="study-actions"><button type="button" data-study="previous">← 上一个</button><button class="primary-action" type="button" data-study="play">🔊 听读音</button><button type="button" data-study="next">下一个 →</button></div>`;
+  vocabStudy.innerHTML=`<p class="study-progress">${index+1} / ${items.length}</p><div class="study-card"><p class="study-word">${escapeHtml(item.text)}</p><p class="study-meaning">${escapeHtml(item.meaning || "点击朗读，先听一听")}</p></div><div class="study-actions"><button type="button" data-study="previous">上一个</button><button class="primary-action" type="button" data-study="play">🔊 听读音</button><button type="button" data-study="next">下一个</button></div>`;
   vocabStudy.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => { const action=button.dataset.study; if(action === "play") play(item,button); if(action === "previous") { learningState.studyIndex=(index-1+items.length)%items.length; renderStudyCard(); } if(action === "next") { learningState.studyIndex=(index+1)%items.length; renderStudyCard(); } }));
 }
 function newChoiceQuestion() {
