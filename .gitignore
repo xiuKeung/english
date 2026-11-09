@@ -3,5 +3,8 @@
 *.webm
 *.wav
 
+# macOS Finder metadata is local to each machine.
+.DS_Store
+
 # Keep the original source PDF locally, but do not commit a copyrighted scan.
 resources/source/*.pdf
