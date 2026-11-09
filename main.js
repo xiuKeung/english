@@ -1,7 +1,4 @@
 const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2, window.ENGLISH_UNIT_3, window.ENGLISH_UNIT_4, window.ENGLISH_UNIT_5, window.ENGLISH_UNIT_6, window.ENGLISH_OTHER].filter(Boolean);
-// Use the same immediate browser voice across every unit. This avoids a
-// missing static-audio request delaying or suppressing speech on mobile/PWA.
-units.forEach((entry) => { entry.preferSpeech = true; });
 let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
@@ -17,7 +14,7 @@ try {
 } catch (_) {}
 
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
-function audioPath(id) { return `${audioRoot}/${id}.${state.slow ? "slow" : "normal"}.m4a`; }
+function audioPath(id) { const unitId=id.match(/^u(\d{2})-/)?.[1]; return `${audioRoot}/${unitId?`unit-${Number(unitId)}`:"other"}/${state.slow ? "slow" : "normal"}/${id}.m4a`; }
 function resetPlaying() { document.querySelectorAll(".playing").forEach((node) => node.classList.remove("playing")); }
 function clearSpeech({ cancel=true }={}) { state.speechToken += 1; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; if (cancel && "speechSynthesis" in window) speechSynthesis.cancel(); }
 function stopAudio({ clearQueue=true }={}) { if (state.audio) { state.audio.pause(); state.audio.currentTime = 0; state.audio = null; } clearSpeech(); if (clearQueue) state.queue=[]; resetPlaying(); }
@@ -47,7 +44,7 @@ function speakFallback(text, done) {
   if (wasBusy) setTimeout(start, 80); else start();
 }
 function play(item, node, done) {
-  if (unit.preferSpeech) { if (state.audio) { state.audio.pause(); state.audio.currentTime=0; state.audio=null; } resetPlaying(); node?.classList.add("playing"); speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
+  if (!window.ENGLISH_AUDIO_INDEX?.has(item.id)) { if (state.audio) { state.audio.pause(); state.audio.currentTime=0; state.audio=null; } resetPlaying(); node?.classList.add("playing"); speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
   stopAudio({clearQueue:false}); resetPlaying(); node?.classList.add("playing");
   const player = new Audio(audioPath(item.id)); state.audio = player;
   const finish = () => { node?.classList.remove("playing"); if (state.audio === player) state.audio=null; done?.(); };

@@ -38,15 +38,20 @@
 ## 发音
 
 - 每次点击文本均通过统一 `play()` 函数播放；不得在单元代码中自行创建音频播放器。
-- 所有单元使用 `preferSpeech: true`，直接使用设备的浏览器英文朗读。这样可避免手机或 PWA 因缺少静态音频而延迟或丢失播放。
+- 优先播放清单中存在的预生成音频；缺少音频时才直接使用设备的浏览器英文朗读。这样既保持固定音色，也避免手机或 PWA 为不存在的音频触发 404。
 - 若为新单元生成质量可靠、已确认可发布的音频，命名必须为：
 
   ```text
-  resources/audio/shenzhen-hj-2025-grade-2-semester-1/<content-id>.normal.m4a
-  resources/audio/shenzhen-hj-2025-grade-2-semester-1/<content-id>.slow.m4a
+  resources/audio/shenzhen-hj-2025-grade-2-semester-1/
+    manifest.js
+    unit-1/normal/<content-id>.m4a
+    unit-1/slow/<content-id>.m4a
+    unit-2/normal/<content-id>.m4a
+    unit-2/slow/<content-id>.m4a
   ```
 
-- 没有高质量预生成音频时，保留浏览器回退，不要为了“有音频”而加入质量欠佳的系统 TTS 文件。
+- 使用 `node tools/generate-course-audio.mjs --all --normal-rate 150 --slow-rate 108` 生成所有单元。该工具从单元数据读取 ID 与英文文本、跳过明显 OCR 杂讯，并自动刷新 `manifest.js`；新增单元后不需要维护手写音频列表。
+- `manifest.js` 同时保存 `内容 ID → 英文文本 / 单元` 与按教材页排序的 `ENGLISH_LISTENING_TRACKS`。听力播放应读取这份清单，不能凭文件名或页面文字推测顺序；同一段音频可同时被点读与听力队列复用。
 
 ## 页签与单元切换
 
