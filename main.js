@@ -5,21 +5,30 @@ units.forEach((entry) => { entry.preferSpeech = true; });
 let unit = units[0];
 const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
-const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null, speechToken:0, speechWakeTimer:null };
+const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null, speechToken:0, speechWakeTimer:null, preferredVoice:null };
 const preloadedPageImages = new Set();
 const $ = (s) => document.querySelector(s);
 const vocabStudy = $("#vocab-study"), vocabPractice = $("#vocab-practice"), vocabularySection = $("#vocabulary"), readerContent = $("#reader-content"), sentenceList = $("#sentence-list"), chosenLine = $("#chosen-line"), toast = $("#toast");
-const learningState = { view:"reader", vocabView:"study", items:[], studyIndex:0, question:null, answer:"" };
+const learningState = { view:"reader", vocabView:"study", items:[], studyIndex:0, question:null, answer:"", retryQueues:{choice:[],"listen-choice":[]}, mistakes:{choice:[],"listen-choice":[]} };
 
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
 function audioPath(id) { return `${audioRoot}/${id}.${state.slow ? "slow" : "normal"}.m4a`; }
 function resetPlaying() { document.querySelectorAll(".playing").forEach((node) => node.classList.remove("playing")); }
 function clearSpeech({ cancel=true }={}) { state.speechToken += 1; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; if (cancel && "speechSynthesis" in window) speechSynthesis.cancel(); }
 function stopAudio({ clearQueue=true }={}) { if (state.audio) { state.audio.pause(); state.audio.currentTime = 0; state.audio = null; } clearSpeech(); if (clearQueue) state.queue=[]; resetPlaying(); }
+function preferredEnglishVoice() {
+  if (!("speechSynthesis" in window)) return null;
+  const voices=speechSynthesis.getVoices();
+  if (!voices.length) return null;
+  const english=voices.filter((voice)=>/^en(-|_)/i.test(voice.lang));
+  const femaleName=/(samantha|ava|aria|jenny|zira|karen|moira|tessa|allison|serena|victoria|female|google us english)/i;
+  return english.find((voice)=>femaleName.test(voice.name)) || english.find((voice)=>/^en-us$/i.test(voice.lang)) || english[0] || null;
+}
+if ("speechSynthesis" in window) speechSynthesis.addEventListener?.("voiceschanged",()=>{ state.preferredVoice=preferredEnglishVoice(); });
 function speakFallback(text, done) {
   if (!("speechSynthesis" in window)) { showToast("这个设备暂时不能播放语音。"); done?.(); return; }
   const wasBusy = speechSynthesis.speaking || speechSynthesis.pending;
-  clearSpeech(); const token = state.speechToken; const utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate=state.slow ? .68 : .9;
+  clearSpeech(); const token = state.speechToken; const utterance = new SpeechSynthesisUtterance(text); utterance.lang="en-US"; utterance.rate=state.slow ? .68 : .9; state.preferredVoice=preferredEnglishVoice() || state.preferredVoice; if (state.preferredVoice) utterance.voice=state.preferredVoice;
   const finish = () => { if (token !== state.speechToken) return; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; done?.(); };
   utterance.onend=finish; utterance.onerror=finish;
   const start = () => {
@@ -94,43 +103,43 @@ function renderStudyCard() {
   vocabStudy.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => { const action=button.dataset.study; if(action === "play") play(item,button); if(action === "previous") { learningState.studyIndex=(index-1+items.length)%items.length; renderStudyCard(); } if(action === "next") { learningState.studyIndex=(index+1)%items.length; renderStudyCard(); } }));
 }
 function newChoiceQuestion() {
-  const items=learningState.items.filter((item) => item.meaning); const item=items[Math.floor(Math.random()*items.length)]; const englishToChinese=Math.random()>.5;
+  const items=learningState.items.filter((item) => item.meaning); const retryItem=learningState.retryQueues.choice.shift(); const item=retryItem || items[Math.floor(Math.random()*items.length)]; const englishToChinese=Math.random()>.5;
   const options=shuffle([item,...shuffle(items.filter((entry)=>entry.id!==item.id)).slice(0,3)]);
-  learningState.question={type:"choice",item,englishToChinese,options,answered:false};
+  learningState.question={type:"choice",item,englishToChinese,options,answered:false,isRetry:Boolean(retryItem)};
 }
 function renderChoicePractice() {
   const items=learningState.items.filter((item)=>item.meaning); if(items.length<4) { vocabPractice.innerHTML='<div class="vocab-empty">本单元可用于中英互认的词汇不足 4 个。</div>'; return; }
   if(!learningState.question || learningState.question.type!=="choice") newChoiceQuestion(); const question=learningState.question, item=question.item;
   const prompt=question.englishToChinese ? item.text : item.meaning; const direction=question.englishToChinese ? "选出正确的中文意思" : "选出正确的英文单词";
-  vocabPractice.innerHTML=`<p class="practice-progress">中英互认 · ${direction}</p><p class="practice-question">${escapeHtml(prompt)}</p><div class="choice-grid">${question.options.map((option)=>`<button type="button" data-choice="${escapeHtml(option.id)}">${escapeHtml(question.englishToChinese?option.meaning:option.text)}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions"><button type="button" data-next hidden>下一题 →</button></div>`;
+  vocabPractice.innerHTML=`<p class="practice-progress">中英互认 · ${direction} · 本轮错题 ${learningState.mistakes.choice.length} 道</p><p class="practice-question">${escapeHtml(prompt)}</p><div class="choice-grid">${question.options.map((option)=>`<button type="button" data-choice="${escapeHtml(option.id)}">${escapeHtml(question.englishToChinese?option.meaning:option.text)}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions"><button type="button" data-next hidden>下一题 →</button></div>`;
   const feedback=$("#practice-feedback"), next=vocabPractice.querySelector("[data-next]");
-  vocabPractice.querySelectorAll("[data-choice]").forEach((button)=>button.addEventListener("click",()=>{ if(question.answered)return; question.answered=true; const correct=button.dataset.choice===item.id; vocabPractice.querySelectorAll("[data-choice]").forEach((choice)=>{ const option=question.options.find((entry)=>entry.id===choice.dataset.choice); if(option.id===item.id)choice.classList.add("correct"); else if(choice===button)choice.classList.add("wrong"); choice.disabled=true; }); feedback.textContent=correct?"答对啦！":"再记一遍："+(question.englishToChinese?item.meaning:item.text); feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; }));
+  vocabPractice.querySelectorAll("[data-choice]").forEach((button)=>button.addEventListener("click",()=>{ if(question.answered)return; question.answered=true; const correct=button.dataset.choice===item.id; vocabPractice.querySelectorAll("[data-choice]").forEach((choice)=>{ const option=question.options.find((entry)=>entry.id===choice.dataset.choice); if(option.id===item.id)choice.classList.add("correct"); else if(choice===button)choice.classList.add("wrong"); choice.disabled=true; }); if(!correct&&!question.isRetry) { learningState.mistakes.choice.push(item); learningState.retryQueues.choice.push(item); } feedback.textContent=correct?"答对啦！":"再记一遍："+(question.englishToChinese?item.meaning:item.text)+(question.isRetry?"":"（这题会再出现一次）"); feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; }));
   next.addEventListener("click",()=>{ learningState.question=null; renderChoicePractice(); });
 }
 function newListeningChoiceQuestion() {
-  const items=learningState.items.filter((item)=>item.meaning); const item=items[Math.floor(Math.random()*items.length)];
-  learningState.question={type:"listen-choice",item,options:shuffle([item,...shuffle(items.filter((entry)=>entry.id!==item.id)).slice(0,3)]),answered:false};
+  const items=learningState.items.filter((item)=>item.meaning); const retryItem=learningState.retryQueues["listen-choice"].shift(); const item=retryItem || items[Math.floor(Math.random()*items.length)];
+  learningState.question={type:"listen-choice",item,options:shuffle([item,...shuffle(items.filter((entry)=>entry.id!==item.id)).slice(0,3)]),answered:false,isRetry:Boolean(retryItem)};
 }
 function renderListeningChoicePractice() {
-  const items=learningState.items.filter((item)=>item.meaning); if(items.length<4) { vocabPractice.innerHTML='<div class="vocab-empty">本单元可用于听音选义的词汇不足 4 个。</div>'; return; }
+  const items=learningState.items.filter((item)=>item.meaning); if(items.length<4) { vocabPractice.innerHTML='<div class="vocab-empty">本单元可用于听音选词义的词汇不足 4 个。</div>'; return; }
   if(!learningState.question || learningState.question.type!=="listen-choice") newListeningChoiceQuestion(); const question=learningState.question, item=question.item;
-  vocabPractice.innerHTML=`<p class="practice-progress">听音选义 · 先听读音，再选中文意思</p><div class="practice-actions"><button class="primary-action" type="button" data-listen-play>🔊 播放读音</button></div><div class="choice-grid">${question.options.map((option)=>`<button type="button" data-listen-choice="${escapeHtml(option.id)}">${escapeHtml(option.meaning)}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions"><button type="button" data-next hidden>下一题 →</button></div>`;
+  vocabPractice.innerHTML=`<p class="practice-progress">听音选词义 · 先听读音，再选中文意思 · 本轮错题 ${learningState.mistakes["listen-choice"].length} 道</p><div class="practice-actions listen-choice-actions"><button class="primary-action" type="button" data-listen-play>🔊 播放读音</button></div><div class="choice-grid">${question.options.map((option)=>`<button type="button" data-listen-choice="${escapeHtml(option.id)}">${escapeHtml(option.meaning)}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions"><button type="button" data-next hidden>下一题 →</button></div>`;
   const feedback=$("#practice-feedback"), next=vocabPractice.querySelector("[data-next]"); vocabPractice.querySelector("[data-listen-play]").addEventListener("click",(event)=>play(item,event.currentTarget));
-  vocabPractice.querySelectorAll("[data-listen-choice]").forEach((button)=>button.addEventListener("click",()=>{ if(question.answered)return; question.answered=true; const correct=button.dataset.listenChoice===item.id; vocabPractice.querySelectorAll("[data-listen-choice]").forEach((choice)=>{ const option=question.options.find((entry)=>entry.id===choice.dataset.listenChoice); if(option.id===item.id)choice.classList.add("correct"); else if(choice===button)choice.classList.add("wrong"); choice.disabled=true; }); feedback.textContent=correct?"答对啦！":"正确答案："+item.meaning; feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; }));
+  vocabPractice.querySelectorAll("[data-listen-choice]").forEach((button)=>button.addEventListener("click",()=>{ if(question.answered)return; question.answered=true; const correct=button.dataset.listenChoice===item.id; vocabPractice.querySelectorAll("[data-listen-choice]").forEach((choice)=>{ const option=question.options.find((entry)=>entry.id===choice.dataset.listenChoice); if(option.id===item.id)choice.classList.add("correct"); else if(choice===button)choice.classList.add("wrong"); choice.disabled=true; }); if(!correct&&!question.isRetry) { learningState.mistakes["listen-choice"].push(item); learningState.retryQueues["listen-choice"].push(item); } feedback.textContent=correct?"答对啦！":"正确答案："+item.meaning+(question.isRetry?"":"（这题会再出现一次）"); feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; }));
   next.addEventListener("click",()=>{ learningState.question=null; renderListeningChoicePractice(); });
 }
 function newDictationQuestion() { const items=learningState.items.filter((item)=>/^[a-z]+$/i.test(item.text)); learningState.question={type:"dictation",item:items[Math.floor(Math.random()*items.length)],checked:false}; learningState.answer=""; }
 function renderDictationPractice() {
   const items=learningState.items.filter((item)=>/^[a-z]+$/i.test(item.text)); if(!items.length) { vocabPractice.innerHTML='<div class="vocab-empty">本单元词汇以短语为主。请先用“中英互认”练习；26 个字母键盘的听写会在单词单元开启。</div>'; return; }
   if(!learningState.question || learningState.question.type!=="dictation") newDictationQuestion(); const question=learningState.question, item=question.item;
-  const draw=()=>{ const letters="abcdefghijklmnopqrstuvwxyz".split(""); const display=learningState.answer ? learningState.answer.toUpperCase().split("").join(" ") : "· · ·"; vocabPractice.innerHTML=`<p class="practice-progress">听写 · 仅使用 26 个英文字母</p><p class="practice-question">听一听，拼出这个单词</p><div class="practice-actions"><button class="primary-action" type="button" data-dictation="play">🔊 播放读音</button></div><div class="dictation-display" aria-label="当前拼写">${display}</div><div class="letter-keyboard" aria-label="英文字母键盘">${letters.map((letter)=>`<button type="button" data-letter="${letter}">${letter}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions"><button type="button" data-dictation="delete">删除</button><button type="button" data-dictation="clear">清空</button><button class="primary-action" type="button" data-dictation="check">检查</button><button type="button" data-dictation="next" hidden>下一题 →</button></div>`;
+  const draw=()=>{ const letters="abcdefghijklmnopqrstuvwxyz".split(""); const display=learningState.answer ? learningState.answer.toUpperCase().split("").join(" ") : "· · ·"; vocabPractice.innerHTML=`<p class="practice-progress">听写 · 仅使用 26 个英文字母</p><p class="practice-question">听一听，拼出这个单词</p><div class="practice-actions dictation-listen-actions"><button class="primary-action" type="button" data-dictation="play">🔊 播放读音</button></div><div class="dictation-display" aria-label="当前拼写">${display}</div><div class="letter-keyboard" aria-label="英文字母键盘">${letters.map((letter)=>`<button type="button" data-letter="${letter}">${letter}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions dictation-actions"><button type="button" data-dictation="delete">删除</button><button type="button" data-dictation="clear">清空</button><button class="primary-action" type="button" data-dictation="check">检查</button><button type="button" data-dictation="next" hidden>下一题 →</button></div>`;
     const feedback=$("#practice-feedback"), next=vocabPractice.querySelector('[data-dictation="next"]');
     vocabPractice.querySelectorAll("[data-letter]").forEach((button)=>button.addEventListener("click",()=>{ if(!question.checked && learningState.answer.length<item.text.length) { learningState.answer+=button.dataset.letter; draw(); } }));
-    vocabPractice.querySelectorAll("[data-dictation]").forEach((button)=>button.addEventListener("click",()=>{ const action=button.dataset.dictation; if(action==="play") play(item,button); if(action==="delete"&&!question.checked) { learningState.answer=learningState.answer.slice(0,-1); draw(); } if(action==="clear"&&!question.checked) { learningState.answer=""; draw(); } if(action==="check"&&!question.checked) { question.checked=true; const correct=learningState.answer.toLowerCase()===item.text.toLowerCase(); feedback.textContent=correct?"拼对啦！":"正确拼写："+item.text.toUpperCase(); feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; } if(action==="next") { learningState.question=null; renderDictationPractice(); } }));
+    vocabPractice.querySelectorAll("[data-dictation]").forEach((button)=>button.addEventListener("click",()=>{ const action=button.dataset.dictation; if(action==="play") play(item,button); if(action==="delete"&&!question.checked) { learningState.answer=learningState.answer.slice(0,-1); draw(); } if(action==="clear"&&!question.checked) { learningState.answer=""; draw(); } if(action==="check"&&!question.checked) { question.checked=true; const correct=learningState.answer.toLowerCase()===item.text.toLowerCase(); feedback.textContent=correct?"拼对啦！":"正确拼写："+item.text.toUpperCase(); feedback.className=`feedback ${correct?"correct":"wrong"}`; ["delete","clear","check"].forEach((name)=>{ vocabPractice.querySelector(`[data-dictation="${name}"]`).disabled=true; }); next.hidden=false; } if(action==="next") { learningState.question=null; renderDictationPractice(); } }));
   }; draw();
 }
 function renderVocabulary(activeUnit) {
-  learningState.items=vocabularyFor(activeUnit); learningState.studyIndex=0; learningState.question=null; learningState.answer=""; $("#word-count").textContent=`${learningState.items.length} 个词汇`;
+  learningState.items=vocabularyFor(activeUnit); learningState.studyIndex=0; learningState.question=null; learningState.answer=""; learningState.retryQueues={choice:[],"listen-choice":[]}; learningState.mistakes={choice:[],"listen-choice":[]}; $("#word-count").textContent=`${learningState.items.length} 个词汇`;
   if(!learningState.items.length) { vocabStudy.innerHTML='<div class="vocab-empty">这个部分暂时没有可练习词汇。</div>'; vocabPractice.innerHTML=""; return; }
   renderStudyCard(); if(learningState.vocabView==="choice") renderChoicePractice(); if(learningState.vocabView==="listen-choice") renderListeningChoicePractice(); if(learningState.vocabView==="dictation") renderDictationPractice();
 }
