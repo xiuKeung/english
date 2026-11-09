@@ -44,9 +44,10 @@ function speakFallback(text, done) {
   if (wasBusy) setTimeout(start, 80); else start();
 }
 function play(item, node, done) {
-  if (!window.ENGLISH_AUDIO_INDEX?.has(item.id)) { if (state.audio) { state.audio.pause(); state.audio.currentTime=0; state.audio=null; } resetPlaying(); node?.classList.add("playing"); speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
+  const audioId=item.audioId||item.id;
+  if (!window.ENGLISH_AUDIO_INDEX?.has(audioId)) { if (state.audio) { state.audio.pause(); state.audio.currentTime=0; state.audio=null; } resetPlaying(); node?.classList.add("playing"); speakFallback(item.text, () => { node?.classList.remove("playing"); done?.(); }); return; }
   stopAudio({clearQueue:false}); resetPlaying(); node?.classList.add("playing");
-  const player = new Audio(audioPath(item.id)); state.audio = player;
+  const player = new Audio(audioPath(audioId)); state.audio = player;
   const finish = () => { node?.classList.remove("playing"); if (state.audio === player) state.audio=null; done?.(); };
   player.addEventListener("ended", finish, { once:true });
   player.addEventListener("error", () => { node?.classList.remove("playing"); state.audio=null; speakFallback(item.text, done); }, { once:true });
@@ -92,11 +93,16 @@ function expandedHotspot(left, top, width, height) {
 }
 function escapeHtml(text) { return String(text).replace(/[&<>'"]/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[character]); }
 function shuffle(items) { return [...items].sort(() => Math.random() - .5); }
+function normalizedAudioText(text) { return String(text).trim().replace(/\s+/g," ").replace(/[’‘]/g,"'").toLowerCase(); }
+function vocabularyAudioId(unitId, text, fallbackId) {
+  const matches=Object.entries(window.ENGLISH_AUDIO_ITEMS||{}).filter(([,entry])=>normalizedAudioText(entry.text)===normalizedAudioText(text));
+  return matches.find(([,entry])=>entry.unit===unitId)?.[0]||matches[0]?.[0]||(window.ENGLISH_AUDIO_INDEX?.has(fallbackId)?fallbackId:null);
+}
 function vocabularyFor(activeUnit) {
   const curated = (window.ENGLISH_VOCABULARY_1 || []).filter((item) => item.unit === activeUnit.id);
   const seen = new Set(curated.map((item) => item.text.toLowerCase()));
   const extras = (activeUnit.words || []).filter((item) => !seen.has(item.text.toLowerCase()));
-  return [...curated, ...extras];
+  return [...curated, ...extras].map((item)=>({...item,audioId:vocabularyAudioId(activeUnit.id,item.text,item.id)}));
 }
 function renderStudyCard() {
   const items = learningState.items; if (!items.length) return;
