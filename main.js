@@ -198,6 +198,7 @@ function renderUnitDock() {
     const nextUnit = units.find((entry) => entry.id === button.dataset.unit);
     if (!nextUnit || nextUnit.id === unit.id) return;
     unit = nextUnit; try { localStorage.setItem("little-ear:last-unit", unit.id); } catch (_) {} render(unit);
+    requestAnimationFrame(()=>tabs.querySelector(`[data-unit="${unit.id}"]`)?.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"}));
   }));
 }
 function render(unit) {
@@ -220,7 +221,7 @@ function setupRecording() {
   });
   $("#delete-recording").addEventListener("click",()=>{ if(state.recordUrl)URL.revokeObjectURL(state.recordUrl); state.recordUrl=null; playback.removeAttribute("src"); playback.load(); tools.hidden=true; status.textContent="这次录音已删除。"; });
 }
-$("#toggle-slow").addEventListener("click",(event)=>{ state.slow=!state.slow; event.currentTarget.textContent=`🐢 慢速：${state.slow?"开":"关"}`; showToast(state.slow?"已切换到慢速朗读":"已切换到正常语速"); });
+document.querySelectorAll("#toggle-slow,#toggle-slow-vocabulary").forEach((button)=>button.addEventListener("click",()=>{ state.slow=!state.slow; document.querySelectorAll("#toggle-slow,#toggle-slow-vocabulary").forEach((entry)=>entry.textContent=`🐢 慢速：${state.slow?"开":"关"}`); showToast(state.slow?"已切换到慢速朗读":"已切换到正常语速"); }));
 $("#stop-audio").addEventListener("click",stopAudio);
 $("#reader-mode").addEventListener("click",()=>showLearningView("reader"));
 $("#vocabulary-mode").addEventListener("click",()=>showLearningView("vocabulary"));
