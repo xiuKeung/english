@@ -107,6 +107,18 @@ function renderChoicePractice() {
   vocabPractice.querySelectorAll("[data-choice]").forEach((button)=>button.addEventListener("click",()=>{ if(question.answered)return; question.answered=true; const correct=button.dataset.choice===item.id; vocabPractice.querySelectorAll("[data-choice]").forEach((choice)=>{ const option=question.options.find((entry)=>entry.id===choice.dataset.choice); if(option.id===item.id)choice.classList.add("correct"); else if(choice===button)choice.classList.add("wrong"); choice.disabled=true; }); feedback.textContent=correct?"答对啦！":"再记一遍："+(question.englishToChinese?item.meaning:item.text); feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; }));
   next.addEventListener("click",()=>{ learningState.question=null; renderChoicePractice(); });
 }
+function newListeningChoiceQuestion() {
+  const items=learningState.items.filter((item)=>item.meaning); const item=items[Math.floor(Math.random()*items.length)];
+  learningState.question={type:"listen-choice",item,options:shuffle([item,...shuffle(items.filter((entry)=>entry.id!==item.id)).slice(0,3)]),answered:false};
+}
+function renderListeningChoicePractice() {
+  const items=learningState.items.filter((item)=>item.meaning); if(items.length<4) { vocabPractice.innerHTML='<div class="vocab-empty">本单元可用于听音选义的词汇不足 4 个。</div>'; return; }
+  if(!learningState.question || learningState.question.type!=="listen-choice") newListeningChoiceQuestion(); const question=learningState.question, item=question.item;
+  vocabPractice.innerHTML=`<p class="practice-progress">听音选义 · 先听读音，再选中文意思</p><div class="practice-actions"><button class="primary-action" type="button" data-listen-play>🔊 播放读音</button></div><div class="choice-grid">${question.options.map((option)=>`<button type="button" data-listen-choice="${escapeHtml(option.id)}">${escapeHtml(option.meaning)}</button>`).join("")}</div><p class="feedback" id="practice-feedback"></p><div class="practice-actions"><button type="button" data-next hidden>下一题 →</button></div>`;
+  const feedback=$("#practice-feedback"), next=vocabPractice.querySelector("[data-next]"); vocabPractice.querySelector("[data-listen-play]").addEventListener("click",(event)=>play(item,event.currentTarget));
+  vocabPractice.querySelectorAll("[data-listen-choice]").forEach((button)=>button.addEventListener("click",()=>{ if(question.answered)return; question.answered=true; const correct=button.dataset.listenChoice===item.id; vocabPractice.querySelectorAll("[data-listen-choice]").forEach((choice)=>{ const option=question.options.find((entry)=>entry.id===choice.dataset.listenChoice); if(option.id===item.id)choice.classList.add("correct"); else if(choice===button)choice.classList.add("wrong"); choice.disabled=true; }); feedback.textContent=correct?"答对啦！":"正确答案："+item.meaning; feedback.className=`feedback ${correct?"correct":"wrong"}`; next.hidden=false; }));
+  next.addEventListener("click",()=>{ learningState.question=null; renderListeningChoicePractice(); });
+}
 function newDictationQuestion() { const items=learningState.items.filter((item)=>/^[a-z]+$/i.test(item.text)); learningState.question={type:"dictation",item:items[Math.floor(Math.random()*items.length)],checked:false}; learningState.answer=""; }
 function renderDictationPractice() {
   const items=learningState.items.filter((item)=>/^[a-z]+$/i.test(item.text)); if(!items.length) { vocabPractice.innerHTML='<div class="vocab-empty">本单元词汇以短语为主。请先用“中英互认”练习；26 个字母键盘的听写会在单词单元开启。</div>'; return; }
@@ -120,7 +132,7 @@ function renderDictationPractice() {
 function renderVocabulary(activeUnit) {
   learningState.items=vocabularyFor(activeUnit); learningState.studyIndex=0; learningState.question=null; learningState.answer=""; $("#word-count").textContent=`${learningState.items.length} 个词汇`;
   if(!learningState.items.length) { vocabStudy.innerHTML='<div class="vocab-empty">这个部分暂时没有可练习词汇。</div>'; vocabPractice.innerHTML=""; return; }
-  renderStudyCard(); if(learningState.vocabView==="choice") renderChoicePractice(); if(learningState.vocabView==="dictation") renderDictationPractice();
+  renderStudyCard(); if(learningState.vocabView==="choice") renderChoicePractice(); if(learningState.vocabView==="listen-choice") renderListeningChoicePractice(); if(learningState.vocabView==="dictation") renderDictationPractice();
 }
 function showLearningView(view, {scroll=true}={}) { learningState.view=view; const vocabulary=view==="vocabulary"; readerContent.hidden=vocabulary; vocabularySection.hidden=!vocabulary; $("#reader-mode").classList.toggle("active",!vocabulary); $("#reader-mode").setAttribute("aria-selected",String(!vocabulary)); $("#vocabulary-mode").classList.toggle("active",vocabulary); $("#vocabulary-mode").setAttribute("aria-selected",String(vocabulary)); if(vocabulary&&scroll) vocabularySection.scrollIntoView({behavior:"smooth",block:"start"}); }
 function renderTextbookReader(unit) {
@@ -189,7 +201,7 @@ $("#toggle-slow").addEventListener("click",(event)=>{ state.slow=!state.slow; ev
 $("#stop-audio").addEventListener("click",stopAudio);
 $("#reader-mode").addEventListener("click",()=>showLearningView("reader"));
 $("#vocabulary-mode").addEventListener("click",()=>showLearningView("vocabulary"));
-document.querySelectorAll("[data-vocab-view]").forEach((button)=>button.addEventListener("click",()=>{ learningState.vocabView=button.dataset.vocabView; document.querySelectorAll("[data-vocab-view]").forEach((entry)=>entry.classList.toggle("active",entry===button)); if(learningState.vocabView==="study") { vocabPractice.hidden=true; vocabStudy.hidden=false; renderStudyCard(); } else { vocabStudy.hidden=true; vocabPractice.hidden=false; learningState.question=null; if(learningState.vocabView==="choice") renderChoicePractice(); else renderDictationPractice(); } }));
+document.querySelectorAll("[data-vocab-view]").forEach((button)=>button.addEventListener("click",()=>{ learningState.vocabView=button.dataset.vocabView; document.querySelectorAll("[data-vocab-view]").forEach((entry)=>entry.classList.toggle("active",entry===button)); if(learningState.vocabView==="study") { vocabPractice.hidden=true; vocabStudy.hidden=false; renderStudyCard(); } else { vocabStudy.hidden=true; vocabPractice.hidden=false; learningState.question=null; if(learningState.vocabView==="choice") renderChoicePractice(); else if(learningState.vocabView==="listen-choice") renderListeningChoicePractice(); else renderDictationPractice(); } }));
 const bookModal = $("#book-modal");
 const closeBook = () => { bookModal.hidden = true; $("#book-preview").focus(); };
 $("#book-preview").addEventListener("click", () => { bookModal.hidden = false; $("#close-book").focus(); });
