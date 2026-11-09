@@ -51,6 +51,7 @@
   ```
 
 - 使用 `node tools/generate-course-audio.mjs --all --normal-rate 150 --slow-rate 108 --prune` 生成所有单元。该工具从单元数据读取 ID 与英文文本、跳过明显 OCR 杂讯、清理不再对应任何有效内容的旧音频，并自动刷新 `manifest.js`；新增单元后不需要维护手写音频列表。
+- 仅修正少量课本内容时，使用 `--unit unit-2 --id <content-id> --force` 精准重建对应正常/慢速音频，不要重新生成整册。
 - `manifest.js` 同时保存 `内容 ID → 英文文本 / 单元` 与按教材页排序的 `ENGLISH_LISTENING_TRACKS`。听力播放应读取这份清单，不能凭文件名或页面文字推测顺序；同一段音频可同时被点读与听力队列复用。
 - 单词学习模块按“英文文本优先、所属单元优先”寻找 `manifest.js` 中已有的课本音频，绝不生成第二份单词音频。只有课本确实不存在该词时才回退浏览器朗读。
 

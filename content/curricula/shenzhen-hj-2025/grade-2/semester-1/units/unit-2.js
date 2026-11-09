@@ -20,8 +20,8 @@
     item("u02-inst-08", "Draw and colour. Ask and answer.", "画一画、涂一涂，问一问、答一答。"), item("u02-line-22", "Who is he / she?", "他／她是谁？"), item("u02-line-23", "Is he / she your grandpa / ...?", "他／她是你的爷爷／……吗？"),
     item("u02-line-24", "Yes / No. He's / She's my uncle / ...", "是／不是。他／她是我的叔叔／……"), item("u02-line-25", "Guess. He's / She's old / young / cute / ...", "猜一猜。他／她年老／年轻／可爱／……"), item("u02-title-03", "My family", "我的家庭"),
     item("u02-title-04", "Grandma's bag", "奶奶的包"), item("u02-line-26", "Ken the dog is naughty.", "小狗 Ken 很淘气。"), item("u02-line-27", "Mum throws a ball to Ken.", "妈妈把一个球扔给 Ken。"),
-    item("u02-line-28", "Dad runs after Ken.", "爸爸追着 Ken 跑。"), item("u02-line-29", "Tom throws a bone to Ken.", "Tom 把一根骨头扔给 Ken。"), item("u02-line-30", "Grandma has her bag in Ken's mouth!", "奶奶的包在 Ken 的嘴里！"),
-    item("u02-line-31", "Grandma's bag is back now. Everyone is happy.", "奶奶的包回来了。大家都很开心。"), item("u02-title-05", "Sounds", "语音"), item("u02-line-32", "Sam likes jam.", "Sam 喜欢果酱。"),
+    item("u02-line-28", "Dad runs after Ken.", "爸爸追着 Ken 跑。"), item("u02-line-29", "Tom throws a bone to Ken.", "Tom 把一根骨头扔给 Ken。"), item("u02-line-30", "Grandma's bag is in Ken's mouth!", "奶奶的包在 Ken 的嘴里！"),
+    item("u02-line-31", "Grandma has her bag now. Everyone is happy.", "奶奶的包回来了。大家都很开心。"), item("u02-title-05", "Sounds", "语音"), item("u02-line-32", "Sam likes jam.", "Sam 喜欢果酱。"),
     item("u02-line-33", "Sam likes ham.", "Sam 喜欢火腿。"), item("u02-line-34", "Sam eats bread with jam and ham.", "Sam 吃涂着果酱和火腿的面包。"), item("u02-line-35", "Dan turns on the fan.", "Dan 打开风扇。"),
     item("u02-line-36", "He opens a can of ham.", "他打开一罐火腿。"), item("u02-line-37", "He puts the ham in the pan.", "他把火腿放进平底锅。")
   ];

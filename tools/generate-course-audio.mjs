@@ -4,6 +4,7 @@
  *
  * Examples:
  *   node tools/generate-course-audio.mjs --unit unit-1 --force
+ *   node tools/generate-course-audio.mjs --unit unit-2 --id u02-line-30 --id u02-line-31 --force
  *   node tools/generate-course-audio.mjs --all
  *   node tools/generate-course-audio.mjs --all --normal-rate 150 --slow-rate 108 --prune
  *
@@ -25,6 +26,7 @@ const unitsRoot=join(projectRoot,"content","curricula","shenzhen-hj-2025","grade
 const args=process.argv.slice(2);
 const option=(name,fallback)=>{ const index=args.indexOf(name); return index===-1?fallback:args[index+1]; };
 const requestedUnit=option("--unit",null);
+const requestedIds=args.flatMap((arg,index)=>arg==="--id"?[args[index+1]]:[]).filter(Boolean);
 const normalRate=Number(option("--normal-rate","150"));
 const slowRate=Number(option("--slow-rate","108"));
 const voice=option("--voice","Eddy (英语（美国）)");
@@ -59,7 +61,7 @@ try {
     const entries=[...(unit.words||[]),...(unit.sentences||[])];
     const seen=new Set();
     for (const entry of entries) {
-      if (!entry?.id||seen.has(entry.id)) continue;
+      if (!entry?.id||seen.has(entry.id)||(requestedIds.length&&!requestedIds.includes(entry.id))) continue;
       seen.add(entry.id); const text=safeText(entry.text);
       if (!text) { rejected+=1; continue; }
       for (const [speed,rate] of [["normal",normalRate],["slow",slowRate]]) {
