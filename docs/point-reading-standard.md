@@ -50,7 +50,7 @@
     unit-2/slow/<content-id>.m4a
   ```
 
-- 使用 `node tools/generate-course-audio.mjs --all --normal-rate 150 --slow-rate 108` 生成所有单元。该工具从单元数据读取 ID 与英文文本、跳过明显 OCR 杂讯，并自动刷新 `manifest.js`；新增单元后不需要维护手写音频列表。
+- 使用 `node tools/generate-course-audio.mjs --all --normal-rate 150 --slow-rate 108 --prune` 生成所有单元。该工具从单元数据读取 ID 与英文文本、跳过明显 OCR 杂讯、清理不再对应任何有效内容的旧音频，并自动刷新 `manifest.js`；新增单元后不需要维护手写音频列表。
 - `manifest.js` 同时保存 `内容 ID → 英文文本 / 单元` 与按教材页排序的 `ENGLISH_LISTENING_TRACKS`。听力播放应读取这份清单，不能凭文件名或页面文字推测顺序；同一段音频可同时被点读与听力队列复用。
 
 ## 页签与单元切换
