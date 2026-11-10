@@ -15,7 +15,8 @@ self.addEventListener("fetch", (event) => {
   // refresh; pages and audio remain cache-first until the user accepts it.
   const isFreshCode=event.request.mode === "navigate" || /\/(?:main\.js|style\.css|index\.html)$/.test(url.pathname) || /\/content\/.*\.js$/.test(url.pathname) || /\/resources\/curricula\/[^/]+\/(?:offline-assets\.js|audio\/manifest\.js)$/.test(url.pathname);
   if (isFreshCode) {
-    event.respondWith(fetch(event.request).then((response) => {
+    const freshRequest=/\/offline-assets\.js$/.test(url.pathname) ? new Request(event.request,{cache:"no-store"}) : event.request;
+    event.respondWith(fetch(freshRequest).then((response) => {
       if (response.ok) { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(event.request, copy)); }
       return response;
     }).catch(() => caches.match(event.request).then((cached) => cached || Response.error())));
