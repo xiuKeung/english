@@ -6,7 +6,8 @@
 
 ## 目录约定
 
-- `resources/pages/**/*.png`：本地原始页图，用于 OCR、热区校正和再次压缩；已被 Git 忽略，网页不直接引用。
+- `resources/pages/**/*.png`：原始页图，用于 OCR、热区校正和再次压缩；随课程源资料保存在 Git，网页不直接引用。
+- `resources/source/*.pdf`：原始教材 PDF，随课程源资料保存在 Git。
 - `resources/pages/**/*.webp`：网页实际显示的教材页图。
 - `resources/audio/<课程>/<单元>/normal|slow/*.m4a`：课本点读与单词学习复用的音频。
 - `resources/offline-assets.js`：自动生成的离线资源清单、字节数和版本号，不手改。
