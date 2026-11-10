@@ -15,6 +15,7 @@ try {
 
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
 function audioPath(id) { const unitId=id.match(/^u(\d{2})-/)?.[1]; return `${audioRoot}/${unitId?`unit-${Number(unitId)}`:"other"}/${state.slow ? "slow" : "normal"}/${id}.m4a`; }
+function optimizedPageImage(image) { return image.replace(/\.png$/i,".webp"); }
 function resetPlaying() { document.querySelectorAll(".playing").forEach((node) => node.classList.remove("playing")); }
 function clearSpeech({ cancel=true }={}) { state.speechToken += 1; if (state.speechWakeTimer) clearInterval(state.speechWakeTimer); state.speechWakeTimer=null; if (cancel && "speechSynthesis" in window) speechSynthesis.cancel(); }
 function stopAudio({ clearQueue=true }={}) { if (state.audio) { state.audio.pause(); state.audio.currentTime = 0; state.audio = null; } clearSpeech(); if (clearQueue) state.queue=[]; resetPlaying(); }
@@ -193,13 +194,15 @@ function renderTextbookReader(unit) {
   const pageStorageKey = `little-ear:last-page:${unit.id}`;
   const warmPage = (page) => {
     if (!page || preloadedPageImages.has(page.image)) return;
-    preloadedPageImages.add(page.image); const image = new Image(); image.src = page.image;
+    preloadedPageImages.add(page.image);
+    const preload=()=>{ const image = new Image(); image.decoding="async"; image.src = optimizedPageImage(page.image); };
+    if ("requestIdleCallback" in window) requestIdleCallback(preload,{timeout:2500}); else setTimeout(preload,250);
   };
   function showPage(index, {remember=true, scrollTab=true}={}) {
     const page = unit.pages[index]; tabs.querySelectorAll("button").forEach((button, buttonIndex)=>button.classList.toggle("active",buttonIndex===index));
     if (remember) try { localStorage.setItem(pageStorageKey, page.image); } catch (_) {}
     stage.setAttribute("aria-busy", "true");
-    stage.innerHTML = `<div class="book-page is-loading"><div class="book-page-canvas"><div class="reader-loader" role="status"><span></span>正在打开${tabLabel(page.label)}</div><img src="${page.image}" alt="${page.label}" fetchpriority="high" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); const [expandedLeft, expandedTop, expandedWidth, expandedHeight] = expandedHotspot(left, top, width, height); return item ? `<button class="hotspot" data-id="${id}" style="left:${expandedLeft}%;top:${expandedTop}%;width:${expandedWidth}%;height:${expandedHeight}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
+    stage.innerHTML = `<div class="book-page is-loading"><div class="book-page-canvas"><div class="reader-loader" role="status"><span></span>正在打开${tabLabel(page.label)}</div><img src="${optimizedPageImage(page.image)}" alt="${page.label}" fetchpriority="high" decoding="async" />${page.hotspots.map(([id,left,top,width,height])=>{ const item=allItems.find((entry)=>entry.id===id); const [expandedLeft, expandedTop, expandedWidth, expandedHeight] = expandedHotspot(left, top, width, height); return item ? `<button class="hotspot" data-id="${id}" style="left:${expandedLeft}%;top:${expandedTop}%;width:${expandedWidth}%;height:${expandedHeight}%" aria-label="播放：${item.text}"></button>` : ""; }).join("")}</div></div>`;
     const bookPage = stage.querySelector(".book-page"), image = bookPage.querySelector("img"), loader = bookPage.querySelector(".reader-loader");
     const loaded = () => { bookPage.classList.remove("is-loading"); loader.remove(); stage.removeAttribute("aria-busy"); warmPage(unit.pages[index - 1]); warmPage(unit.pages[index + 1]); };
     image.addEventListener("load", loaded, {once:true}); image.addEventListener("error", () => { loader.textContent="这一页暂时打不开，请稍后重试。"; stage.removeAttribute("aria-busy"); }, {once:true});
@@ -277,8 +280,25 @@ function setupAppInstall() {
     showToast("请使用浏览器菜单中的“安装应用”或“添加到主屏幕”。");
   });
 }
+function formatBytes(bytes) { return `${(bytes/1024/1024).toFixed(bytes>=10*1024*1024?0:1)} MB`; }
+function setupOfflineDownload() {
+  const button=$("#download-offline"), assets=window.ENGLISH_OFFLINE_ASSETS||[], version=window.ENGLISH_OFFLINE_ASSET_VERSION;
+  if (!button || !assets.length || !("caches" in window)) { button?.setAttribute("hidden",""); return; }
+  const ready=()=>{ try { return localStorage.getItem("little-ear:offline-version")===version; } catch (_) { return false; } };
+  const label=()=>{ button.textContent=ready()?"✓ 已离线" : `⇩ 离线下载 ${formatBytes(window.ENGLISH_OFFLINE_ASSET_BYTES||0)}`; };
+  label();
+  button.addEventListener("click",async()=>{
+    if(ready()) { showToast("本册资源已可离线使用。"); return; }
+    button.disabled=true; const cache=await caches.open("little-ear-offline"); let finished=0, cursor=0;
+    const update=()=>{ button.textContent=`下载中 ${Math.round(finished/assets.length*100)}%`; };
+    const worker=async()=>{ while(cursor<assets.length) { const asset=assets[cursor++]; const response=await fetch(asset,{cache:"reload"}); if(!response.ok) throw new Error(asset); await cache.put(asset,response); finished+=1; if(finished%8===0||finished===assets.length) update(); } };
+    try { update(); await Promise.all(Array.from({length:4},worker)); try { localStorage.setItem("little-ear:offline-version",version); } catch (_) {} button.disabled=false; label(); showToast("离线资源下载完成！"); }
+    catch(error) { button.disabled=false; label(); showToast("下载中断，请检查网络后重试。"); }
+  });
+}
 if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 setupAppInstall();
+setupOfflineDownload();
 setupRecording();
 try { const remembered = localStorage.getItem("little-ear:last-unit"); const rememberedUnit = units.find((entry) => entry.id === remembered); if (rememberedUnit) unit = rememberedUnit; } catch (_) {}
 if (unit) render(unit);

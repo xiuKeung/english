@@ -8,3 +8,7 @@
 
 # Keep the original source PDF locally, but do not commit a copyrighted scan.
 resources/source/*.pdf
+
+# Raw textbook page PNGs are local source material. The published site uses
+# generated WebP siblings from resources/pages/ instead.
+resources/pages/*.png
