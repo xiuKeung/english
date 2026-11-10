@@ -235,7 +235,7 @@ function renderUnitDock() {
 }
 function render(unit) {
   unit.pages ||= unit1Pages;
-  $("#unit-title").textContent=unit.title; $(".subtitle").textContent=unit.englishTitle; $("#word-count").textContent=`${unit.words.length} 个单词`;
+  $("#unit-title").textContent=unit.englishTitle; $(".subtitle").textContent=unit.title; $("#word-count").textContent=`${unit.words.length} 个单词`;
   sentenceList.innerHTML=unit.sentences.map((item,index)=>`<button class="line-card" data-id="${item.id}"><span class="line-number">${String(index+1).padStart(2,"0")}</span><span class="line-text">${item.text}<span class="line-meaning">${item.meaning}</span></span><span class="line-play" aria-hidden="true">▶</span></button>`).join("");
   sentenceList.onclick=(event)=>{ const node=event.target.closest(".line-card"); if(!node)return; const item=unit.sentences.find((line)=>line.id===node.dataset.id); chooseSentence(item,node); play(item,node); };
   $("#play-all").onclick=()=>beginQueue(unit.sentences);
