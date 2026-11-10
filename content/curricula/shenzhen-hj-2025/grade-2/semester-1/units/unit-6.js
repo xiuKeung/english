@@ -606,7 +606,7 @@
   const pages = [
   {
     "label": "第 42 页",
-    "image": "./resources/pages/book-page-42.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-42.png",
     "hotspots": [
       [
         "u06-p41-01",
@@ -640,7 +640,7 @@
   },
   {
     "label": "第 43 页",
-    "image": "./resources/pages/book-page-43.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-43.png",
     "hotspots": [
       [
         "u06-p42-01",
@@ -751,7 +751,7 @@
   },
   {
     "label": "第 44 页",
-    "image": "./resources/pages/book-page-44.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-44.png",
     "hotspots": [
       [
         "u06-p43-01",
@@ -834,7 +834,7 @@
   },
   {
     "label": "第 45 页",
-    "image": "./resources/pages/book-page-45.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-45.png",
     "hotspots": [
       [
         "u06-p44-01",
@@ -910,7 +910,7 @@
   },
   {
     "label": "第 46 页",
-    "image": "./resources/pages/book-page-46.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-46.png",
     "hotspots": [
       [
         "u06-p45-01",
@@ -965,7 +965,7 @@
   },
   {
     "label": "第 47 页",
-    "image": "./resources/pages/book-page-47.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-47.png",
     "hotspots": [
       [
         "u06-p46-01",
@@ -1027,7 +1027,7 @@
   },
   {
     "label": "第 48 页",
-    "image": "./resources/pages/book-page-48.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-48.png",
     "hotspots": [
       [
         "u06-p47-01",
@@ -1194,7 +1194,7 @@
   },
   {
     "label": "第 49 页",
-    "image": "./resources/pages/book-page-49.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-49.png",
     "hotspots": [
       [
         "u06-p48-01",

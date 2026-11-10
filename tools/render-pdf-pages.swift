@@ -1,17 +1,16 @@
 import AppKit
 import PDFKit
 
-guard CommandLine.arguments.count == 4,
+guard CommandLine.arguments.count == 5,
       let document = PDFDocument(url: URL(fileURLWithPath: CommandLine.arguments[1])),
       let start = Int(CommandLine.arguments[2]),
       let end = Int(CommandLine.arguments[3]),
       start >= 1, end >= start else {
-  fputs("Usage: swift render-pdf-pages.swift <pdf> <start-page> <end-page>\n", stderr)
+  fputs("Usage: swift render-pdf-pages.swift <pdf> <start-page> <end-page> <output-directory>\n", stderr)
   exit(1)
 }
 
-let outputDirectory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-  .appendingPathComponent("resources/pages")
+let outputDirectory = URL(fileURLWithPath: CommandLine.arguments[4])
 try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true)
 
 for number in start...min(end, document.pageCount) {

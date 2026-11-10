@@ -416,7 +416,7 @@
   const pages = [
   {
     "label": "第 18 页 · PDF 第 17 页",
-    "image": "./resources/pages/book-page-18.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-18.png",
     "hotspots": [
       [
         "u03-p17-01",
@@ -443,7 +443,7 @@
   },
   {
     "label": "第 19 页 · PDF 第 18 页",
-    "image": "./resources/pages/book-page-19.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-19.png",
     "hotspots": [
       [
         "u03-p18-01",
@@ -533,7 +533,7 @@
   },
   {
     "label": "第 20 页 · PDF 第 19 页",
-    "image": "./resources/pages/book-page-20.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-20.png",
     "hotspots": [
       [
         "u03-p19-01",
@@ -651,7 +651,7 @@
   },
   {
     "label": "第 21 页 · PDF 第 20 页",
-    "image": "./resources/pages/book-page-21.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-21.png",
     "hotspots": [
       [
         "u03-p20-01",
@@ -748,7 +748,7 @@
   },
   {
     "label": "第 22 页 · PDF 第 21 页",
-    "image": "./resources/pages/book-page-22.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-22.png",
     "hotspots": [
       [
         "u03-p21-01",
@@ -817,7 +817,7 @@
   },
   {
     "label": "第 23 页 · PDF 第 22 页",
-    "image": "./resources/pages/book-page-23.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-23.png",
     "hotspots": [
       [
         "u03-p22-01",
@@ -865,7 +865,7 @@
   },
   {
     "label": "第 24 页 · PDF 第 23 页",
-    "image": "./resources/pages/book-page-24.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-24.png",
     "hotspots": [
       [
         "u03-p23-01",
@@ -948,7 +948,7 @@
   },
   {
     "label": "第 25 页 · PDF 第 24 页",
-    "image": "./resources/pages/book-page-25.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-25.png",
     "hotspots": [
       [
         "u03-p24-01",

@@ -1,5 +1,7 @@
 # English point-reading app: handoff for the next AI
 
+> **已归档，非当前规范。** 本文记录早期仅 Unit 1 阶段的交接信息，部分目录、音频和发布策略已过时。当前开发请以 [`../development-guide.md`](../development-guide.md) 为准。
+
 ## Mission
 
 Continue building a **family-use, fully static English textbook point-reading site** for Shenzhen primary-school Grade 2, first semester. The user wants the textbook page itself to be the main learning surface: every meaningful English word, sentence, classroom instruction, question, and section title should have a thin purple clickable outline; clicking it plays audio. Do not show duplicate English text inside the outline.

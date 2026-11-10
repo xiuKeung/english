@@ -1216,7 +1216,7 @@
   const pages = [
   {
     "label": "第 50 页",
-    "image": "./resources/pages/other-page-50.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-50.png",
     "hotspots": [
       [
         "other-p49-01",
@@ -1292,7 +1292,7 @@
   },
   {
     "label": "第 51 页",
-    "image": "./resources/pages/other-page-51.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-51.png",
     "hotspots": [
       [
         "other-p50-01",
@@ -1438,7 +1438,7 @@
   },
   {
     "label": "第 52 页",
-    "image": "./resources/pages/other-page-52.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-52.png",
     "hotspots": [
       [
         "other-p51-01",
@@ -1486,7 +1486,7 @@
   },
   {
     "label": "第 53 页",
-    "image": "./resources/pages/other-page-53.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-53.png",
     "hotspots": [
       [
         "other-p52-01",
@@ -1555,7 +1555,7 @@
   },
   {
     "label": "第 54 页",
-    "image": "./resources/pages/other-page-54.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-54.png",
     "hotspots": [
       [
         "other-p53-01",
@@ -1848,7 +1848,7 @@
   },
   {
     "label": "第 55 页",
-    "image": "./resources/pages/other-page-55.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-55.png",
     "hotspots": [
       [
         "other-p54-01",
@@ -2043,7 +2043,7 @@
   },
   {
     "label": "第 56 页",
-    "image": "./resources/pages/other-page-56.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-56.png",
     "hotspots": [
       [
         "other-p55-01",
@@ -2126,7 +2126,7 @@
   },
   {
     "label": "第 57 页",
-    "image": "./resources/pages/other-page-57.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-57.png",
     "hotspots": [
       [
         "other-p56-01",
@@ -2230,7 +2230,7 @@
   },
   {
     "label": "第 58 页",
-    "image": "./resources/pages/other-page-58.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-58.png",
     "hotspots": [
       [
         "other-p57-01",
@@ -2334,7 +2334,7 @@
   },
   {
     "label": "第 59 页",
-    "image": "./resources/pages/other-page-59.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-59.png",
     "hotspots": [
       [
         "other-p58-01",
@@ -2424,7 +2424,7 @@
   },
   {
     "label": "第 60 页",
-    "image": "./resources/pages/other-page-60.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-60.png",
     "hotspots": [
       [
         "other-p59-01",
@@ -2794,7 +2794,7 @@
   },
   {
     "label": "第 61 页",
-    "image": "./resources/pages/other-page-61.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/other-page-61.png",
     "hotspots": [
       [
         "other-p60-01",

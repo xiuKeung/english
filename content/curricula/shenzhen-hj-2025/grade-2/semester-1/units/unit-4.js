@@ -496,7 +496,7 @@
   const pages = [
   {
     "label": "第 26 页 · PDF 第 25 页",
-    "image": "./resources/pages/book-page-26.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-26.png",
     "hotspots": [
       [
         "u04-p25-01",
@@ -530,7 +530,7 @@
   },
   {
     "label": "第 27 页 · PDF 第 26 页",
-    "image": "./resources/pages/book-page-27.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-27.png",
     "hotspots": [
       [
         "u04-p26-01",
@@ -620,7 +620,7 @@
   },
   {
     "label": "第 28 页 · PDF 第 27 页",
-    "image": "./resources/pages/book-page-28.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-28.png",
     "hotspots": [
       [
         "u04-p27-01",
@@ -766,7 +766,7 @@
   },
   {
     "label": "第 29 页 · PDF 第 28 页",
-    "image": "./resources/pages/book-page-29.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-29.png",
     "hotspots": [
       [
         "u04-p28-01",
@@ -849,7 +849,7 @@
   },
   {
     "label": "第 30 页 · PDF 第 29 页",
-    "image": "./resources/pages/book-page-30.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-30.png",
     "hotspots": [
       [
         "u04-p29-01",
@@ -890,7 +890,7 @@
   },
   {
     "label": "第 31 页 · PDF 第 30 页",
-    "image": "./resources/pages/book-page-31.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-31.png",
     "hotspots": [
       [
         "u04-p30-01",
@@ -1015,7 +1015,7 @@
   },
   {
     "label": "第 32 页 · PDF 第 31 页",
-    "image": "./resources/pages/book-page-32.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-32.png",
     "hotspots": [
       [
         "u04-p31-01",
@@ -1147,7 +1147,7 @@
   },
   {
     "label": "第 33 页 · PDF 第 32 页",
-    "image": "./resources/pages/book-page-33.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-33.png",
     "hotspots": [
       [
         "u04-p32-01",

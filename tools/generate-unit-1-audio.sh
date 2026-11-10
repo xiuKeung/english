@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 
-target_dir="$(cd "$(dirname "$0")/.." && pwd)/resources/audio/shenzhen-hj-2025-grade-2-semester-1"
+target_dir="$(cd "$(dirname "$0")/.." && pwd)/resources/curricula/shenzhen-hj-2025-grade-2-semester-1/audio"
 voice="Eddy (英语（美国）)"
 mkdir -p "$target_dir"
 temp_dir="$(mktemp -d)"

@@ -1,6 +1,8 @@
 # English learning app
 
-一个面向家庭使用的静态英语学习网页。应用读取教材内容包，将单词、句子和对话渲染为可点击、可播放的学习卡；教材扫描件只作为内部校对来源，不作为默认界面。
+一个面向家庭使用的静态英语课本点读网页。教材页上的英文可直接点读，并提供单词学习、词义选择和听写练习。
+
+完整的交接与新年级教材开发流程见 [docs/development-guide.md](docs/development-guide.md)。
 
 ## 内容包
 
@@ -14,8 +16,7 @@
 
 - `manifest.json`：版本、来源、页码和导入状态。
 - `units/*.json`：课程正文，按可播放片段组织。
-- `resources/pages/`：由 PDF 导出的内部核对页图。
-- `resources/audio/<curriculum-id>/`：按片段 ID 保存的音频。
+- `resources/curricula/<curriculum-id>/`：每套教材独立的 PDF、原始/发布页图、音频和离线清单。
 
 这样增加二年级下册或其他版本时，只需新增内容包和音频目录；前端不需要复制一份。
 
@@ -25,7 +26,7 @@
 
 ## 当前阶段
 
-已保存二年级上册原始 PDF；下一步是将每页内容提取、校对并建立 Unit 数据包，然后生成/绑定朗读音频。
+已完成二年级上册 Unit 1–6 与“其他”的点读、课本音频、单词练习、PWA 安装和按需离线下载。
 
 ## 本地运行
 
@@ -39,8 +40,8 @@ zsh english/start.sh
 
 ## GitHub Pages
 
-这是一个完全静态的项目。提交 `english/` 目录即可（`resources/source/*.pdf` 有意忽略，不会发布），并把仓库根目录设置为 GitHub Pages 的发布来源。发布地址将是：
+这是一个完全静态的项目。提交仓库根目录并把它设置为 GitHub Pages 的发布来源。原始 PDF/PNG 按用户要求保留在 Git；网页运行时只使用优化后的 WebP。发布地址为：
 
-`https://xiuKeung.github.io/minigame/english/`
+`https://xiukeung.github.io/english/`
 
 课程 JSON、课本核对图和音频均以相对路径引用，因此发布后不需要本地服务、API、数据库或常驻进程。`start.sh` 只为本机预览服务；浏览器直接以 `file://` 打开模块化网页时会拦截数据加载，所以本地才需要它。

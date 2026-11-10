@@ -1,6 +1,6 @@
-const CACHE = "little-ear-v3";
+const CACHE = "little-ear-v4";
 const OFFLINE_CACHE = "little-ear-offline";
-const APP_SHELL = ["./", "./index.html", "./style.css", "./main.js", "./manifest.webmanifest", "./resources/offline-assets.js"];
+const APP_SHELL = ["./", "./index.html", "./style.css", "./main.js", "./manifest.webmanifest", "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/offline-assets.js"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())));
 self.addEventListener("activate", (event) => event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE && key !== OFFLINE_CACHE).map((key) => caches.delete(key)))).then(() => self.clients.claim())));
 self.addEventListener("fetch", (event) => {

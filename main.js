@@ -1,6 +1,6 @@
 const units = [window.ENGLISH_UNIT_1, window.ENGLISH_UNIT_2, window.ENGLISH_UNIT_3, window.ENGLISH_UNIT_4, window.ENGLISH_UNIT_5, window.ENGLISH_UNIT_6, window.ENGLISH_OTHER].filter(Boolean);
 let unit = units[0];
-const audioRoot = "./resources/audio/shenzhen-hj-2025-grade-2-semester-1";
+const audioRoot = "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/audio";
 const icons = { feel:"✋", see:"👀", smell:"🌼", hear:"👂", taste:"🍓", kitten:"🐱", puppy:"🐶", rabbit:"🐰", flowers:"💐", egg:"🥚" };
 const state = { slow:false, selected:null, audio:null, queue:[], queueIndex:0, recorder:null, chunks:[], recordUrl:null, speechToken:0, speechWakeTimer:null, preferredVoice:null, dictationAutoTimer:null };
 const preloadedPageImages = new Set();
@@ -58,19 +58,19 @@ function chooseSentence(item, node) { document.querySelectorAll(".line-card").fo
 function playNext() { if (state.queueIndex >= state.queue.length) { showToast("这一段听完啦，试试跟读吧！"); return; } const item=state.queue[state.queueIndex++]; const node=document.querySelector(`[data-id="${item.id}"]`); play(item,node,playNext); }
 function beginQueue(items) { stopAudio(); state.queue=items; state.queueIndex=0; playNext(); }
 const unit1Pages = [
-  { label:"第 3 页 · 五感单词", image:"./resources/pages/unit-1-page-3.png", hotspots:[
+  { label:"第 3 页 · 五感单词", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-3.png", hotspots:[
     ["u01-inst-01", 15, 9, 54, 6], ["u01-word-feel", 32, 27, 7, 4], ["u01-word-see", 62, 27, 7, 4], ["u01-word-smell", 19, 43, 9, 4], ["u01-word-hear", 46, 43, 8, 4], ["u01-word-taste", 73, 43, 9, 4], ["u01-inst-02", 15, 48, 32, 5], ["u01-inst-03", 14, 53, 41, 5], ["u01-line-01", 75, 65, 16, 7]
   ]},
-  { label:"第 4 页 · Daisy 的故事", image:"./resources/pages/unit-1-page-4.png", hotspots:[
+  { label:"第 4 页 · Daisy 的故事", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-4.png", hotspots:[
     ["u01-inst-04", 17, 11, 25, 4], ["u01-inst-05", 17, 15, 27, 7], ["u01-inst-06", 17, 69, 25, 4], ["u01-word-kitten", 20, 33, 9, 4], ["u01-word-puppy", 37, 32, 10, 4], ["u01-word-rabbit", 20, 49, 10, 4], ["u01-word-flowers", 37, 49, 11, 4], ["u01-word-egg", 28, 64, 7, 4], ["u01-line-03", 64, 26, 24, 4], ["u01-line-04", 78, 51, 10, 4], ["u01-line-16", 51, 57, 24, 4], ["u01-line-05", 60, 83, 16, 4]
   ]},
-  { label:"第 5 页 · Daisy 的故事", image:"./resources/pages/unit-1-page-5.png", hotspots:[
+  { label:"第 5 页 · Daisy 的故事", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-5.png", hotspots:[
     ["u01-line-06", 30, 2, 16, 7], ["u01-line-07", 15, 21, 10, 4], ["u01-line-08", 72, 3, 18, 4], ["u01-line-09", 57, 24, 13, 4], ["u01-line-10", 12, 49, 33, 4], ["u01-line-11", 77, 32, 17, 4], ["u01-line-12", 56, 45, 10, 4], ["u01-line-13", 15, 57, 13, 4], ["u01-line-14", 29, 76, 16, 5], ["u01-line-15", 53, 54, 27, 4], ["u01-inst-14", 17, 85, 70, 4]
   ]},
-  { label:"第 6 页 · 表演", image:"./resources/pages/unit-1-page-6.png", hotspots:[["u01-inst-07", 8, 2, 43, 6], ["u01-inst-08", 13, 53, 18, 4], ["u01-line-17", 21, 80, 23, 4], ["u01-line-18", 68, 82, 11, 4]]},
-  { label:"第 7 页 · 问答", image:"./resources/pages/unit-1-page-7.png", hotspots:[["u01-inst-09", 9, 10, 54, 4], ["u01-inst-10", 39, 86, 50, 4], ["u01-line-17", 31, 66, 22, 4], ["u01-line-19", 40, 74, 29, 4]]},
-  { label:"第 8 页 · 延伸故事", image:"./resources/pages/unit-1-page-8.png", hotspots:[["u01-line-20", 25, 12, 51, 4], ["u01-line-21", 51, 16, 35, 4], ["u01-line-22", 9, 44, 38, 4], ["u01-line-23", 12, 58, 16, 4], ["u01-line-24", 11, 70, 12, 4], ["u01-line-25", 51, 56, 27, 4], ["u01-line-26", 28, 78, 17, 4], ["u01-line-27", 50, 78, 8, 4], ["u01-inst-11", 10, 85, 57, 4], ["u01-inst-12", 76, 86, 15, 4]]},
-  { label:"第 9 页 · 自然拼读", image:"./resources/pages/unit-1-page-9.png", hotspots:[["u01-inst-13", 29, 5, 21, 4], ["u01-sound-at", 11, 16, 11, 4], ["u01-line-28", 53, 12, 23, 4], ["u01-line-29", 53, 15, 22, 4], ["u01-line-30", 54, 18, 21, 4], ["u01-line-31", 54, 21, 27, 4], ["u01-sound-ap", 79, 51, 11, 4], ["u01-line-32", 20, 50, 23, 4], ["u01-line-33", 20, 53, 18, 4], ["u01-line-34", 20, 55, 19, 4], ["u01-line-35", 20, 58, 22, 4]]}
+  { label:"第 6 页 · 表演", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-6.png", hotspots:[["u01-inst-07", 8, 2, 43, 6], ["u01-inst-08", 13, 53, 18, 4], ["u01-line-17", 21, 80, 23, 4], ["u01-line-18", 68, 82, 11, 4]]},
+  { label:"第 7 页 · 问答", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-7.png", hotspots:[["u01-inst-09", 9, 10, 54, 4], ["u01-inst-10", 39, 86, 50, 4], ["u01-line-17", 31, 66, 22, 4], ["u01-line-19", 40, 74, 29, 4]]},
+  { label:"第 8 页 · 延伸故事", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-8.png", hotspots:[["u01-line-20", 25, 12, 51, 4], ["u01-line-21", 51, 16, 35, 4], ["u01-line-22", 9, 44, 38, 4], ["u01-line-23", 12, 58, 16, 4], ["u01-line-24", 11, 70, 12, 4], ["u01-line-25", 51, 56, 27, 4], ["u01-line-26", 28, 78, 17, 4], ["u01-line-27", 50, 78, 8, 4], ["u01-inst-11", 10, 85, 57, 4], ["u01-inst-12", 76, 86, 15, 4]]},
+  { label:"第 9 页 · 自然拼读", image:"./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/unit-1-page-9.png", hotspots:[["u01-inst-13", 29, 5, 21, 4], ["u01-sound-at", 11, 16, 11, 4], ["u01-line-28", 53, 12, 23, 4], ["u01-line-29", 53, 15, 22, 4], ["u01-line-30", 54, 18, 21, 4], ["u01-line-31", 54, 21, 27, 4], ["u01-sound-ap", 79, 51, 11, 4], ["u01-line-32", 20, 50, 23, 4], ["u01-line-33", 20, 53, 18, 4], ["u01-line-34", 20, 55, 19, 4], ["u01-line-35", 20, 58, 22, 4]]}
 ];
 const ocrBox = (id, x, y, width, height) => [id, x * 100, (1 - y - height) * 100, width * 100, height * 100];
 // Recalibrated from the published Unit 1 page PNGs with local Apple Vision OCR.
@@ -282,9 +282,9 @@ function setupAppInstall() {
 }
 function formatBytes(bytes) { return `${(bytes/1024/1024).toFixed(bytes>=10*1024*1024?0:1)} MB`; }
 function setupOfflineDownload() {
-  const button=$("#download-offline"), assets=window.ENGLISH_OFFLINE_ASSETS||[], version=window.ENGLISH_OFFLINE_ASSET_VERSION;
+  const button=$("#download-offline"), assets=window.ENGLISH_OFFLINE_ASSETS||[], version=window.ENGLISH_OFFLINE_ASSET_VERSION, courseId=window.ENGLISH_OFFLINE_COURSE_ID||"current";
   if (!button || !assets.length || !("caches" in window)) { button?.setAttribute("hidden",""); return; }
-  const ready=()=>{ try { return localStorage.getItem("little-ear:offline-version")===version; } catch (_) { return false; } };
+  const ready=()=>{ try { return localStorage.getItem(`little-ear:offline-version:${courseId}`)===version; } catch (_) { return false; } };
   const label=()=>{ button.textContent=ready()?"✓ 已离线" : `⇩ 离线下载 ${formatBytes(window.ENGLISH_OFFLINE_ASSET_BYTES||0)}`; };
   label();
   button.addEventListener("click",async()=>{
@@ -292,7 +292,7 @@ function setupOfflineDownload() {
     button.disabled=true; const cache=await caches.open("little-ear-offline"); let finished=0, cursor=0;
     const update=()=>{ button.textContent=`下载中 ${Math.round(finished/assets.length*100)}%`; };
     const worker=async()=>{ while(cursor<assets.length) { const asset=assets[cursor++]; const response=await fetch(asset,{cache:"reload"}); if(!response.ok) throw new Error(asset); await cache.put(asset,response); finished+=1; if(finished%8===0||finished===assets.length) update(); } };
-    try { update(); await Promise.all(Array.from({length:4},worker)); try { localStorage.setItem("little-ear:offline-version",version); } catch (_) {} button.disabled=false; label(); showToast("离线资源下载完成！"); }
+    try { update(); await Promise.all(Array.from({length:4},worker)); try { localStorage.setItem(`little-ear:offline-version:${courseId}`,version); } catch (_) {} button.disabled=false; label(); showToast("离线资源下载完成！"); }
     catch(error) { button.disabled=false; label(); showToast("下载中断，请检查网络后重试。"); }
   });
 }

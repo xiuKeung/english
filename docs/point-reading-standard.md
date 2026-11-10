@@ -4,7 +4,7 @@
 
 ## 页面与内容
 
-- 课本页面使用 `resources/pages/` 的发布版 PNG；原始 PDF 只用于本地校对，不能提交。
+- 每套课程的源图、发布图、音频和 PDF 都置于 `resources/curricula/<课程ID>/`。单元数据中的页面路径保留该课程 `pages/` 内的 PNG 名称，便于与 OCR 原图一一对应；网页运行时会统一转换并请求同名 WebP。原始 PDF 与 PNG 均按当前项目要求提交，用于校对与后续再处理。
 - 每个单元提供一个浏览器安全的 `units/unit-N.js`，以经典 `<script>` 加载，保证用户直接以 `file://` 打开页面也可用。
 - 单元对象包含 `words`、`sentences` 和 `pages`。每个可点读文本必须拥有稳定的唯一 ID，例如 `u03-line-01`。
 - 页面条目使用 `{ label, image, hotspots }`；`hotspots` 项的格式为 `[id, left, top, width, height]`，所有数值均为页面百分比，且坐标是 **OCR 原始紧贴文本框**。
@@ -14,7 +14,7 @@
 1. 先对导出的页面运行本地 Apple Vision OCR：
 
    ```bash
-   swift tools/extract-text-boxes.swift resources/pages/unit-3-page-18.png | sort
+   swift tools/extract-text-boxes.swift resources/curricula/<课程ID>/pages/unit-3-page-18.png | sort
    ```
 
 2. Vision 结果的坐标原点在左下角，转换为网页坐标时：
@@ -42,7 +42,7 @@
 - 若为新单元生成质量可靠、已确认可发布的音频，命名必须为：
 
   ```text
-  resources/audio/shenzhen-hj-2025-grade-2-semester-1/
+  resources/curricula/shenzhen-hj-2025-grade-2-semester-1/audio/
     manifest.js
     unit-1/normal/<content-id>.m4a
     unit-1/slow/<content-id>.m4a

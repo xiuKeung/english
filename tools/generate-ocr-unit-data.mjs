@@ -4,7 +4,7 @@ import path from "node:path";
 
 const [inputPath, outputPath, id, title, englishTitle, firstPdfPage, lastPdfPage, imagePrefix] = process.argv.slice(2);
 if (!imagePrefix) {
-  console.error("Usage: node tools/generate-ocr-unit-data.mjs <ocr.txt> <out.js> <id> <title> <english-title> <first-pdf> <last-pdf> <image-prefix>");
+  console.error("Usage: node tools/generate-ocr-unit-data.mjs <ocr.txt> <out.js> <id> <title> <english-title> <first-pdf> <last-pdf> <image-path-prefix>");
   process.exit(1);
 }
 
@@ -90,7 +90,7 @@ for (let pdfPage = Number(firstPdfPage); pdfPage <= Number(lastPdfPage); pdfPage
     return [itemId, x, 1 - y - height, width, height];
   });
   const bookPage = pdfPage + 1;
-  pageData.push({ label: `第 ${bookPage} 页`, image: `./resources/pages/${imagePrefix}-${bookPage}.png`, hotspots });
+  pageData.push({ label: `第 ${bookPage} 页`, image: `${imagePrefix}-${bookPage}.png`, hotspots });
 }
 
 const js = `// Generated from local Apple Vision OCR. Keep original text-tight boxes; main.js applies the shared touch-target padding.\n(function () {\n  const box = (id, x, y, width, height) => [id, x * 100, y * 100, width * 100, height * 100];\n  const sentences = ${JSON.stringify(sentences, null, 2)};\n  const pages = ${JSON.stringify(pageData, null, 2)}.map((page) => ({ ...page, hotspots: page.hotspots.map(([itemId, x, y, width, height]) => box(itemId, x, y, width, height)) }));\n  window.${id === "other" ? "ENGLISH_OTHER" : `ENGLISH_${id.replace("-", "_").toUpperCase()}`} = { id: ${JSON.stringify(id)}, title: ${JSON.stringify(title)}, englishTitle: ${JSON.stringify(englishTitle)}, sourcePages: Array.from({ length: ${Number(lastPdfPage) - Number(firstPdfPage) + 1} }, (_, index) => ${Number(firstPdfPage)} + index), words: [], sentences, pages };\n})();\n`;

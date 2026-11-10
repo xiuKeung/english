@@ -9,22 +9,25 @@
  *   node tools/generate-course-audio.mjs --all --normal-rate 150 --slow-rate 108 --prune
  *
  * Requires macOS `say` (the installed Eddy US-English voice) and ffmpeg.
- * It also rewrites resources/audio/.../manifest.js, which lets the web app
+ * It also rewrites resources/curricula/<course>/audio/manifest.js, which lets the web app
  * use static files only when a matching clip really exists.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdtempSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import vm from "node:vm";
 import { readFile } from "node:fs/promises";
 
-const projectRoot=resolve(dirname(new URL(import.meta.url).pathname),"..");
-const curriculum="shenzhen-hj-2025-grade-2-semester-1";
-const audioRoot=join(projectRoot,"resources","audio",curriculum);
-const unitsRoot=join(projectRoot,"content","curricula","shenzhen-hj-2025","grade-2","semester-1","units");
 const args=process.argv.slice(2);
 const option=(name,fallback)=>{ const index=args.indexOf(name); return index===-1?fallback:args[index+1]; };
+const projectRoot=resolve(dirname(fileURLToPath(import.meta.url)),"..");
+const curriculum=option("--course","shenzhen-hj-2025-grade-2-semester-1");
+const defaultUnitsRoot=join(projectRoot,"content","curricula","shenzhen-hj-2025","grade-2","semester-1","units");
+const suppliedUnitsRoot=option("--units-root",null);
+const unitsRoot=suppliedUnitsRoot?resolve(projectRoot,suppliedUnitsRoot):defaultUnitsRoot;
+const audioRoot=join(projectRoot,"resources","curricula",curriculum,"audio");
 const requestedUnit=option("--unit",null);
 const requestedIds=args.flatMap((arg,index)=>arg==="--id"?[args[index+1]]:[]).filter(Boolean);
 const normalRate=Number(option("--normal-rate","150"));
@@ -32,7 +35,7 @@ const slowRate=Number(option("--slow-rate","108"));
 const voice=option("--voice","Eddy (英语（美国）)");
 const force=args.includes("--force"), dryRun=args.includes("--dry-run"), prune=args.includes("--prune"), all=args.includes("--all");
 if ((!all&&!requestedUnit)||(!Number.isFinite(normalRate))||(!Number.isFinite(slowRate))) {
-  console.error("Usage: node tools/generate-course-audio.mjs --unit unit-1|--all [--normal-rate 150] [--slow-rate 108] [--force] [--prune] [--dry-run]");
+  console.error("Usage: node tools/generate-course-audio.mjs --unit unit-1|--all [--course <course-id>] [--units-root <path>] [--normal-rate 150] [--slow-rate 108] [--force] [--prune] [--dry-run]");
   process.exit(1);
 }
 const selected=all?["unit-1","unit-2","unit-3","unit-4","unit-5","unit-6","other"]:[requestedUnit];

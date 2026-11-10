@@ -6,11 +6,11 @@
 
 ## 目录约定
 
-- `resources/pages/**/*.png`：原始页图，用于 OCR、热区校正和再次压缩；随课程源资料保存在 Git，网页不直接引用。
-- `resources/source/*.pdf`：原始教材 PDF，随课程源资料保存在 Git。
-- `resources/pages/**/*.webp`：网页实际显示的教材页图。
-- `resources/audio/<课程>/<单元>/normal|slow/*.m4a`：课本点读与单词学习复用的音频。
-- `resources/offline-assets.js`：自动生成的离线资源清单、字节数和版本号，不手改。
+- `resources/curricula/<课程ID>/source/textbook.pdf`：原始教材 PDF，随课程源资料保存在 Git。
+- `resources/curricula/<课程ID>/pages/*.png`：原始页图，用于 OCR、热区校正和再次压缩；网页不直接引用。
+- `resources/curricula/<课程ID>/pages/*.webp`：网页实际显示的教材页图。
+- `resources/curricula/<课程ID>/audio/<单元>/normal|slow/*.m4a`：课本点读与单词学习复用的音频。
+- `resources/curricula/<课程ID>/offline-assets.js`：该课程自动生成的离线资源清单、字节数和版本号，不手改。
 
 ## 新增或更新教材的构建顺序
 
@@ -27,11 +27,11 @@
    node tools/build-web-assets.mjs --quality 78
    ```
 
-4. 校验页面是否引用 WebP、音频清单是否存在，并提交生成结果。
+4. 校验页面是否引用 WebP、音频清单是否存在，并提交生成结果。需要只更新一套课程时，使用 `--course <课程ID>`。
 
 ## 性能规则
 
 - 不要在初次打开时预下载整册。
 - 当前页优先显示加载骨架；相邻页仅在浏览器空闲时预加载。
-- “离线下载”缓存课程脚本、WebP、音频与图标，显示进度；资源更新后因版本变化可重新下载覆盖。
+- “离线下载”只缓存当前选择课程的课程脚本、WebP、音频与图标，显示进度；资源更新后因版本变化可重新下载覆盖。
 - 若图片质量不足，可使用 `--quality 82 --force` 重新生成 WebP；不要让网页回退引用 PNG。

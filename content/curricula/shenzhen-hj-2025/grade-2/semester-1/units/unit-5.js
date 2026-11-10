@@ -511,7 +511,7 @@
   const pages = [
   {
     "label": "第 34 页",
-    "image": "./resources/pages/book-page-34.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-34.png",
     "hotspots": [
       [
         "u05-p33-01",
@@ -545,7 +545,7 @@
   },
   {
     "label": "第 35 页",
-    "image": "./resources/pages/book-page-35.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-35.png",
     "hotspots": [
       [
         "u05-p34-01",
@@ -635,7 +635,7 @@
   },
   {
     "label": "第 36 页",
-    "image": "./resources/pages/book-page-36.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-36.png",
     "hotspots": [
       [
         "u05-p35-01",
@@ -781,7 +781,7 @@
   },
   {
     "label": "第 37 页",
-    "image": "./resources/pages/book-page-37.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-37.png",
     "hotspots": [
       [
         "u05-p36-01",
@@ -878,7 +878,7 @@
   },
   {
     "label": "第 38 页",
-    "image": "./resources/pages/book-page-38.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-38.png",
     "hotspots": [
       [
         "u05-p37-01",
@@ -926,7 +926,7 @@
   },
   {
     "label": "第 39 页",
-    "image": "./resources/pages/book-page-39.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-39.png",
     "hotspots": [
       [
         "u05-p38-01",
@@ -1002,7 +1002,7 @@
   },
   {
     "label": "第 40 页",
-    "image": "./resources/pages/book-page-40.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-40.png",
     "hotspots": [
       [
         "u05-p39-01",
@@ -1190,7 +1190,7 @@
   },
   {
     "label": "第 41 页",
-    "image": "./resources/pages/book-page-41.png",
+    "image": "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/pages/book-page-41.png",
     "hotspots": [
       [
         "u05-p40-01",
