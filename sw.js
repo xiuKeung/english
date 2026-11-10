@@ -1,4 +1,4 @@
-const CACHE = "little-ear-v4";
+const CACHE = "little-ear-v5";
 const OFFLINE_CACHE = "little-ear-offline";
 const APP_SHELL = ["./", "./index.html", "./style.css", "./main.js", "./manifest.webmanifest", "./resources/curricula/shenzhen-hj-2025-grade-2-semester-1/offline-assets.js"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())));
@@ -10,9 +10,11 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(fetch(event.request).then((response) => response.ok ? response : caches.match(event.request)).catch(() => caches.match(event.request).then((cached) => cached || Response.error())));
     return;
   }
-  // Always prefer fresh application code so installed clients receive lesson
-  // and speech fixes immediately; use the cache only if they are offline.
-  if (event.request.mode === "navigate" || /\/(?:main\.js|style\.css|index\.html)$/.test(url.pathname)) {
+  // Always fetch app code, course data and the course's offline manifest first.
+  // A changed offline-manifest version then makes the download button offer a
+  // refresh; pages and audio remain cache-first until the user accepts it.
+  const isFreshCode=event.request.mode === "navigate" || /\/(?:main\.js|style\.css|index\.html)$/.test(url.pathname) || /\/content\/.*\.js$/.test(url.pathname) || /\/resources\/curricula\/[^/]+\/(?:offline-assets\.js|audio\/manifest\.js)$/.test(url.pathname);
+  if (isFreshCode) {
     event.respondWith(fetch(event.request).then((response) => {
       if (response.ok) { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(event.request, copy)); }
       return response;

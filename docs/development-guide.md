@@ -165,7 +165,7 @@ node tools/build-web-assets.mjs --quality 82 --force
 1. 当前选择课程的 `resources/curricula/<课程ID>/offline-assets.js` 由构建脚本写入文件列表、总字节和版本 hash。
 2. 页面加载后，`setupOfflineDownload()` 显示“离线下载 <大小>”。用户点击后以四个并发请求下载并写入 Cache Storage 的 `little-ear-offline`。
 3. `sw.js` 保留该离线缓存，并在离线时从缓存响应；应用 HTML/CSS/JS 则优先联网获取，以便修复能及时到达。
-4. 资源大小或清单变化会改变版本 hash，因此按钮重新出现，用户可下载新版本覆盖缓存。
+4. 每次正常联网打开时，课程数据和离线清单网络优先；资源大小或清单变化会改变版本 hash，因此按钮重新出现，用户可下载新版本覆盖缓存。图片和音频在此之前继续使用已有缓存，避免静默整册重下。
 
 离线功能依赖 Service Worker/Cache Storage，必须用 `https://` 的 GitHub Pages 或 localhost 验证；`file://` 仅用于检查页面基本渲染，不能作为离线 PWA 验收环境。
 
