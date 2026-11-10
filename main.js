@@ -14,6 +14,15 @@ try {
 } catch (_) {}
 
 function showToast(message) { toast.textContent = message; toast.classList.add("show"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500); }
+function fitHeroTitle() {
+  const title=$("#unit-title"); if (!title) return;
+  title.style.fontSize="";
+  const styles=getComputedStyle(title), maximum=parseFloat(styles.fontSize), lineHeight=parseFloat(styles.lineHeight)/maximum;
+  let size=maximum;
+  // Keep the complete English title within two lines; shrink only as much as
+  // needed after the unit text or available mobile width changes.
+  while (size>10 && title.getBoundingClientRect().height>size*lineHeight*2+1) { size-=.5; title.style.fontSize=`${size}px`; }
+}
 function audioPath(id) { const unitId=id.match(/^u(\d{2})-/)?.[1]; return `${audioRoot}/${unitId?`unit-${Number(unitId)}`:"other"}/${state.slow ? "slow" : "normal"}/${id}.m4a`; }
 function optimizedPageImage(image) { return image.replace(/\.png$/i,".webp"); }
 function resetPlaying() { document.querySelectorAll(".playing").forEach((node) => node.classList.remove("playing")); }
@@ -236,6 +245,7 @@ function renderUnitDock() {
 function render(unit) {
   unit.pages ||= unit1Pages;
   $("#unit-title").textContent=unit.englishTitle; $(".subtitle").textContent=unit.title; $("#word-count").textContent=`${unit.words.length} 个单词`;
+  requestAnimationFrame(fitHeroTitle);
   sentenceList.innerHTML=unit.sentences.map((item,index)=>`<button class="line-card" data-id="${item.id}"><span class="line-number">${String(index+1).padStart(2,"0")}</span><span class="line-text">${item.text}<span class="line-meaning">${item.meaning}</span></span><span class="line-play" aria-hidden="true">▶</span></button>`).join("");
   sentenceList.onclick=(event)=>{ const node=event.target.closest(".line-card"); if(!node)return; const item=unit.sentences.find((line)=>line.id===node.dataset.id); chooseSentence(item,node); play(item,node); };
   $("#play-all").onclick=()=>beginQueue(unit.sentences);
@@ -303,3 +313,4 @@ setupRecording();
 try { const remembered = localStorage.getItem("little-ear:last-unit"); const rememberedUnit = units.find((entry) => entry.id === remembered); if (rememberedUnit) unit = rememberedUnit; } catch (_) {}
 if (unit) render(unit);
 else showToast("课程内容加载失败，请刷新页面后重试。");
+window.addEventListener("resize",()=>requestAnimationFrame(fitHeroTitle));
