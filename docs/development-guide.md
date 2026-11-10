@@ -44,6 +44,12 @@ tools/                             资源渲染、OCR、音频、WebP 构建脚�
 docs/                              本指南及专题规范
 ```
 
+### 品牌图标约定
+
+- 所有全站视觉标识只放在 `resources/brand/`，目前唯一主题是 `listen-speak-read`：小朋友戴耳机读英语书，表达“听、说、读”。
+- `-512.png` 用于 Banner，`-192.png` 用于浏览器 Tab 与 Android PWA，`-180.png` 用于 iOS 添加到主屏幕；三者必须来自同一张主题图。
+- 不要重新创建或引用 `resources/icons/`：该旧目录已退役，避免出现两套不一致的应用图标。
+
 ### 文档如何使用
 
 - `docs/point-reading-standard.md`：改热区、生成点读音频、调整页签时必读。
