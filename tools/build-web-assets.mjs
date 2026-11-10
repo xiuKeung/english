@@ -19,7 +19,7 @@ const quality=Number(option("--quality",78)), requestedCourse=option("--course",
 if(!Number.isInteger(quality)||quality<1||quality>100) throw new Error("--quality must be an integer from 1 to 100");
 const walk=(directory)=>existsSync(directory)?readdirSync(directory,{withFileTypes:true}).flatMap((entry)=>{ const path=join(directory,entry.name); return entry.isDirectory()?walk(path):[path]; }):[];
 const include=(path)=>`./${relative(root,path).split("\\").join("/")}`;
-const contentRoot=join(root,"content","curricula"), courseRoot=join(root,"resources","curricula"), iconsRoot=join(root,"resources","icons");
+const contentRoot=join(root,"content","curricula"), courseRoot=join(root,"resources","curricula"), brandRoot=join(root,"resources","brand");
 const courses=walk(contentRoot).filter((path)=>path.endsWith("manifest.json")).map((manifestPath)=>({ ...JSON.parse(readFileSync(manifestPath,"utf8")), contentRoot:dirname(manifestPath) }));
 const selected=courses.filter((course)=>!requestedCourse||course.id===requestedCourse);
 if(!selected.length) throw new Error(requestedCourse?`Unknown course: ${requestedCourse}`:"No course manifests found");
@@ -42,9 +42,9 @@ const commonAssets=["./","./index.html","./style.css","./main.js","./sw.js","./m
 for(const course of selected) {
   const resourceRoot=join(courseRoot,course.id), pages=join(resourceRoot,"pages"), audio=join(resourceRoot,"audio"), offline=join(resourceRoot,"offline-assets.js");
   const assets=[...commonAssets,include(offline)];
-  for(const directory of [course.contentRoot,audio,pages,iconsRoot]) for(const file of walk(directory)) {
+  for(const directory of [course.contentRoot,audio,pages,brandRoot]) for(const file of walk(directory)) {
     if(file.endsWith(".png")&&file.startsWith(pages)) continue;
-    if(/\.(?:js|webp|m4a|png)$/i.test(file)) assets.push(include(file));
+    if(/\.(?:js|webp|m4a|png|svg)$/i.test(file)) assets.push(include(file));
   }
   const unique=[...new Set(assets)].sort();
   const totalBytes=unique.reduce((total,asset)=>{ const file=join(root,asset.slice(2)); return total+(existsSync(file)&&statSync(file).isFile()?statSync(file).size:0); },0);

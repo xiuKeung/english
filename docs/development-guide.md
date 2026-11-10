@@ -38,6 +38,8 @@ resources/curricula/<课程ID>/audio/<单元>/normal|slow/*.m4a
                                     点读、单词学习、听力复用的音频
 resources/curricula/<课程ID>/audio/manifest.js 自动生成的“内容 ID → 有效音频”索引
 resources/curricula/<课程ID>/offline-assets.js        自动生成的离线资源、总字节数与版本号
+resources/brand/listen-speak-read-512.png             全站“听、说、读”主题图（Banner）
+resources/brand/listen-speak-read-180|192|512.png     浏览器 Tab、iOS 及 Android PWA 主屏幕图标
 tools/                             资源渲染、OCR、音频、WebP 构建脚本
 docs/                              本指南及专题规范
 ```
@@ -142,7 +144,7 @@ docs/                              本指南及专题规范
 node tools/build-web-assets.mjs --quality 78
 ```
 
-它会递归扫描每个 `resources/curricula/<课程ID>/pages/` 的 PNG，创建同名 WebP，并生成各课程自己的 `resources/curricula/<课程ID>/offline-assets.js`。该清单仅包含对应课程 JS、WebP、m4a、图标与应用壳；“离线下载”按钮用它计算进度和版本。不能手改此文件。仅重建一套课程时可附加 `--course <课程ID>`。
+它会递归扫描每个 `resources/curricula/<课程ID>/pages/` 的 PNG，创建同名 WebP，并生成各课程自己的 `resources/curricula/<课程ID>/offline-assets.js`。该清单仅包含对应课程 JS、WebP、m4a、全站品牌图标与应用壳；“离线下载”按钮用它计算进度和版本。不能手改此文件。仅重建一套课程时可附加 `--course <课程ID>`。
 
 如文字质量不足可用：
 
@@ -150,7 +152,7 @@ node tools/build-web-assets.mjs --quality 78
 node tools/build-web-assets.mjs --quality 82 --force
 ```
 
-每次新增或删除某课程的 `.js`、`.webp`、`.m4a` 或图标后，都必须重新执行该命令并提交该课程新的 `offline-assets.js`，否则在线可用的内容不会完整离线化。
+每次新增或删除某课程的 `.js`、`.webp`、`.m4a`，或替换 `resources/brand/` 内的品牌图标后，都必须重新执行该命令并提交各课程新的 `offline-assets.js`，否则在线可用的内容不会完整离线化。
 
 版本号基于每个发布文件的内容哈希，而不是文件名或大小：同尺寸替换图片/音频也会提示更新。替换原始 PNG 后，构建工具会自动重建比 PNG 更旧的同名 WebP；只改 PNG/PDF 本身不会进入离线包，必须运行构建命令。
 
