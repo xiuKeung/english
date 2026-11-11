@@ -294,15 +294,28 @@ function formatBytes(bytes) { return `${(bytes/1024/1024).toFixed(bytes>=10*1024
 function setupOfflineDownload() {
   const button=$("#download-offline"), assets=window.ENGLISH_OFFLINE_ASSETS||[], version=window.ENGLISH_OFFLINE_ASSET_VERSION, courseId=window.ENGLISH_OFFLINE_COURSE_ID||"current";
   if (!button || !assets.length || !("caches" in window)) { button?.setAttribute("hidden",""); return; }
-  const ready=()=>{ try { return localStorage.getItem(`little-ear:offline-version:${courseId}`)===version; } catch (_) { return false; } };
-  const label=()=>{ button.textContent=ready()?"✓ 已离线" : `⇩ 离线下载 ${formatBytes(window.ENGLISH_OFFLINE_ASSET_BYTES||0)}`; };
+  const completeKey=`little-ear:offline-version:${courseId}`, progressKey=`little-ear:offline-progress:${courseId}`;
+  const saved=(key)=>{ try { return localStorage.getItem(key); } catch (_) { return null; } };
+  const save=(key,value)=>{ try { localStorage.setItem(key,value); } catch (_) {} };
+  const remove=(key)=>{ try { localStorage.removeItem(key); } catch (_) {} };
+  const ready=()=>saved(completeKey)===version;
+  const resumable=()=>saved(progressKey)===version;
+  const label=()=>{ button.textContent=ready()?"✓ 已离线":resumable()?"⇩ 继续离线下载":`⇩ 离线下载 ${formatBytes(window.ENGLISH_OFFLINE_ASSET_BYTES||0)}`; };
   label();
   button.addEventListener("click",async()=>{
     if(ready()) { showToast("本册资源已可离线使用。"); return; }
-    button.disabled=true; const cache=await caches.open("little-ear-offline"); let finished=0, cursor=0;
-    const update=()=>{ button.textContent=`下载中 ${Math.round(finished/assets.length*100)}%`; };
-    const worker=async()=>{ while(cursor<assets.length) { const asset=assets[cursor++]; const response=await fetch(asset,{cache:"reload"}); if(!response.ok) throw new Error(asset); await cache.put(asset,response); finished+=1; if(finished%8===0||finished===assets.length) update(); } };
-    try { update(); await Promise.all(Array.from({length:4},worker)); try { localStorage.setItem(`little-ear:offline-version:${courseId}`,version); } catch (_) {} button.disabled=false; label(); showToast("离线资源下载完成！"); }
+    button.disabled=true;
+    try {
+      const cache=await caches.open("little-ear-offline"), shouldResume=resumable();
+      // An interrupted download of this exact manifest can safely reuse only its
+      // dedicated offline-cache entries. A new manifest deliberately refreshes
+      // every listed URL, including a same-path resource whose bytes changed.
+      const cached=shouldResume?new Set((await Promise.all(assets.map(async(asset)=>(await cache.match(asset))?asset:null))).filter(Boolean)):new Set();
+      const pending=shouldResume?assets.filter((asset)=>!cached.has(asset)):assets.slice(); let finished=assets.length-pending.length, cursor=0;
+      const update=()=>{ button.textContent=`下载中 ${Math.round(finished/assets.length*100)}%`; };
+      const worker=async()=>{ while(cursor<pending.length) { const asset=pending[cursor++]; const response=await fetch(asset,{cache:"reload"}); if(!response.ok) throw new Error(asset); await cache.put(asset,response); finished+=1; if(finished%8===0||finished===assets.length) update(); } };
+      save(progressKey,version); update(); await Promise.all(Array.from({length:4},worker)); save(completeKey,version); remove(progressKey); button.disabled=false; label(); showToast("离线资源下载完成！");
+    }
     catch(error) { button.disabled=false; label(); showToast("下载中断，请检查网络后重试。"); }
   });
 }
